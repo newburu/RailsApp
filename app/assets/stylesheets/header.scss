@@ -3,16 +3,6 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-// @mixin flash-message{
-//     font-size: 20px;
-//     text-align: center;
-//     border: 1px solid;
-//     width: 35%;
-//     margin: 30px auto;
-//     border-radius: 10px;
-//     background-color: cornsilk;
-//     padding: 10px 0;
-// }
 @mixin header-link{
     cursor: pointer;
     text-decoration: none;
@@ -76,10 +66,3 @@
 ul{
     list-style: none;
 }
-// .alert-success{
-//     color: lime;
-//     @include flash-message;
-// }
-// .flash-container{
-//     text-align: center;
-// }
