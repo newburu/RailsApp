@@ -52,6 +52,9 @@
     margin: 10px;
     @include back-btn
 }
+a .back-btn{
+    text-decoration: none
+}
 .hidden-container{
     display: none;
 }

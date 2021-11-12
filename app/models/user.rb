@@ -7,7 +7,7 @@ class User < ApplicationRecord
   enum exercise: {everytime: 0, Sometimes: 1, donot: 2}
 
   with_options presence: true do
-    validates :name, presence: true, length: {maximum:6}
+    validates :name, length: {maximum:6}
     validates :gender
     validates :weight
     validates :height

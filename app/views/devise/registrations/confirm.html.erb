@@ -1,17 +1,50 @@
 <h2 class="page-title">内容を確認してください</h2>
-<div class="form-container">
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-
-    <p class="labal-class"><%= f.label :name, '名前' %><%= f.text_field :name, value: @user.name, readonly: true %></p>
-    <p class="label-class"><%= f.label :email %><%= f.text_field :email, value: @user.email, readonly: true %></p>
-    <p><%= f.label :password %><%= @password %></p>
-    <p><%= f.label :gender %><%= f.text_field :gender, value: @user.gender, readonly: true %></p>
-    <p><%= f.label :weight %><%= f.text_field :weight, value: @user.weight, readonly: true %></p>
-    <p><%= f.label :height %><%= f.text_field :height, value: @user.height, readonly: true %></p>
-    <p><%= f.laebl :exercise %><%= f.text_field :exercise, value: @user.exercise, readonly: true %></p>
-    <div class="btn-container">
-        <%= f.submit "修正する", name: :back, class: "back-btn"%>
-        <%= f.submit "登録する", class: "confirm-btn"%>
-    </div>
+<ul class="form-container">
+<li class="list-item">名前：<%= @user.name %></li>
+<li class="list-item">メールアドレス：<%= @user.email %></li>
+<li class="list-item">パスワード：<%= @user.password %></li>
+<% gender = @user.gender %>
+<li class="list-item">
+性別：
+<% if gender == "man" %>
+男性
+<% else %>
+女性
+<% end %>
+</li>
+<li class="list-item">身長：<%= @user.height%></li>
+<li class="list-item">体重：<%= @user.weight %></li>
+<% exercise = @user.exercise %>
+<li class="list-item">
+運動量：
+<% if exercise == "everytime" %>
+毎日
+<% elsif exercise == "Sometimes" %>
+たまに
+<% else %>
+しない
+<% end %>
+</li>
+</ul>
+<div class="btn-container">
+    <%= form_for @user, method: :post,url: users_sign_up_next_path do |f| %>
+        <%= f.hidden_field :name %>
+        <%= f.hidden_field :email %>
+        <%= f.hidden_field :password %>
+        <%= f.hidden_field :gender %>
+        <%= f.hidden_field :weight %>
+        <%= f.hidden_field :height %>
+        <%= f.hidden_field :exercise %>
+        <%= f.submit "修正する", class: "back-btn"%>
+    <% end %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.hidden_field :name %>
+        <%= f.hidden_field :email %>
+        <%= f.hidden_field :password %>
+        <%= f.hidden_field :gender %>
+        <%= f.hidden_field :weight %>
+        <%= f.hidden_field :height %>
+        <%= f.hidden_field :exercise %>
+        <%= f.submit "登録する", class: "confirm-btn"%> 
     <% end %>
 </div>
