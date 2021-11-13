@@ -12,9 +12,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @user = User.new(sign_up_params)
-    render :new if @user.invalid?
-    redirect_to root_path
-    #super
+    #render :new if @user.invalid?
+    super
   end
 
   def next
@@ -67,7 +66,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #新規登録が終わったらリダイレクトするviewを設定している
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    new_user_path(resource)
+    super(resource)
   end
 
   # The path used after sign up for inactive accounts.
