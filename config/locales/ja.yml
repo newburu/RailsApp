@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        name: 名前
+        gender: 性別
+        weight: 体重
+        height: 身長
+        exercise: 運動量
