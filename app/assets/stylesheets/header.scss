@@ -1,8 +1,8 @@
-@mixin box_sizing {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
+// @mixin box_sizing {
+//     -moz-box-sizing: border-box;
+//     -webkit-box-sizing: border-box;
+//     box-sizing: border-box;
+// }
 @mixin header-link{
     cursor: pointer;
     text-decoration: none;
@@ -49,20 +49,13 @@
     margin-left: 50px;
     @include header-link;
 }
-.debug_dump{
-    clear: both;
-    float: left;
-    width: 100px;
-    margin-top: 45px;
-    @include box_sizing;
-}
-.singup-alert{
-    color: red;
-    border: 1px solid red;
-    width: 40%;
-    padding: 30px;
-    margin: 0 auto;
-}
+// .debug_dump{
+//     clear: both;
+//     float: left;
+//     width: 100px;
+//     margin-top: 45px;
+//     @include box_sizing;
+// }
 ul{
     list-style: none;
 }

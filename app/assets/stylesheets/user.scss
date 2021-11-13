@@ -9,7 +9,7 @@
     display: block;
     color: #fff;
     background-color: red;
-    padding: 10px 40px;
+    padding: 20px 40px;
     border-radius: 10px;
 } 
 .page-title{
@@ -39,6 +39,7 @@
     display: flex;
     justify-content: center;
     margin-top: 30px;
+    align-items: center
 }
 .next-btn{
     @include next-btn;
@@ -50,10 +51,8 @@
 }
 .back-btn{
     margin: 10px;
-    @include back-btn
-}
-a .back-btn{
-    text-decoration: none
+    @include back-btn;
+    text-decoration: none;
 }
 .hidden-container{
     display: none;
@@ -77,4 +76,9 @@ input[type=radio]{
 .list-item{
     font-size: 20px;
     margin-top: 30px;
+}
+.error_field{
+    text-align: center;
+    color: red;
+    margin-top: 10px;
 }
