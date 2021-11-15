@@ -1,0 +1,37 @@
+<div class="record-container">
+<p class="record-title">記録</p>
+<%# <% binding.pry %> %>
+<div class="goal-weight">目標体重<%= @user.weight %></div>
+
+</div>
+<table class="record-table">
+<tr>
+<th class="table-title"></th>
+<th class="table-title">合計</th>
+<th class="table-title">目安量</th>
+<th class="table-title">差異</th>
+</tr>
+<tr>
+<td>タンパク質</td>
+<td>90G</td>
+<td>80G</td>
+<td>10G</td>
+</tr>
+<tr>
+<td>カロリー</td>
+<td>2200kal</td>
+<td>200kal</td>
+<td>200G</td>
+</tr>
+<tr>
+<td>糖質</td>
+<td>100G</td>
+<td>120G</td>
+<td>20G</td>
+</tr>
+</table>
+<div class="show-btn-contanier">
+<%= link_to "登録する",new_day_path %>
+<%= link_to "体重入力",weight_days_path %>
+<%= link_to "記録帳",record_days_path %>
+</div>
