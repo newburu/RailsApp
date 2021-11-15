@@ -29,12 +29,13 @@ color: red;
     text-align: center;
     line-height:50px;
 }
-.login_link{
+.login_link,.start_link{
     text-align: center;
     margin-top: 20px;
     a{
         text-decoration: none;
         color: blue;
+        font-size: 20px;
     }
 }
 .singup_link{
@@ -43,6 +44,7 @@ color: red;
     a{
         text-decoration: none;
         color: chartreuse;
+        font-size: 20px;
     }
 }
 body{

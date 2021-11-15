@@ -1,5 +1,6 @@
 class DaysController < ApplicationController
-  def home
+  before_action :authenticate_user!, only: [:index,:record,:new,:create,:weight]
+  def index
     @user = current_user
   end
 

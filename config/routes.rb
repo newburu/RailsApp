@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  get 'days/home'
+  root 'homes#index'
+
+  #get 'days/home'
   resources :days,only:[:new,:create,:index] do
     collection do
       get :weight
       get :record
     end
   end
-
-  root 'homes#index'
 
   devise_for :users, controllers: {
     registrations: 'users/registrations'
