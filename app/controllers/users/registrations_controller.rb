@@ -11,19 +11,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    
     @user = User.new(sign_up_params)
-    #render :new if @user.invalid?
     super
-    #redirect_to  controller: :days, action: :index
   end
 
   def next
     @user = User.new(sign_up_params)
     render :new if @user.invalid?
-    #render :new and return if params[:back]
-    session["devise.regist_data"] = {user: @user.attributes}
-    session["devise.regist_data"][:user]["password"] = params[:user][:password]
+    # session["devise.regist_data"] = {user: @user.attributes}
+    # session["devise.regist_data"][:user]["password"] = params[:user][:password]
   end
 
   def confirm
@@ -56,6 +52,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # protected
+
+  #アカウント編集後にプロフィール画面に移動する
+  def after_update_path_for(resource)
+    users_show_path(id: current_user.id)
+  end
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :encrypted_password, :email, :gender, :weight, :height, :exercise])

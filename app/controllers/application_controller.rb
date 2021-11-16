@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
             (@user.weight*0.95).round(2)
         end
 
+        #ログイン後にメイン画面に移動する
+        def after_sign_in_path_for(resource)
+            days_path(resource)
+        end
+        
         def configure_permitted_parameters
             devise_parameter_sanitizer.permit(:sign_up,keys: [:name, :gender, :weight, :height, :exercise])
         end
