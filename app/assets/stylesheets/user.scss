@@ -45,7 +45,12 @@
 }
 .next-btn{
     @include next-btn;
-    // margin: 10px auto;
+    margin: 30px auto;
+}
+.login-btn{
+    @include next-btn;
+    background-color: #00CCFF;
+    margin: 30px auto;
 }
 .confirm-btn{
     @include next-btn;

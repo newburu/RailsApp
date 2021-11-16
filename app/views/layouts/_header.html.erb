@@ -3,7 +3,7 @@
         <ul class="header-ul">
             <li><%= link_to "healthier", '#' , class: "header-logo" %></li>
             <% if user_signed_in? %>
-                <li class="header-profile"><%= link_to "プロフィール", '#'%></li>
+                <li class="header-profile"><%= link_to "プロフィール", edit_user_registration_path %></li>
                 <li class="header-logout"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
             <% else %>
             <li class="header-login"><%= link_to "ログイン", new_user_session_path %></li>
