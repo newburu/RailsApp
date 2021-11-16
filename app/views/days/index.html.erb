@@ -1,8 +1,7 @@
 <div class="record-container">
-<p class="record-title">記録</p>
-<%# <% binding.pry %> %>
+<p class="page-title">今日の記録</p>
+<%# <% binding.pry %>
 <div class="goal-weight">目標体重<%= @user.weight %></div>
-
 </div>
 <table class="record-table">
 <tr>
@@ -30,8 +29,8 @@
 <td>20G</td>
 </tr>
 </table>
-<div class="show-btn-contanier">
-<%= link_to "登録する",new_day_path %>
-<%= link_to "体重入力",weight_days_path %>
-<%= link_to "記録帳",record_days_path %>
+<div class="btn-container">
+<%= link_to "登録する",new_day_path , class:"new-btn" %>
+<%= link_to "体重入力",weight_days_path, class:"yellow-btn" %>
+<%= link_to "記録帳",record_days_path, class:"record-btn" %>
 </div>

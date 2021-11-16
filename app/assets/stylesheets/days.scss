@@ -1,3 +1,36 @@
 // Place all the styles related to the Days controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@mixin btn {
+    padding: 20px 60px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    display: block;
+    margin: 0 30px;
+}
+.yellow-btn{
+    @include btn;
+    color: black;
+    background-color: yellow;
+}
+.record-btn{
+    @include btn;
+    background-color: blue;
+}
+.new-btn{
+    @include btn;
+    background-color: lime;
+}
+.record-container{
+    display: flex;
+}
+.attention-explanation{
+    color: red;
+    text-align: center;
+}
+.sub-explanation{
+    text-align: center;
+    margin: 30px 0;
+    font-size: 20px;
+}

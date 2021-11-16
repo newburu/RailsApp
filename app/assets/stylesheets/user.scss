@@ -2,8 +2,9 @@
     display: block;
     color: #fff;
     background-color: lime;
-    padding: 20px 50px;
-    border-radius: 10px;
+    padding: 20px 60px;
+    border-radius: 30px;
+    text-decoration: none;
 }
 @mixin back-btn{
     display: block;
@@ -13,6 +14,7 @@
     border-radius: 10px;
 } 
 .page-title{
+    font-size: 36px;
     text-align: center;
     margin: 30px;
     letter-spacing: 0.12em;
@@ -38,12 +40,12 @@
 .btn-container{
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 50px;
     align-items: center
 }
 .next-btn{
     @include next-btn;
-    margin: 30px auto;
+    // margin: 10px auto;
 }
 .confirm-btn{
     @include next-btn;
