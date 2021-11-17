@@ -1,7 +1,6 @@
 <div class="record-container">
-<p class="page-title">今日の記録</p>
-<%# <% binding.pry%>
-<div class="goal-weight">目標体重<%= goalweight%></div>
+<p class="home-title">今日の記録</p>
+<div class="goal-weight">目標体重:<%= goalweight %>G</div>
 </div>
 <% if @user.gender == "man" %>
 <table class="record-table">
@@ -15,10 +14,11 @@
 <td>タンパク質</td>
 <td>90G</td>
 <td>
+<%# <% binding.pry%> 
 <% if @user.exercise == "everytime" %>
 <%= (@user.weight*1.2).round(0)%>G
 <% else %>
-<% (@user.weight*1).round(0) %>G
+<%= (@user.weight*1).round(0) %>G
 <% end %>
 </td>
 <td>10G</td>
@@ -56,7 +56,7 @@
 <table class="record-table">
 <tr>
 <th class="table-title"></th>
-<th clas<s="table-title">合計</th>
+<th class="table-title">合計</th>
 <th class="table-title">目安量</th>
 <th class="table-title">差異</th>
 </tr>
