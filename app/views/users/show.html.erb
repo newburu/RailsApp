@@ -1,2 +1,29 @@
-<h1>プロフィール情報</h1>
-<p><%= @user.name %></p>
+<h2 class="page-title">プロフィール情報</h2>
+<ul class="form-container">
+<li class="list-item">名前：<%= @user.name %></li>
+<li class="list-item">メールアドレス：<%= @user.email %></li>
+<li class="list-item">
+<% gender = @user.gender %>
+<li class="list-item">
+性別：
+<% if gender == "man" %>
+男性
+<% else %>
+女性
+<% end %>
+</li>
+<li class="list-item">身長：<%= @user.height%></li>
+<li class="list-item">体重：<%= @user.weight %></li>
+<% exercise = @user.exercise %>
+<li class="list-item">
+運動量：
+<% if exercise == "everytime" %>
+毎日
+<% elsif exercise == "Sometimes" %>
+たまに
+<% else %>
+しない
+<% end %>
+</li>
+</ul>
+<div class="login_link"><%= link_to "マイページへ",days_path %></div>

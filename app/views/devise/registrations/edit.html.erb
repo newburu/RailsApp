@@ -1,48 +1,67 @@
-<h2>プロフィール編集 <%= resource_name.to_s.humanize %></h2>
-
+<h2 class="page-title">アカウント情報編集 </h2>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-  
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
+  <div class="form-container">
+    <div class="field">
+      <%= f.label :name, '名前', {class: 'label-class'} %><em>（6文字以下）</em><br />
+      <%= f.text_field :name, autofocus: true, placeholder: "名前", class: 'form-field' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="field">
+      <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
+      <%= f.email_field :email, autofocus: true, placeholder: "メールアドレス", class: "form-field" %>
+    </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="field">
+      <%= f.label :password, {class: 'label-class'} %> <i>(パスワードを変更しない場合は空欄にしてください)</i><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-field" %>
+      <% if @minimum_password_length %><br />
+        <em><%= @minimum_password_length %> 文字以上</em>
+      <% end %>
+    </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
+    <div class="field">
+      <%= f.label :password_confirmation, {class: 'label-class'} %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-field" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :current_password, {class: 'label-class'} %> <i>(プロフィールを変更するには現在のパスワードを入力してください)</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "form-field" %>
+    </div>
+    <p class="radio-title">性別</p>
+    <%= f.radio_button :gender, :man %>
+    <%= f.label :gender, "男性", {value: :man}%>
+        
+    <%= f.radio_button :gender, :woman %>
+    <%= f.label :gender, "女性", {value: :woman}%>
+        
+    <%= f.label :身長 , {class: 'label-class'}%>
+    <%= f.number_field :height, step: "0.1",class: "form-field", required:"required"%>
+
+    <%= f.label :体重 , {class: 'label-class'}%>
+    <%= f.number_field :weight, step: "0.1", class: "form-field", required:"required"%>
+
+    <p class="radio-title">運動量</p>
+
+    <%= f.radio_button :exercise, :everytime %>
+    <%= f.label :exercise,"毎日", {value: :everytime}%>
+        
+    <%= f.radio_button :exercise, :Sometimes %>
+    <%= f.label :exercise,"たまに", {value: :Sometimes}%>
+
+    <%= f.radio_button :exercise, :donot %>
+    <%= f.label :exercise,"しない", {value: :donot}%>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "更新", class: "next-btn" %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<div class="login_link"><%= link_to "マイページへ",days_path %></div>
+<p class="delete-text">消したアカウントは元に戻せません</p>
+<%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "back-btn" %>
+</div>

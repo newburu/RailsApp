@@ -12,8 +12,10 @@ class ApplicationController < ActionController::Base
         def after_sign_in_path_for(resource)
             days_path(resource)
         end
-        
+        #新規登録時のストロングパラメータ
         def configure_permitted_parameters
             devise_parameter_sanitizer.permit(:sign_up,keys: [:name, :gender, :weight, :height, :exercise])
+        #情報更新時にストロングパラメータ
+            devise_parameter_sanitizer.permit(:account_update, keys: [:name, :gender, :weight, :height, :exercise])
         end
 end
