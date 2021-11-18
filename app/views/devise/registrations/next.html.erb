@@ -1,45 +1,45 @@
 <h1 class="page-title">プロフィール登録</h1>
 <p class="caution-text">こちらの情報を元に適正カロリーを計算します<br />
-<span class="red-text">※こちらの情報はあとで変更できます</span></p>
+　<span class="red-text">※こちらの情報はあとで変更できます</span></p>
 <%= form_with model: @user, url: users_sign_up_confirm_path(@user), local: true do |f| %>
-    <div class="hidden-container">
-        <%= f.label :名前, {class: 'label-class'} %>
-        <%= f.text_field :name, placeholder: "ユーザー名" , class: "form-field"%>
+  <div class="hidden-container">
+    <%= f.label :名前, {class: 'label-class'} %>
+    <%= f.text_field :name, placeholder: "ユーザー名" , class: "form-field"%>
 
-        <%= f.label :メールアドレス, {class: 'label-class'} %>
-        <%= f.email_field :email, placeholder: "メールアドレス", class: "form-field" %>
+    <%= f.label :メールアドレス, {class: 'label-class'} %>
+    <%= f.email_field :email, placeholder: "メールアドレス", class: "form-field" %>
 
-        <%= f.label :パスワード, {class: 'label-class'} %>
-        <%= f.text_field :password, placeholder: "パスワード", class: "form-field" %>
-    </div>
-        <div class="form-container">
-        <p class="radio-title">性別</p>
-        <%= f.radio_button :gender, :man %>
-        <%= f.label :gender, "男性", {value: :man}%>
+    <%= f.label :パスワード, {class: 'label-class'} %>
+    <%= f.text_field :password, placeholder: "パスワード", class: "form-field" %>
+  </div>
+  <div class="form-container">
+    <p class="radio-title">性別</p>
+    <%= f.radio_button :gender, :man %>
+    <%= f.label :gender, "男性", {value: :man}%>
         
-        <%= f.radio_button :gender, :woman %>
-        <%= f.label :gender, "女性", {value: :woman}%>
+    <%= f.radio_button :gender, :woman %>
+    <%= f.label :gender, "女性", {value: :woman}%>
         
-        <%= f.label :身長 , {class: 'label-class'}%>
-        <%= f.number_field :height, step: "0.1",class: "form-field", required:"required"%>
+    <%= f.label :身長 , {class: 'label-class'}%>
+    <%= f.number_field :height, step: "0.1",class: "form-field", required:"required"%>
 
-        <%= f.label :体重 , {class: 'label-class'}%>
-        <%= f.number_field :weight, step: "0.1", class: "form-field", required:"required"%>
+    <%= f.label :体重 , {class: 'label-class'}%>
+    <%= f.number_field :weight, step: "0.1", class: "form-field", required:"required"%>
 
-        <p class="radio-title">運動量</p>
+    <p class="radio-title">運動量</p>
 
-        <%= f.radio_button :exercise, :everytime %>
-        <%= f.label :exercise,"毎日", {value: :everytime}%>
+    <%= f.radio_button :exercise, :everytime %>
+    <%= f.label :exercise,"毎日", {value: :everytime}%>
         
-        <%= f.radio_button :exercise, :Sometimes %>
-        <%= f.label :exercise,"たまに", {value: :Sometimes}%>
+    <%= f.radio_button :exercise, :Sometimes %>
+    <%= f.label :exercise,"たまに", {value: :Sometimes}%>
 
-        <%= f.radio_button :exercise, :donot %>
-        <%= f.label :exercise,"しない", {value: :donot}%>
+    <%= f.radio_button :exercise, :donot %>
+    <%= f.label :exercise,"しない", {value: :donot}%>
         
-        </div>
-        <div class="btn-container">
-        <%= link_to '戻る', new_user_registration_path , class: "back-btn"%>
-        <%= f.submit "確認画面へ", class: "confirm-btn" %>
-        </div>
-    <% end %>
+  </div>
+  <div class="btn-container">
+    <%= link_to '戻る', new_user_registration_path , class: "back-btn"%>
+    <%= f.submit "確認画面へ", class: "confirm-btn" %>
+  </div>
+<% end %>

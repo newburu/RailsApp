@@ -2,54 +2,55 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 @mixin btn {
-    padding: 20px 60px;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 30px;
-    display: block;
-    margin: 0 30px;
+  padding: 20px 60px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  display: block;
+  margin: 0 30px;
 }
 .yellow-btn{
-    @include btn;
-    color: black;
-    background-color: yellow;
+  @include btn;
+  color: black;
+  background-color: yellow;
 }
 .record-btn{
-    @include btn;
-    background-color: blue;
+  @include btn;
+  background-color: blue;
 }
 .new-btn{
-    @include btn;
-    background-color: lime;
+  @include btn;
+  background-color: lime;
 }
 .record-container{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 30px;
 }
 .attention-explanation{
-    color: red;
-    text-align: center;
+  color: red;
+  text-align: center;
 }
 .sub-explanation{
-    text-align: center;
-    margin: 30px 0;
-    font-size: 20px;
+  text-align: center;
+  margin: 30px 0;
+  font-size: 20px;
 }
 .goal-weight{
-    background-color: #fff;
-    border-radius: 30px;
-    padding: 20px 50px;
-    width: 250px;
-    text-align: center;
-    margin: 0 50px 0 0;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 20px 50px;
+  width: 250px;
+  text-align: center;
+  margin: 0 50px 0 0;
 }
 .home-title{
-    margin: 30px;
-    font-size: 36px;
-    letter-spacing: 0.12em;
+  margin: 30px;
+  font-size: 36px;
+  letter-spacing: 0.12em;
 }
 .record-table{
-    margin: 0 auto;
-    font-size: 20px;
+  margin: 0px auto;
+  font-size: 20px;
 }

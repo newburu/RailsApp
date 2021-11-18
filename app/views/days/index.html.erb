@@ -1,109 +1,109 @@
 <div class="record-container">
-<p class="home-title">今日の記録</p>
-<div class="goal-weight">目標体重:<%= goalweight %>G</div>
+  <p class="home-title">今日の記録</p>
+  <div class="goal-weight">目標体重:<%= goalweight %>G</div>
 </div>
 <% if @user.gender == "man" %>
-<table class="record-table">
-<tr>
-<th class="table-title"></th>
-<th class="table-title">合計</th>
-<th class="table-title">目安量</th>
-<th class="table-title">差異</th>
-</tr>
-<tr>
-<td>タンパク質</td>
-<td>90G</td>
-<td>
-<%# <% binding.pry%> 
-<% if @user.exercise == "everytime" %>
-<%= (@user.weight*1.2).round(0)%>G
-<% else %>
-<%= (@user.weight*1).round(0) %>G
-<% end %>
-</td>
-<td>10G</td>
-</tr>
-<tr>
-<td>カロリー</td>
-<td>2200kal</td>
-<td>
-<% if @user.exercise == "everytime" %>
-2600kal
-<% elsif @user.exercise == "Sometimes" %>
-2400kal
-<% else %>
-2200kal
-<% end %>
-</td>
-<td>200G</td>
-</tr>
-<tr>
-<td>糖質</td>
-<td>100G</td>
-<td>
-<% if @user.exercise == "everytime" %>
-390G
-<% elsif @user.exercise == "Sometimes" %>
-360G
-<% else %>
-330G
-<% end %>
-</td>
-<td>20G</td>
-</tr>
-</table>
-<% else %>
-<table class="record-table">
-<tr>
-<th class="table-title"></th>
-<th class="table-title">合計</th>
-<th class="table-title">目安量</th>
-<th class="table-title">差異</th>
-</tr>
-<tr>
-<td>タンパク質</td>
-<td>90G</td>
-<td>
-<% if @user.exercise == "everytime" %>
-<%= (@user.weight*1.2).round(0) %>G
-<% else %>
-50G
-<% end %>
-</td>
-<td>10G</td>
-</tr>
-<tr>
-<td>カロリー</td>
-<td>2200kal</td>
-<td>
-<% if @user.exercise == "everytime" %>
-2200kal
-<% elsif @user.exercise == "Sometimes" %>
-2000kal
-<% else %>
-1800kal
-<% end %>
-</td>
-<td>200G</td>
-</tr>
-<tr>
-<td>糖質</td>
-<td>100G</td>
-<td>
-<% if @user.exercise == "everytime" %>
-330G
-<% elsif @user.exercise == "Sometimes" %>
-300G
-<% else %>
-270G
-<% end %>
-</td>
-<td>20G</td>
-</tr>
-</table>
+  <table class="record-table">
+    <tr>
+      <th class="table-title"></th>
+      <th class="table-title">合計</th>
+      <th class="table-title">目安量</th>
+      <th class="table-title">差異</th>
+    </tr>
+    <tr>
+      <td>タンパク質</td>
+      <td>90G</td>
+      <td>
+        <%# <% binding.pry%> 
+        <% if @user.exercise == "everytime" %>
+          <%= (@user.weight*1.2).round(0)%>G
+        <% else %>
+          <%= (@user.weight*1).round(0) %>G
+        <% end %>
+      </td>
+      <td>10G</td>
+    </tr>
+    <tr>
+      <td>カロリー</td>
+      <td>2200kal</td>
+      <td>
+        <% if @user.exercise == "everytime" %>
+          2600kal
+        <% elsif @user.exercise == "Sometimes" %>
+          2400kal
+        <% else %>
+          2200kal
+        <% end %>
+      </td>
+      <td>200G</td>
+    </tr>
+    <tr>
+      <td>糖質</td>
+      <td>100G</td>
+      <td>
+        <% if @user.exercise == "everytime" %>
+          390G
+        <% elsif @user.exercise == "Sometimes" %>
+          360G
+        <% else %>
+          330G
+        <% end %>
+      </td>
+      <td>20G</td>
+    </tr>
+  </table>
+  <% else %>
+  <table class="record-table">
+    <tr>
+      <th class="table-title"></th>
+      <th class="table-title">合計</th>
+      <th class="table-title">目安量</th>
+      <th class="table-title">差異</th>
+    </tr>
+    <tr>
+      <td>タンパク質</td>
+      <td>90G</td>
+      <td>
+        <% if @user.exercise == "everytime" %>
+        <%= (@user.weight*1.2).round(0) %>G
+        <% else %>
+          50G
+        <% end %>
+      </td>
+      <td>10G</td>
+    </tr>
+    <tr>
+      <td>カロリー</td>
+      <td>2200kal</td>
+      <td>
+        <% if @user.exercise == "everytime" %>
+          2200kal
+        <% elsif @user.exercise == "Sometimes" %>
+          2000kal
+        <% else %>
+          1800kal
+        <% end %>
+      </td>
+      <td>200G</td>
+    </tr>
+    <tr>
+      <td>糖質</td>
+      <td>100G</td>
+      <td>
+        <% if @user.exercise == "everytime" %>
+          330G
+        <% elsif @user.exercise == "Sometimes" %>
+          300G
+        <% else %>
+          270G
+        <% end %>
+      </td>
+      <td>20G</td>
+    </tr>
+  </table>
 <% end %>
 <div class="btn-container">
-<%= link_to "登録する",new_day_path , class:"new-btn" %>
-<%= link_to "体重入力",weight_days_path, class:"yellow-btn" %>
-<%= link_to "記録帳",record_days_path, class:"record-btn" %>
+  <%= link_to "登録する", new_day_path , class:"new-btn" %>
+  <%= link_to "体重入力", weight_days_path, class:"yellow-btn" %>
+  <%= link_to "記録帳", record_days_path, class:"record-btn" %>
 </div>

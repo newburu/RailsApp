@@ -2,62 +2,59 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 .main-title{
-    text-align: center;
-    margin: 30px 0;
+  text-align: center;
+  margin: 30px 0;
 }
 .li-container{
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .worries-title{
-    font-size: 24px;
+  font-size: 24px;
 }
 .worries-text{
-    font-size: 18px;
-    margin: 30px;
-    &:hover{
-color: red;
+  font-size: 18px;
+  margin: 30px;
+  &:hover{
+    color: red;
     cursor: pointer;
-    }
+  }
 }
 .name-title{
-    text-align: center;
-    margin: 30px;
-    font-family: cursive;
+  text-align: center;
+  margin: 30px;
+  font-family: cursive;
 }
 .explanation{
-    text-align: center;
-    line-height:50px;
-    font-size: 18px;
+  text-align: center;
+  line-height:50px;
+  font-size: 18px;
 }
 .login_link,.start_link{
-    text-align: center;
-    margin-top: 20px;
-    a{
-        text-decoration: none;
-        color: blue;
-        font-size: 20px;
-    }
+  text-align: center;
+  margin-top: 20px;
+  a{
+    text-decoration: none;
+    color: blue;
+    font-size: 20px;
+  }
 }
 .singup_link{
-    text-align: center;
-    margin-top: 20px;
-    a{
-        text-decoration: none;
-        color: chartreuse;
-        font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+  a{
+    text-decoration: none;
+    color: chartreuse;
+    font-size: 20px;
     }
 }
-body{
-    background-color: orange;
-}
 .alert{
-    text-align: center;
-    color: red;
-    font-size: 20px;
+  text-align: center;
+  color: red;
+  font-size: 20px;
 }
 .notice{
-    text-align: center;
-    color: lime;
-    font-size: 20px;
+  text-align: center;
+  color: lime;
+  font-size: 20px;
 }

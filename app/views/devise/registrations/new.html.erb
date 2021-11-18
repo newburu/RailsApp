@@ -1,56 +1,57 @@
 <%= devise_error_messages %>
 <h2 class="page-title">新規会員登録</h2>
 <div class="form-container">
-<%= form_with model: @user, url: users_sign_up_next_path(@user),local: true do |f| %>
+  <%= form_with model: @user, url: users_sign_up_next_path(@user),local: true do |f| %>
 
-  <div class="field">
-    <%= f.label :name, '名前', {class: 'label-class'} %><em>(6文字以下)</em><br />
-    <%= f.text_field :name, autofocus: true, placeholder: "名前", class: "form-field", required:"required"%>
-  </div>
+    <div class="field">
+      <%= f.label :name, '名前', {class: 'label-class'} %><em>(6文字以下)</em><br />
+      <%= f.text_field :name, autofocus: true, placeholder: "名前", class: "form-field", required:"required"%>
+    </div>
 
-  <div class="field">
-    <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
-    <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-field", required:"required"%>
-  </div>
+    <div class="field">
+      <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
+      <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-field", required:"required"%>
+    </div>
 
-  <div class="field">
-    <%= f.label :password, 'パスワード', {class: 'label-class'} %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %>文字以上)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード", class: "form-field", required:"required"%>
-  </div>
+    <div class="field">
+      <%= f.label :password, 'パスワード', {class: 'label-class'} %>
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %>文字以上)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード", class: "form-field", required:"required"%>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation,'パスワード（確認）', {class: 'label-class'} %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード確認", class: "form-field", required:"required" %>
-  </div>
-  <div class="hidden-container">
-    <%= f.radio_button :gender, :man, checked: true %>
-    <%= f.label :gender,"男性",{value: :man}%>
-        
-    <%= f.radio_button :gender, :woman %>
-    <%= f.label :gender,"女性",{value: :woman}%>
+    <div class="field">
+      <%= f.label :password_confirmation, 'パスワード（確認）', {class: 'label-class'} %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード確認", class: "form-field", required:"required" %>
+    </div>
 
-    <%= f.label :体重 %>
-    <%= f.number_field :weight, :value =>0 %>
+    <div class="hidden-container">
+      <%= f.radio_button :gender, :man, checked: true %>
+      <%= f.label :gender, "男性", {value: :man}%>
+          
+      <%= f.radio_button :gender, :woman %>
+      <%= f.label :gender, "女性", {value: :woman}%>
 
-    <%= f.label :身長 %>
-    <%= f.number_field :height, :value =>0 %>
+      <%= f.label :体重 %>
+      <%= f.number_field :weight, :value =>0 %>
 
-    <%= f.radio_button :exercise, :everytime, checked: true %>
-    <%= f.label :exercise,"毎日",{value: :everytime} %>
+      <%= f.label :身長 %>
+      <%= f.number_field :height, :value =>0 %>
 
-        
-    <%= f.radio_button :exercise, :Sometimes %>
-    <%= f.label :exercise,"たまに",{value: :Sometimes}%>
+      <%= f.radio_button :exercise, :everytime, checked: true %>
+      <%= f.label :exercise, "毎日", {value: :everytime} %>
 
-    <%= f.radio_button :exercise, :donot %>
-    <%= f.label :exercise,"しない",{value: :donot}%>
-  </div>
-  <div class="actions">
-    <%= f.submit "次へ" , class: "next-btn"%>
-  </div>
-<% end %>
+          
+      <%= f.radio_button :exercise, :Sometimes %>
+      <%= f.label :exercise, "たまに", {value: :Sometimes} %>
+
+      <%= f.radio_button :exercise, :donot %>
+      <%= f.label :exercise, "しない", {value: :donot} %>
+    </div>
+    <div class="actions">
+      <%= f.submit "次へ", class: "next-btn" %>
+    </div>
+  <% end %>
 </div>
-<div class="login_link"><%= link_to "ログインはこちらから",new_user_session_path %></div>
+<div class="login_link"><%= link_to "ログインはこちらから", new_user_session_path %></div>
