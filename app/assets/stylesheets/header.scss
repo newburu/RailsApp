@@ -17,31 +17,28 @@
     cursor: pointer;
     font-family: cursive;
     text-decoration: none;
-    margin-left: 100px;
+    margin-left: 30px;
 }
 .header-login a{
     border: 1px solid #00FF7F;
     background-color: #00FF7F;
-    margin-left: 800px;
     @include header-link;
 }
 .header-singup a{
     border: 1px solid #00FFFF;
     background-color: #00FFFF;
-    margin-left: 50px;
     @include header-link;
 }
 
 .header-profile a{
     border: 1px solid #00ff7f;
     background-color: #00FF7f;
-    margin-left: 700px;
+    // margin-left: 700px;
     @include header-link;
 }
 .header-logout a{
     border: 1px solid red;
     background-color: red;
-    margin-left: 50px;
     @include header-link;
 }
 ul{

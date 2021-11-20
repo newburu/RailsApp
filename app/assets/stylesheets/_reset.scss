@@ -5,10 +5,10 @@
  */
 
 /* # =================================================================
-   # Global selectors
+  # Global selectors
    # ================================================================= */
 
-   html {
+    html {
     box-sizing: border-box;
     overflow-y: scroll; /* All browsers without overlaying scrollbars */
     -webkit-text-size-adjust: 100%; /* iOS 8+ */
@@ -283,7 +283,7 @@ button {
   }
   
   /* # =================================================================
-     # Accessibility
+    # Accessibility
      # ================================================================= */
   
   /* Hide content from screens but not screenreaders */
@@ -313,7 +313,7 @@ button {
   }
   
   /* # =================================================================
-     # Selection
+    # Selection
      # ================================================================= */
   
   /* Specify text selection background color and omit drop shadow */

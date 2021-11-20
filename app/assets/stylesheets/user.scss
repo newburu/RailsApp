@@ -58,6 +58,7 @@
 .back-btn{
   @include back-btn;
   text-decoration: none;
+  text-align: center;
 }
 .hidden-container{
   display: none;
@@ -86,4 +87,10 @@
   color: red;
   font-size: 20px;
   margin-top: 50px;
+  text-align: center;
+}
+.delete-btn{
+  display: block;
+  margin: 30px auto;
+  @include back-btn;
 }
