@@ -1,6 +1,6 @@
 <div class="record-container">
   <p class="home-title">今日の記録</p>
-  <div class="goal-weight">目標体重:<%= goalweight %>G</div>
+  <div class="goal-weight">目標体重:<%= goalweight %>g</div>
 </div>
 <% if @user.gender == "man" %>
   <table class="record-table">
@@ -12,7 +12,7 @@
     </tr>
     <tr>
       <td>タンパク質</td>
-      <td>90G</td>
+      <td>90g</td>
       <td>
         <%# <% binding.pry%> 
         <% if @user.exercise == "everytime" %>
@@ -21,35 +21,35 @@
           <%= (@user.weight*1).round(0) %>G
         <% end %>
       </td>
-      <td>10G</td>
+      <td>10g</td>
     </tr>
     <tr>
       <td>カロリー</td>
-      <td>2200kal</td>
+      <td>2200kcal</td>
       <td>
         <% if @user.exercise == "everytime" %>
-          2600kal
+          2600kcal
         <% elsif @user.exercise == "Sometimes" %>
-          2400kal
+          2400kcal
         <% else %>
           2200kal
         <% end %>
       </td>
-      <td>200G</td>
+      <td>200g</td>
     </tr>
     <tr>
       <td>糖質</td>
-      <td>100G</td>
+      <td>100g</td>
       <td>
         <% if @user.exercise == "everytime" %>
-          390G
+          390g
         <% elsif @user.exercise == "Sometimes" %>
-          360G
+          360g
         <% else %>
-          330G
+          330g
         <% end %>
       </td>
-      <td>20G</td>
+      <td>20g</td>
     </tr>
   </table>
   <% else %>
@@ -62,48 +62,48 @@
     </tr>
     <tr>
       <td>タンパク質</td>
-      <td>90G</td>
+      <td>90g</td>
       <td>
         <% if @user.exercise == "everytime" %>
         <%= (@user.weight*1.2).round(0) %>G
         <% else %>
-          50G
+          50g
         <% end %>
       </td>
-      <td>10G</td>
+      <td>10g</td>
     </tr>
     <tr>
       <td>カロリー</td>
-      <td>2200kal</td>
+      <td>2200kcal</td>
       <td>
         <% if @user.exercise == "everytime" %>
-          2200kal
+          2200kcal
         <% elsif @user.exercise == "Sometimes" %>
-          2000kal
+          2000kcal
         <% else %>
-          1800kal
+          1800kcal
         <% end %>
       </td>
-      <td>200G</td>
+      <td>200kcal</td>
     </tr>
     <tr>
       <td>糖質</td>
-      <td>100G</td>
+      <td>100g</td>
       <td>
         <% if @user.exercise == "everytime" %>
-          330G
+          330g
         <% elsif @user.exercise == "Sometimes" %>
-          300G
+          300g
         <% else %>
-          270G
+          270g
         <% end %>
       </td>
-      <td>20G</td>
+      <td>20g</td>
     </tr>
   </table>
 <% end %>
 <div class="btn-container">
-  <%= link_to "登録する", new_day_path , class:"new-btn" %>
-  <%= link_to "体重入力", weight_days_path, class:"yellow-btn" %>
-  <%= link_to "記録帳", record_days_path, class:"record-btn" %>
+  <%= link_to "登録する", new_energy_path, class:"new-btn" %>
+  <%= link_to "体重入力", weight_energys_path, class:"yellow-btn" %>
+  <%= link_to "記録帳", record_energys_path, class:"record-btn" %>
 </div>

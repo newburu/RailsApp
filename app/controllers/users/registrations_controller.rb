@@ -70,7 +70,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #新規登録が終わったらリダイレクトするviewを設定している
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    days_path(resource)
+    energys_path(resource)
   end
 
   # The path used after sign up for inactive accounts.

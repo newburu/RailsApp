@@ -1,0 +1,23 @@
+<h2 class="page-title">食材登録</h2>
+  <p class="sub-explanation">食べたものを記録してみましょう</p>
+  <p class="attention-explanation">※タンパク質は１食につき30gまでしか吸収されないためそれ以上は入力できません</p>
+  <p class="attention-explanation">※また糖質の量がわからない時はタンパク質の量を入力してください</p>
+  <%=render 'layouts/error_message' %>
+<div class="form-container">
+<%# <% binding.pry %> 
+  <%= form_with model: @energy, url: energys_path,local: true do |f| %>
+
+    <%= f.label :タンパク質, {class: 'label-class'}%>
+    <%= f.number_field :protein, step: "0", class: "form-field", required:"required", min: 1, max: 30 %>g
+
+    <%= f.label :糖質, {class: 'label-class'}%>
+    <%= f.number_field :sugar, step: "0", class: "form-field", required:"required", min: 1 %>g
+
+    <%= f.label :カロリー, {class: 'label-class'}%>
+    <%= f.number_field :kcal, step: "0", class: "form-field", required:"required", min: 1 %>kcal
+    <div class="btn-container">
+    <%= link_to "戻る", energys_path, class:"back-btn" %>
+    <%= f.submit "登録する", class: "yellow-btn"%>
+    </div> 
+  <% end %>
+</div>

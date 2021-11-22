@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
+  has_many :energys
   enum gender: {man: 0, woman: 1}
   enum exercise: {everytime: 0, Sometimes: 1, donot: 2}
 

@@ -1,0 +1,7 @@
+<% if @energy.errors.any? %>
+  <ul class="error-form">
+    <% @energy.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>

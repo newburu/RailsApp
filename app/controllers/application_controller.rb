@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
     #ログイン後にメイン画面に移動する
     def after_sign_in_path_for(resource)
-      days_path(resource)
+      energys_path(resource)
     end
 
     #新規登録時のストロングパラメータ

@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   get 'users/show'
   root 'homes#index'
 
-  #get 'days/home'
-  resources :days,only:[:new,:create,:index] do
+  resources :energys,only:[:new,:create,:index] do
     collection do
       get :weight
       get :record

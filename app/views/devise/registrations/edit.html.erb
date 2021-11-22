@@ -40,10 +40,10 @@
     <%= f.radio_button :gender, :woman %>
     <%= f.label :gender, "女性", {value: :woman}%>
         
-    <%= f.label :身長 , {class: 'label-class'}%>
+    <%= f.label :height, '身長(cm)' , {class: 'label-class'}%>
     <%= f.number_field :height, step: "0.1",class: "form-field", required:"required"%>
 
-    <%= f.label :体重 , {class: 'label-class'}%>
+    <%= f.label :weigth, '体重(kg)' , {class: 'label-class'}%>
     <%= f.number_field :weight, step: "0.1", class: "form-field", required:"required"%>
 
     <p class="radio-title">運動量</p>
@@ -62,6 +62,6 @@
     </div>
   </div>
 <% end %>
-<div class="login_link"><%= link_to "マイページへ",days_path %></div>
+<div class="login_link"><%= link_to "マイページへ",energys_path %></div>
 <p class="delete-text">消したアカウントは元に戻せません</p>
 <%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "delete-btn" %>

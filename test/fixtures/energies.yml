@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  protein: 1
+  sugar: 1
+  kcal: 1
+
+two:
+  protein: 1
+  sugar: 1
+  kcal: 1

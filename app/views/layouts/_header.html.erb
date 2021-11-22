@@ -1,14 +1,15 @@
 <header class="header">
-　<nav class="header-nav">
-　　<ul class="header-ul">
-　　　<li><%= link_to "healthier", '#' , class: "header-logo" %></li>
-　　　<% if user_signed_in? %>
-　　　　　<li class="header-profile"><%= link_to "プロフィール", edit_user_registration_path %></li>
-　　　　　<li class="header-logout"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-　　　<% else %>
-　　　　<li class="header-login"><%= link_to "ログイン", new_user_session_path %></li>
-　　　　<li class="header-singup"><%= link_to "会員登録" , new_user_registration_path %></li>
-　　　<% end %>        
-　　</ul>
-　</nav>
+  <nav class="header-nav">
+    <ul class="header-ul">
+      <li><%= link_to "healthier", root_path , class: "header-logo" %></li>
+      <% if user_signed_in? %>
+        <li class="header-profile"><%= link_to "プロフィール", edit_user_registration_path %></li>
+        <li class="header-logout"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+      <% elsif current_page?(root_path) %>
+        <li class="header-login"><%= link_to "ログイン", new_user_session_path %></li>
+        <li class="header-singup"><%= link_to "会員登録" , new_user_registration_path %></li>
+      <% else %>
+      <% end %>
+    </ul>
+  </nav>
 </header>

@@ -4,8 +4,8 @@
   <%= form_with model: @user, url: users_sign_up_next_path(@user),local: true do |f| %>
 
     <div class="field">
-      <%= f.label :name, '名前', {class: 'label-class'} %><em>(6文字以下)</em><br />
-      <%= f.text_field :name, autofocus: true, placeholder: "名前", class: "form-field", required:"required"%>
+      <%= f.label :name, 'ニックネーム', {class: 'label-class'} %><em>(6文字以下)</em><br />
+      <%= f.text_field :name, autofocus: true, placeholder: "ニックネーム", class: "form-field", required:"required"%>
     </div>
 
     <div class="field">
