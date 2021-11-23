@@ -26,6 +26,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(sign_up_params)
     render :new if @user.invalid?(:confirm)
   end
+
+  def complete
+  #binding.pry
+   @user = current_user
+  end
   
   # GET /resource/edit
   # def edit
@@ -67,10 +72,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
   # end
 
-  #新規登録が終わったらリダイレクトするviewを設定している
+  #新規登録が終わったら完了画面に移動する
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    energys_path(resource)
+    users_sign_up_complete_path(resource)
   end
 
   # The path used after sign up for inactive accounts.

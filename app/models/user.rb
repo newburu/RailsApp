@@ -9,9 +9,9 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :name, length: {maximum:6}
-    validates :gender
-    validates :weight
-    validates :height
-    validates :exercise
+    # validates :gender
+    # validates :weight
+    # validates :height
+    # validates :exercise
   end
 end

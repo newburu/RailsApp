@@ -60,6 +60,15 @@
   text-decoration: none;
   text-align: center;
 }
+.start-link{
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}
+.start-btn{
+  @include next-btn;
+  
+}
 .hidden-container{
   display: none;
 }
