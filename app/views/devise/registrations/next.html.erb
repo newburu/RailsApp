@@ -2,7 +2,7 @@
 <p class="caution-text">こちらの情報を元に適正カロリーを計算します<br />
   <span class="red-text">※こちらの情報はあとで変更できます</span></p>
 <%= form_with model: @user, url: users_sign_up_confirm_path(@user), local: true do |f| %>
-  <div class="hidden-container">
+ <div class="hidden-container">
     <%= f.label :名前, {class: 'label-class'} %>
     <%= f.text_field :name, placeholder: "ニックネーム" , class: "form-field"%>
 
@@ -19,7 +19,7 @@
         
     <%= f.radio_button :gender, :woman %>
     <%= f.label :gender, "女性", {value: :woman}%>
-        
+       
     <%= f.label :height, '身長(cm)' , {class: 'label-class'}%>
     <%= f.number_field :height, step: "0.1", class: "form-field", required:"required", min: 100 %>
 
@@ -39,7 +39,7 @@
         
   </div>
   <div class="btn-container">
-    <%= link_to '戻る', new_user_registration_path , class: "back-btn"%>
+    <%= f.submit "戻る", name: :back, class: "back-btn"%>
     <%= f.submit "確認画面へ", class: "confirm-btn" %>
   </div>
 <% end %>

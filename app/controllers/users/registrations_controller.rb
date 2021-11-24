@@ -12,19 +12,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @user = User.new(sign_up_params)
+    #render :new and return if params[:back]
     super
   end
 
   def next
     @user = User.new(sign_up_params)
     render :new if @user.invalid?
-    # session["devise.regist_data"] = {user: @user.attributes}
-    # session["devise.regist_data"][:user]["password"] = params[:user][:password]
+    render :new and return if params[:back]
   end
 
   def confirm
     @user = User.new(sign_up_params)
-    render :new if @user.invalid?(:confirm)
+    render :new and return if params[:back]
+    render :next if @user.invalid?(:confirm)
   end
 
   def complete
