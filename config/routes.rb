@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     post 'users/sign_up/next', to: 'users/registrations#next'
     post 'users/sign_up/confirm', to: 'users/registrations#confirm'
     get 'users/sign_up/complete', to: 'users/registrations#complete'
-    get 'users/sign_up/next', to: 'users/registrations#next' 
-    get 'users/sign_up/confirm', to: 'users/registrations#confirm'
+    # get 'users/sign_up/next', to: 'users/registrations#next' 
+    # get 'users/sign_up/confirm', to: 'users/registrations#confirm'
   end
 end

@@ -1,29 +1,3 @@
 <h2 class="page-title">登録が完了しました</h2>
-<ul class="form-container">
-
-    <li class="list-item">名前：<%= @user.name %></li>
-    <li class="list-item">メールアドレス：<%= @user.email %></li>
-    <% gender = @user.gender %>
-    <li class="list-item">
-      性別：
-      <% if gender == "man" %>
-        男性
-      <% else %>
-        女性
-      <% end %>
-    </li>
-    <li class="list-item">身長：<%= @user.height%></li>
-    <li class="list-item">体重：<%= @user.weight %></li>
-    <% exercise = @user.exercise %>
-    <li class="list-item">
-      運動量：
-      <% if exercise == "everytime" %>
-        毎日
-      <% elsif exercise == "Sometimes" %>
-        たまに
-      <% else %>
-        しない
-      <% end %>
-    </li>
-</ul>
+<%= render 'layouts/list-item'%>
 <div class="start-link"><%=link_to 'はじめる', energys_path, class: "start-btn"%></div>

@@ -27,19 +27,19 @@
     </div>
 
     <div class="hidden-container">
-      <%= f.radio_button :gender, :man, checked: true %>
+      <%= f.radio_button :gender, :man %>
       <%= f.label :gender, "男性", {value: :man}%>
           
       <%= f.radio_button :gender, :woman %>
       <%= f.label :gender, "女性", {value: :woman}%>
 
       <%= f.label :体重 %>
-      <%= f.number_field :weight, :value =>0 %>
+      <%= f.number_field :weight %>
 
       <%= f.label :身長 %>
-      <%= f.number_field :height, :value =>0 %>
+      <%= f.number_field :height %>
 
-      <%= f.radio_button :exercise, :everytime, checked: true %>
+      <%= f.radio_button :exercise, :everytime %>
       <%= f.label :exercise, "毎日", {value: :everytime} %>
 
           
