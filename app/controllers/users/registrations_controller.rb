@@ -25,11 +25,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(sign_up_params)
     render :new and return if params[:back]
     render :next if @user.invalid?(:confirm)
+    weight = @user.weight
+    height = @user.height/100
+    bmi = weight/height/height
+    if bmi<15
+    redirect_to users_sign_up_exception_path
+    end
   end
 
   def complete
   #binding.pry
    @user = current_user
+  end
+
+  def exception
   end
   
   # GET /resource/edit
