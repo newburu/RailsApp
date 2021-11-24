@@ -21,10 +21,10 @@
     <%= f.label :gender, "女性", {value: :woman}%>
        
     <%= f.label :height, '身長(cm)' , {class: 'label-class'}%>
-    <%= f.number_field :height, step: "0.1", class: "form-field", required:"required", min: 100 %>
+    <%= f.number_field :height, step: "0.1", class: "form-field", min: 100 %>
 
     <%= f.label :weight, '体重(kg)' , {class: 'label-class'}%>
-    <%= f.number_field :weight, step: "0.1", class: "form-field", required:"required", min: 40, size: 150 %>
+    <%= f.number_field :weight, step: "0.1", class: "form-field", min: 40, size: 150 %>
 
     <p class="radio-title">運動量</p>
 
