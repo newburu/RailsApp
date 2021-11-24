@@ -1,4 +1,3 @@
-<%= devise_error_messages %>
 <h2 class="page-title">新規会員登録</h2>
 <div class="form-container">
   <%= form_with model: @user, url: users_sign_up_next_path(@user),local: true do |f| %>
@@ -7,12 +6,12 @@
       <%= f.label :name, 'ニックネーム', {class: 'label-class'} %><em>(6文字以下)</em><br />
       <%= f.text_field :name, autofocus: true, placeholder: "ニックネーム", class: "form-field", required:"required"%>
     </div>
-
+    
     <div class="field">
       <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
       <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-field", required:"required"%>
     </div>
-
+    <%= devise_error_messages %>
     <div class="field">
       <%= f.label :password, 'パスワード', {class: 'label-class'} %>
       <% if @minimum_password_length %>
@@ -27,27 +26,29 @@
     </div>
 
     <div class="hidden-container">
+      <p class="radio-title">性別</p>
       <%= f.radio_button :gender, :man %>
       <%= f.label :gender, "男性", {value: :man}%>
-          
+                
       <%= f.radio_button :gender, :woman %>
       <%= f.label :gender, "女性", {value: :woman}%>
+              
+      <%= f.label :height, '身長(cm)' , {class: 'label-class'}%>
+      <%= f.number_field :height, step: "0.1", class: "form-field", min: 100 %>
 
-      <%= f.label :体重 %>
-      <%= f.number_field :weight %>
+      <%= f.label :weight, '体重(kg)' , {class: 'label-class'}%>
+      <%= f.number_field :weight, step: "0.1", class: "form-field", min: 40, size: 150 %>
 
-      <%= f.label :身長 %>
-      <%= f.number_field :height %>
+      <p class="radio-title">運動量</p>
 
       <%= f.radio_button :exercise, :everytime %>
-      <%= f.label :exercise, "毎日", {value: :everytime} %>
-
-          
+      <%= f.label :exercise,"毎日", {value: :everytime}%>
+                
       <%= f.radio_button :exercise, :Sometimes %>
-      <%= f.label :exercise, "たまに", {value: :Sometimes} %>
+      <%= f.label :exercise,"たまに", {value: :Sometimes}%>
 
       <%= f.radio_button :exercise, :donot %>
-      <%= f.label :exercise, "しない", {value: :donot} %>
+      <%= f.label :exercise,"しない", {value: :donot}%>
     </div>
     <div class="actions">
       <%= f.submit "次へ", class: "next-btn" %>
