@@ -6,7 +6,6 @@
 <div class="form-container">
 
   <%= form_with model: @energy, url: energys_path(@user), method: :post, local: true do |f| %>
-    <%# <% binding.pry%> %>
     
     <%= f.label :protein, "タンパク質(g)", {class: 'label-class'}%>
     <%= f.number_field :protein, step: "0", class: "form-field", required:"required", min: 0, max: 30 %>

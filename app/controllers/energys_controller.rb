@@ -10,16 +10,14 @@ class EnergysController < ApplicationController
   end
 
   def create
-    binding.pry
-    @energy =Energy.new(energy_params)#ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
+    #binding.pry
+    #@energy =Energy.new(energy_params)#ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
+    @energy = current_user.energys.build(energy_params)
     if @energy.save
-     redirect_to energy_path(@energy), notice: '登録しました'
+     redirect_to energys_path, notice: '登録しました'
     else 
      render :new
     end
-  end
-
-  def show
   end
 
   def weight
@@ -30,6 +28,6 @@ class EnergysController < ApplicationController
 
   private
     def energy_params#ストロングパラメーターでタンパク質と糖質とカロリーのみを保存するようにしている
-      params.require(:energy).permit(:protein, :sugar, :kcal)
+      params.require(:energy).permit(:protein, :sugar, :kcal)#s, :user_id)
     end
 end
