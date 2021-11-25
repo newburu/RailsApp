@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   get 'users/show'
   root 'homes#index'
 
-  resources :energys, only:[:new,:create,:index] do
+  resources :energys, only:[:new, :create, :index, :show] do
     collection do
-      get :weight
+      post :weight
       get :record
     end
   end

@@ -1,6 +1,6 @@
 <h2 class="page-title">新規会員登録</h2>
 <div class="form-container">
-  <%= form_with model: @user, url: users_sign_up_next_path(@user),local: true do |f| %>
+  <%= form_with model: @user, url: users_sign_up_next_path(@user), local: true do |f| %>
 
     <div class="field">
       <%= f.label :name, 'ニックネーム', {class: 'label-class'} %><em>(6文字以下)</em><br />
