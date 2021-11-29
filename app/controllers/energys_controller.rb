@@ -1,5 +1,5 @@
 class EnergysController < ApplicationController
-  before_action :authenticate_user!, only: [:index,:record,:new,:create,:weight]
+  before_action :authenticate_user!, only: [:index, :new, :create]
   def index
     @user = current_user
   end
@@ -11,19 +11,14 @@ class EnergysController < ApplicationController
 
   def create
     #binding.pry
-    #@energy =Energy.new(energy_params)#ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
-    @energy = current_user.energys.build(energy_params)
+    @energy = current_user.energys.build(energy_params)#ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
+    #energysで複数形になってるのはUserモデルと1対多の関係にあるため
+    #buildはnewと一緒の役割だけどモデルの関連付ける際はbuildを使う
     if @energy.save
      redirect_to energys_path, notice: '登録しました'
     else 
      render :new
     end
-  end
-
-  def weight
-  end
-
-  def record
   end
 
   private

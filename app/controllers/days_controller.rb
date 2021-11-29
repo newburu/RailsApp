@@ -1,0 +1,29 @@
+class DaysController < ApplicationController
+before_action :authenticate_user!, only: [:record,:new,:create]
+  def new
+    # binding.pry
+    @user = current_user
+    @day  = Day.new#Dayモデルのインスタンスを作る
+  end
+
+  def create
+    @day = current_user.days.build(day_params)
+     binding.pry
+    if @day.save
+     redirect_to energys_path, notice: '今日の体重を保存しました'
+     else
+     render :new
+     end
+  end
+
+  def record
+    @user = current_user
+    @day = Day.find(1)
+   
+  end
+
+  private
+    def day_params
+      params.require(:day).permit(:weight)
+    end
+end
