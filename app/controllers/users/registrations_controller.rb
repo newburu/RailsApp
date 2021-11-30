@@ -29,7 +29,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     height = @user.height/100
     bmi = weight/height/height
     if bmi<15
-    redirect_to users_sign_up_exception_path
+    render :exception
     end
   end
 
@@ -38,8 +38,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def exception
+    
   end
-  
+
   # GET /resource/edit
   # def edit
   #   super

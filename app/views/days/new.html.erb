@@ -6,8 +6,8 @@
     <%= f.label :weight, "今日の体重(g)", {class: 'label-class'} %>
     <%= f.number_field :weight, step:"0.1", class: "form-field", required:"required", min: 30, max: 150 %>
     <div class="btn-container">
-      <%= f.submit "登録", class: "new-btn" %>
       <%= link_to "戻る", energys_path, class:"back-btn" %>
+      <%= f.submit "登録", class: "new-btn" %>
     </div>
   <% end %>
 </div>
