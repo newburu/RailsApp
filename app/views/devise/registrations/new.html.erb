@@ -13,7 +13,7 @@
     </div>
     <%= devise_error_messages %>
     <div class="field">
-      <%= f.label :password, 'パスワード', {class: 'label-class'} %><em>（半角英数字を１文字以上含んでください）</em>
+      <%= f.label :password, 'パスワード', {class: 'label-class'} %><em>（半角大文字小文字数字を１文字以上含んでください）</em>
       <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %>文字以上)</em>
       <% end %><br />

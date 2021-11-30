@@ -11,7 +11,8 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX =/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])\w{6,12}\z/
   validates :password, presence: true,
             format: { with: VALID_PASSWORD_REGEX,
-             message: "は半角6~12文字英大文字・小文字・数字それぞれ１文字以上含む必要があります"}
+             message: "は半角6~12文字英大文字・小文字・数字それぞれ１文字以上含む必要があります"},
+             confirmation: true
   with_options on: :confirm do
     validates_presence_of :name, length: {maximum:6}
     validates_presence_of :gender

@@ -20,6 +20,6 @@ Rails.application.routes.draw do
     post 'users/sign_up/next', to: 'users/registrations#next'
     post 'users/sign_up/confirm', to: 'users/registrations#confirm'
     get 'users/sign_up/complete', to: 'users/registrations#complete'
-    get 'users/sign_up/exception', to: 'users/registrations#exception'
+    get 'users/sign_up/exception', to: 'users/registrations#exception' 
   end
 end
