@@ -8,18 +8,18 @@ before_action :authenticate_user!, only: [:record,:new,:create]
 
   def create
     @day = current_user.days.build(day_params)
-     binding.pry
+    
     if @day.save
      redirect_to energys_path, notice: '今日の体重を保存しました'
-     else
+    else
      render :new
-     end
+    end
+    #binding.pry
   end
 
   def record
     @user = current_user
-    @day = Day.find(1)
-   
+    @day = Day.find(2)
   end
 
   private

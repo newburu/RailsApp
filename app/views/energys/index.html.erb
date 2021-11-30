@@ -1,6 +1,6 @@
 <div class="record-container">
   <p class="home-title">今日の記録</p>
-  <div class="goal-weight">目標体重:<%= goalweight %>g</div>
+  <div class="goal-weight">目標体重:<%= goalweight %>kg</div>
 </div>
 <% if @user.gender == "man" %>
   <table class="record-table">
@@ -14,7 +14,6 @@
       <td>タンパク質</td>
       <td>90g</td>
       <td>
-        <%# <% binding.pry%> 
         <% if @user.exercise == "everytime" %>
           <%= (@user.weight*1.2).round(0)%>G
         <% else %>
