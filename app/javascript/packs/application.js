@@ -10,11 +10,10 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-
+require('jquery')
 Rails.start()
 // Turbolinks.start()
 ActiveStorage.start()
-//初回読み込み、リロード、ページ切り替えで動く。
-$(document).on('turbolinks:load', function() { 
-  setTimeout("$('.flash').fadeOut('slow')", 2000);
+$(function(){
+  setTimeout("$('.notice').fadeOut('slow')", 2000);
 });
