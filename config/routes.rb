@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   resources :energys, only:[:new, :create, :index] do
-    collection do
-      post :weight
+  end
+
+  resources :days, only:[:new, :create] do
+   collection do
       get :record
     end
   end

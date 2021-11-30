@@ -1,0 +1,13 @@
+<h2 class="page-title">体重入力</h2>
+<p class="sub-explanation">今日の体重を入力してみましょう</p>
+<div class= "form-container">
+  <%= form_with model: @day, url: days_path(@user), method: :post, local: true do |f| %>
+
+    <%= f.label :weight, "今日の体重(g)", {class: 'label-class'} %>
+    <%= f.number_field :weight, step:"0.1", class: "form-field", required:"required", min: 30, max: 150 %>
+    <div class="btn-container">
+      <%= f.submit "登録", class: "new-btn" %>
+      <%= link_to "戻る", energys_path, class:"back-btn" %>
+    </div>
+  <% end %>
+</div>

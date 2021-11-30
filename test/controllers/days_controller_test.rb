@@ -1,8 +1,13 @@
 require "test_helper"
 
 class DaysControllerTest < ActionDispatch::IntegrationTest
-  test "should get home" do
-    get days_home_url
+  test "should get new" do
+    get days_new_url
+    assert_response :success
+  end
+
+  test "should get record" do
+    get days_record_url
     assert_response :success
   end
 end

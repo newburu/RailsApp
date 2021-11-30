@@ -34,7 +34,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def complete
-  #binding.pry
    @user = current_user
   end
 
