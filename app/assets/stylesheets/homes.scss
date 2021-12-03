@@ -9,9 +9,22 @@
   display: block;
   text-align: center;
 }
+.header-container{
+  display: flex;
+  margin: 0 50px 0 auto;
+}
+.header-login,.header-singup{
+  margin-right: 10px;
+  min-width: 150px;
+}
+.header-profile,.header-logout{
+  min-width: 230px;
+}
+
 .worries-title{
   font-size: 24px;
 }
+
 .worries-text{
   font-size: 18px;
   margin: 30px;
