@@ -11,7 +11,7 @@
       <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
       <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-field", required:"required"%>
     </div>
-    <%= devise_error_messages %>
+    
     <div class="field">
       <%= f.label :password, 'パスワード', {class: 'label-class'} %><em>（半角大文字小文字数字を１文字以上含んでください）</em>
       <% if @minimum_password_length %>
@@ -19,12 +19,12 @@
       <% end %><br />
       <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード", class: "form-field", required:"required"%>
     </div>
-
+    <%= devise_error_messages %>
     <div class="field">
       <%= f.label :password_confirmation, 'パスワード（確認）', {class: 'label-class'} %><br />
       <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード確認", class: "form-field", required:"required" %>
     </div>
-
+    <%= devise_error_messages %>
     <div class="hidden-container">
       <p class="radio-title">性別</p>
       <%= f.radio_button :gender, :man %>
