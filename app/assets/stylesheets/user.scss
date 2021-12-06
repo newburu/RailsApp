@@ -5,6 +5,8 @@
   padding: 20px 60px;
   border-radius: 30px;
   text-decoration: none;
+  min-width: 170px;
+  text-align: center;
 }
 @mixin back-btn{
   color: #fff;
@@ -67,7 +69,6 @@
 }
 .start-btn{
   @include next-btn;
-  
 }
 .hidden-container{
   display: none;
@@ -75,11 +76,6 @@
 .caution-text{
   text-align: center;
   margin-bottom: 30px;
-}
-.red-text{
-  color: red;
-  text-align: center;
-  font-size: 18px;
 }
 .radio-title{
   margin: 30px 0;
