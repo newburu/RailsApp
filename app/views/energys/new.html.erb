@@ -1,17 +1,37 @@
 <h2 class="page-title">食材登録</h2>
 <p class="sub-explanation">食べたものを記録してみましょう</p>
-<p class="red-text">※タンパク質は１食につき30gまでしか吸収されないためそれ以上は入力できません</p>
-<p class="red-text">※また糖質の量がわからない時は炭水化物の量を入力してください</p>
 <%=render 'layouts/error_message' %>
 <div class="form-container">
 
   <%= form_with model: @energy, url: energys_path(@user), method: :post, local: true do |f| %>
     
+    <p class="radio-title">日付</p>
+    <%= f.radio_button :gender, :man, checked: true %>
+    <%= f.label :gender, "今日", {value: :man}%>
+                
+    <%= f.radio_button :gender, :woman %>
+    <%= f.label :gender, "昨日", {value: :woman}%>
+    
+    <p class="radio-title">食事</p>
+    <%= f.radio_button :gender, :man, checked: true %>
+    <%= f.label :gender, "朝", {value: :man}%>
+                
+    <%= f.radio_button :gender, :woman %>
+    <%= f.label :gender, "昼", {value: :woman}%>
+
+    <%= f.radio_button :gender, :woman %>
+    <%= f.label :gender, "夜", {value: :man}%>
+
+    <%= f.radio_button :gender, :woman %>
+    <%= f.label :gender, "間食", {value: :man}%>
+
     <%= f.label :protein, "タンパク質(g)", {class: 'label-class'}%>
     <%= f.number_field :protein, step: "0", class: "form-field", required:"required", min: 0, max: 30 %>
+    <p class="red-text">※タンパク質は１食につき30gまでしか吸収されないためそれ以上は入力できません</p>
 
     <%= f.label :sugar, "糖質(g)", {class: 'label-class'}%>
     <%= f.number_field :sugar, step: "0", class: "form-field", required:"required", min: 0 %>
+    <p class="red-text">※糖質の量が分からない時は炭水化物の量を入力してください</p>
 
     <%= f.label :kcal, "カロリー(kcal)", {class: 'label-class'}%>
     <%= f.number_field :kcal, step: "0", class: "form-field", required:"required", min: 0 %>

@@ -15,14 +15,14 @@ class EnergysController < ApplicationController
     #energysで複数形になってるのはUserモデルと1対多の関係にあるため
     #buildはnewと一緒の役割だけどモデルの関連付ける際はbuildを使う
     if @energy.save
-     redirect_to energys_path, notice: '登録しました'
+      redirect_to energys_path, notice: '登録しました'
     else 
-     render :new
+      render :new
     end
   end
 
   private
     def energy_params#ストロングパラメーターでタンパク質と糖質とカロリーのみを保存するようにしている
-      params.require(:energy).permit(:protein, :sugar, :kcal)#s, :user_id)
+      params.require(:energy).permit(:protein, :sugar, :kcal)
     end
 end
