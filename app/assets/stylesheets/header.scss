@@ -33,7 +33,6 @@
 .header-profile a{
     border: 1px solid #00ff7f;
     background-color: #00FF7f;
-    // margin-left: 700px;
     @include header-link;
 }
 .header-logout a{
@@ -43,4 +42,15 @@
 }
 ul{
     list-style: none;
+}
+.header-container{
+  display: flex;
+  margin: 0 50px 0 auto;
+}
+.header-login,.header-singup{
+  margin-right: 10px;
+  min-width: 150px;
+}
+.header-profile,.header-logout{
+  min-width: 230px;
 }

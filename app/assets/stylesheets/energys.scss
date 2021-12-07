@@ -8,6 +8,8 @@
   border-radius: 30px;
   display: block;
   margin: 0 30px;
+  min-width: 200px;
+  text-align: center
 }
 .yellow-btn{
   @include btn;
