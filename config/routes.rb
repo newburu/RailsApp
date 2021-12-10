@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'users/show'
   root 'homes#index'
 
-  resources :energys, only:[:new, :create, :index] do
+  resources :energys do
   end
 
   resources :days, only:[:new, :create] do

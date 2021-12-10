@@ -1,29 +1,30 @@
-<h2 class="page-title">食材登録</h2>
-<p class="sub-explanation">食べたものを記録してみましょう</p>
+<p class="page-title">食べたものを記録してみましょう</p>
 <%=render 'layouts/error_message' %>
 <div class="form-container">
 
   <%= form_with model: @energy, url: energys_path(@user), method: :post, local: true do |f| %>
     
     <p class="radio-title">日付</p>
-    <%= f.radio_button :gender, :man, checked: true %>
-    <%= f.label :gender, "今日", {value: :man}%>
+    <%= f.radio_button :date, :man, checked: true %>
+    <%= f.label :date, "今日", {value: :man}%>
                 
-    <%= f.radio_button :gender, :woman %>
-    <%= f.label :gender, "昨日", {value: :woman}%>
+    <%= f.radio_button :date, :woman %>
+    <%= f.label :date, "昨日", {value: :woman}%>
     
     <p class="radio-title">食事</p>
-    <%= f.radio_button :gender, :man, checked: true %>
-    <%= f.label :gender, "朝", {value: :man}%>
+    <%= f.radio_button :meal, :morning, checked: true %>
+    <%= f.label :meal, "朝", {value: :morning}%>
                 
-    <%= f.radio_button :gender, :woman %>
-    <%= f.label :gender, "昼", {value: :woman}%>
+    <%= f.radio_button :meal, :lunch %>
+    <%= f.label :meal, "昼", {value: :lunch}%>
 
-    <%= f.radio_button :gender, :woman %>
-    <%= f.label :gender, "夜", {value: :man}%>
+    <%= f.radio_button :meal, :night %>
+    <%= f.label :meal, "夜", {value: :night}%>
 
-    <%= f.radio_button :gender, :woman %>
-    <%= f.label :gender, "間食", {value: :man}%>
+    <%= f.radio_button :meal, :snack %>
+    <%= f.label :meal, "間食", {value: :snack}%>
+
+    <p class="red-text">朝昼夜は1日に１回づつしか登録できません</p>
 
     <%= f.label :protein, "タンパク質(g)", {class: 'label-class'}%>
     <%= f.number_field :protein, step: "0", class: "form-field", required:"required", min: 0, max: 30 %>
