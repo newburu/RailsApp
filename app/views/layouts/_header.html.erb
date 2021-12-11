@@ -4,8 +4,12 @@
       <li><%= link_to "healthier", root_path, class: "header-logo" %></li>
         <% if user_signed_in? %>
           <div class="header-container">
-          <li class="header-profile"><%= link_to "プロフィール", edit_user_registration_path %></li>
-          <li class="header-logout"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+            <li class="header-register"><%= link_to "食事登録", new_energy_path %></li>
+            <li class="header-weight"><%= link_to "体重入力", new_day_path %></li>
+            <li class="header-history"><%= link_to "履歴", list_energys_path %></li>
+            <li class="header-record"><%= link_to "記録帳", record_days_path %></li>
+            <li class="header-profile"><%= link_to "プロフィール", edit_user_registration_path %></li>
+            <li class="header-logout"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
           </div>
         <% elsif current_page?(root_path) %>
         <div class="header-container">
