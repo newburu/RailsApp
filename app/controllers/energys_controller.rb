@@ -21,8 +21,10 @@ class EnergysController < ApplicationController
     end
   end
 
+  def list
+  end
   private
-    def energy_params#ストロングパラメーターでタンパク質と糖質とカロリーのみを保存するようにしている
-      params.require(:energy).permit(:protein, :sugar, :kcal)
+    def energy_params#ストロングパラメーターでタンパク質と糖質とカロリーと日付と食事のみを保存するようにしている
+      params.require(:energy).permit(:protein, :sugar, :kcal, :meal, :date)
     end
 end
