@@ -26,30 +26,24 @@
           330g
         <% end %>
   <% else %>
-        <% if @user.exercise == "everytime" %>
-        <%= (@user.weight*1.2).round(0) %>G
-        <% else %>
-          50g
-        <% end %>
+    <% if @user.exercise == "everytime" %>
+      <%= (@user.weight*1.2).round(0) %>G
+    <% else %>
+      50g
+    <% end %>
 
-        <% if @user.exercise == "everytime" %>
-          2200kcal
-        <% elsif @user.exercise == "Sometimes" %>
-          2000kcal
-        <% else %>
-          1800kcal
-        <% end %>
-        <% if @user.exercise == "everytime" %>
-          330g
-        <% elsif @user.exercise == "Sometimes" %>
-          300g
-        <% else %>
-          270g
-        <% end %>
+    <% if @user.exercise == "everytime" %>
+      2200kcal
+    <% elsif @user.exercise == "Sometimes" %>
+      2000kcal
+    <% else %>
+      1800kcal
+    <% end %>
+    <% if @user.exercise == "everytime" %>
+      330g
+    <% elsif @user.exercise == "Sometimes" %>
+      300g
+    <% else %>
+      270g
+    <% end %>
 <% end %>
-<div class="btn-container">
-  <%= link_to "食事登録", new_energy_path, class:"new-btn" %>
-  <%= link_to "体重入力", new_day_path, class:"yellow-btn" %>
-  <%= link_to "記録帳", record_days_path, class:"record-btn" %>
-  <%= link_to "履歴", list_energys_path, class:"new-btn"%>
-</div>

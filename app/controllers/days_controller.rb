@@ -24,6 +24,6 @@ before_action :authenticate_user!, only: [:record,:new,:create]
 
   private
     def day_params
-      params.require(:day).permit(:weight)
+      params.require(:day).permit(:weight, :date)
     end
 end
