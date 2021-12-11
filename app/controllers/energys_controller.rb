@@ -1,7 +1,9 @@
 class EnergysController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :create]
+  before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit]
   def index
     @user = current_user
+    @energys = @user.energys.count
+    # @energy = Energy.find_by(id: params[:id])#ここが分からない上手く表示されない
   end
 
   def new

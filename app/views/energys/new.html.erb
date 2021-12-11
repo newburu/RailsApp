@@ -5,12 +5,13 @@
   <%= form_with model: @energy, url: energys_path(@user), method: :post, local: true do |f| %>
     
     <p class="radio-title">日付</p>
-    <%= f.radio_button :date, :man, checked: true %>
-    <%= f.label :date, "今日", {value: :man}%>
+    <%# <%= f.radio_button :date, :man, checked: true %>
+    <%# <%= f.label :date, "今日", {value: :man}%>
                 
-    <%= f.radio_button :date, :woman %>
-    <%= f.label :date, "昨日", {value: :woman}%>
-    
+    <%# <%= f.radio_button :date, :woman %>
+    <%# <%= f.label :date, "昨日", {value: :woman}%> 
+   
+    <%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
     <p class="radio-title">食事</p>
     <%= f.radio_button :meal, :morning, checked: true %>
     <%= f.label :meal, "朝", {value: :morning}%>
