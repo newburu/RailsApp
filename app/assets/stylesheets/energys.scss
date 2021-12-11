@@ -11,6 +11,19 @@
   min-width: 200px;
   text-align: center
 }
+.yellow-btn{
+  @include btn;
+  color: black;
+  background-color: yellow;
+}
+.record-btn{
+  @include btn;
+  background-color: blue;
+}
+.new-btn{
+  @include btn;
+  background-color: lime;
+}
 .record-container{
   display: flex;
   align-items: center;
