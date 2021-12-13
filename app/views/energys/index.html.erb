@@ -3,13 +3,16 @@
   <div class="goal-weight">目標体重:<%= goalweight %>kg</div>
 </div>
 <p class="">ミッション</p>
-<% if @user.gender == "man" %>
+<div class="today"><%=@today%></div>
+<%# <%=today_protein%>
+  <% @energys.each do |energy| %>
+      <%= energy.protein %>
+  <% end %>
+ 
+  <%= @protein %>
+         <% if @user.gender == "man" %>
         <% if @user.exercise == "everytime" %>
           <%= (@user.weight*1.2).round(0) %>
-           <%# <%binding.pry %> %>
-          <%= (@energy) %>
-          <%= current_user.name%>
-         
         <% else %>
           <%= (@user.weight*1).round(0) %>G
         <% end %>

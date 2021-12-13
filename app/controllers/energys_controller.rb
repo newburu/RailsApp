@@ -2,8 +2,12 @@ class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit]
   def index
     @user = current_user
-    @energys = @user.energys.count
-    # @energy = Energy.find_by(id: params[:id])#ここが分からない上手く表示されない
+    @today = Date.today#今日の日付 
+    @energys = Energy.where(date: @today)#今日の日付を全件取得してインスタンス変数に代入
+    @energys.each do |energy|
+    energy.protein
+    end
+    @protein = @energys.sum
   end
 
   def new
