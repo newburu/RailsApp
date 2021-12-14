@@ -3,11 +3,8 @@ class EnergysController < ApplicationController
   def index
     @user = current_user
     @today = Date.today#今日の日付 
-    @energys = Energy.where(date: @today)#今日の日付を全件取得してインスタンス変数に代入
-    @energys.each do |energy|
-    energy.protein
-    end
-    @protein = @energys.sum
+    @energys = current_user.energys.where(date: @today)#ログインしているユーザーの今日の日付を全件取得してインスタンス変数に代入
+    # @protein = @energys.sum
   end
 
   def new
@@ -26,9 +23,14 @@ class EnergysController < ApplicationController
       render :new
     end
   end
-
-  def list
+  
+  def show
+    @user = current_user
+    # @energy = current_user.energys.find(params[:id])
+    @today = Date.today#今日の日付 
+    @energys = current_user.energys.where(date: @today)
   end
+
   private
     def energy_params#ストロングパラメーターでタンパク質と糖質とカロリーと日付と食事のみを保存するようにしている
       params.require(:energy).permit(:protein, :sugar, :kcal, :meal, :date)
