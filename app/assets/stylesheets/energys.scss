@@ -53,8 +53,24 @@
   font-size: 20px;
 }
 .date_field{
-background-color: white;
-padding: 10px;
-border-radius: 20px;
-margin: 3px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 3px;
+}
+.record-container{
+  display: flex;
+  justify-content: center;
+}
+.record-item{
+  margin: 20px 30px;
+  font-size: 20px;
+  text-align: center;
+  list-style: none;
+}
+.record-list{
+  font-size: 28px;
+  text-align: center;
+  list-style: none;
+  margin: 30px;
 }

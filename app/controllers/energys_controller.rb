@@ -26,9 +26,13 @@ class EnergysController < ApplicationController
   
   def show
     @user = current_user
-    # @energy = current_user.energys.find(params[:id])
+    @days = current_user.days.where(date: @today)
     @today = Date.today#今日の日付 
     @energys = current_user.energys.where(date: @today)
+  end
+
+  def edit
+
   end
 
   private
