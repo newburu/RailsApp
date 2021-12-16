@@ -4,11 +4,10 @@
 </div>
 <p class="">ミッション</p>
 <div class="today"><%=@today%></div>
-  <% @energys.each do |energy| %>
-    <%= energy.protein.tap(&:to_i) %>
-  <% end %>
-  <%= @protein%>
-   <%# <%binding.pry%>
+ 
+<%= @protein_amount%>
+<%= @sugar_amount %>
+<%=@kcal_amount %>
          <% if @user.gender == "man" %>
         <% if @user.exercise == "everytime" %>
           <%= (@user.weight*1.2).round(0) %>

@@ -1,5 +1,7 @@
 <h2 class="page-title">日々の履歴</h2>
 <ul class="form-container">
+<%= @day%>
+  <%= form_with modle: @energy %>
   <li class="record-list">体重履歴</li>
     <% @days.each do |day| %>
     <li class="record-item">
@@ -27,7 +29,7 @@
     </li>
   <% end %>
   <%= link_to "編集", edit_energy_path%>
-  <%= link_to "削除", '#'%>
+  <%# <%= link_to "削除", energy_path(@energy.id), method: :delete %> %>
   </div>
 
   <div class="record-container">
