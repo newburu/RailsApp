@@ -1,13 +1,5 @@
 <h2 class="page-title">日々の履歴</h2>
 <ul class="form-container">
-<%= @day%>
-  <%= form_with modle: @energy %>
-  <li class="record-list">体重履歴</li>
-    <% @days.each do |day| %>
-    <li class="record-item">
-        <%= day.weight %>
-    </li>
-    <% end %>
   <li class="record-list">食事履歴</li>
   <div class="record-container">
     <div class="record-item">タンパク質</div>
@@ -16,6 +8,9 @@
   </div>
  <div class="record-container"> 
   <li class="record-item">朝</li>
+  <p class="radio-title">日付</p>
+  <%# <%= link_to "テスト", energy_path(@date)%> %>
+    <%binding.pry%>
   <% @energys.each do |energy| %>
     <li class="record-item">
       <%= energy.protein %>g
@@ -27,61 +22,10 @@
     <li class="record-item">
       <%= energy.kcal%>kcal
     </li>
+      <%= link_to "編集", edit_energy_path%>
+      <%= link_to "削除", energy_path(energy.id), method: :delete %>
   <% end %>
-  <%= link_to "編集", edit_energy_path%>
-  <%# <%= link_to "削除", energy_path(@energy.id), method: :delete %> %>
+
+
   </div>
 
-  <div class="record-container">
-  <li class="record-item">昼</li>
-  <% @energys.each do |energy| %>
-      <li class="record-item">
-          <%= energy.protein %>g
-      </li>
-      <li class="record-item">
-        <%= energy.sugar%>g
-      </li>
-
-      <li class="record-item">
-        <%= energy.kcal%>kcal
-      </li>
-    <% end %>
-    <%= link_to "編集", edit_energy_path%>
-    <%= link_to "削除", '#'%>
-    </div>
-    <div class="record-container">
-    <li class="record-item">夜</li>
-    <% @energys.each do |energy| %>
-      <li class="record-item">
-          <%= energy.protein %>g
-      </li>
-      <li class="record-item">
-        <%= energy.sugar%>g
-      </li>
-
-      <li class="record-item">
-        <%= energy.kcal%>kcal
-      </li>
-    <% end %>
-    <%= link_to "編集", edit_energy_path%>
-    <%= link_to "削除", '#'%>
-    </div>
-
-    <div class="record-container">
-    <li class="record-item">間食</li>
-    <% @energys.each do |energy| %>
-      <li class="record-item">
-          <%= energy.protein %>g
-      </li>
-      <li class="record-item">
-        <%= energy.sugar%>g
-      </li>
-
-      <li class="record-item">
-        <%= energy.kcal%>kcal
-      </li>
-    <% end %>
-    <%= link_to "編集", edit_energy_path%>
-    <%= link_to "削除", '#'%>
-  </div>
-</ul>
