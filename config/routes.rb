@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   get 'users/show'
   root 'homes#index'
+  get 'energys/day', to: "energys#day"
 
   resources :energys do
+    member do
+      get :list
+      post :list
+    end
   end
 
   resources :days, only:[:new, :create] do

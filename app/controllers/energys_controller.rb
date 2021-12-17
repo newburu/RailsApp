@@ -70,9 +70,26 @@ class EnergysController < ApplicationController
       render :new
     end
   end
-  
-  def show
-    @energys = current_user.energys.where(date: Date.today)#ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
+ 
+  def list
+    @date1 = params["date(1i)"].to_i
+    @date2= params["date(2i)"].to_i
+    @date3 = params["date(3i)"].to_i
+    # binding.pry
+    # @time = (params[:date]["date(1i)"].to_i,params[:date]["date(2i)"].to_i,params[:date]["date(3i)"].to_i)
+    @energys = current_user.energys.where(date: @date)#ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
+    @energys.each do |energy|
+    energy.protein
+    energy.sugar
+    energy.kcal
+    end
+  end
+
+  def day
+    logger.debug "テスト成功しました"
+    @date = params[:date]
+    # render action: :list
+
   end
 
   def edit
@@ -80,7 +97,7 @@ class EnergysController < ApplicationController
   end
 
   def destroy
-  # binding.pry
+ 
     @energys = Energy.find(params[:id])
     if @energys.user_id == current_user.id#もしログインしているユーザーのidと
       @energys.destroy#一致したら消去
