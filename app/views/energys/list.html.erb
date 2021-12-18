@@ -9,18 +9,16 @@
  <div class="record-container"> 
   <li class="record-item">朝</li>
   
-  <%= form_with url: list_energy_path(current_user.id), local: true do |f| %>
+  <%= form_with url: list_energy_path(current_user.id) do |f| %>
 
     <p class="radio-title">日付</p>
     
     <%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
      
   <%=f.submit "決定"%>
-    <%# <%binding.pry%> %>
+    <%# <%binding.pry %> %>
 <%end%>
-<%=@date1%>
-<%=@date2%>
-<%=@date3%>
+<%= @protein_lists %>
     <li class="record-item">
   
     </li>
