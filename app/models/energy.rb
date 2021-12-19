@@ -8,4 +8,12 @@ class Energy < ApplicationRecord
   validates :meal
   validates :date
   end
+
+    def user.gender
+    if exercise == "everytime"  #男性の場合
+       2600-kcla_amounts
+    elsif exercise == "Sometimes"#女性の場合
+
+    end
 end
+

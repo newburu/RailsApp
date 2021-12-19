@@ -1,36 +1,51 @@
 <h2 class="page-title">日々の履歴</h2>
 <ul class="form-container">
-  <li class="record-list">食事履歴</li>
+  <%= form_with url: list_energy_path(current_user.id),local:true do |f| %>
+    <p class="radio-title">日付</p> 
+    <%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
+    <%=f.submit "決定", class: "small-date-btn"%>
+  <%end%>
+<p class="record-list"><%=@date%>の履歴</p>
+  <li class="record-list">体重</li>
+  <li class="record-list">食事</li>
   <div class="record-container">
     <div class="record-item">タンパク質</div>
     <div class="record-item">糖質</div>
     <div class="record-item">カロリー</div>
   </div>
- <div class="record-container"> 
-  <li class="record-item">朝</li>
-  
-  <%= form_with url: list_energy_path(current_user.id) do |f| %>
-
-    <p class="radio-title">日付</p>
-    
-    <%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
-     
-  <%=f.submit "決定"%>
-    <%# <%binding.pry %> %>
-<%end%>
-<%= @protein_lists %>
-    <li class="record-item">
-  
-    </li>
-    <li class="record-item">
-    
-    </li>
-
-    <li class="record-item">
-   
-    </li>
+  <div class="record-container">
+    <%if @a == "morning"%>
+      <li class="record-item">朝</li>
+      <%= @protein_lists %>
+      <%= @sugar_lists %>
+      <%=@kcal_lists %>
+      <%# <%= link_to "編集", edit_energy_path%> %>
+      <%# <%= link_to "削除", energy_path(@energys.ids), method: :delete %> %>
+    <%elsif @a== "lunch"%>
+      <li class="record-item">昼</li>
+      <%= @protein_lists %>
+      <%= @sugar_lists %>
+      <%=@kcal_lists %>
       <%# <%= link_to "編集", edit_energy_path%>
-      <%# <%= link_to "削除", energy_path(energy.id), method: :delete %> %> %>
+      <%# <%= link_to "削除", energy_path(energy.id), method: :delete %>
+    <% elsif @a== "night" %>
+      <li class="record-item">夜</li>
+      <%= @protein_lists %>
+      <%= @sugar_lists %>
+      <%=@kcal_lists %>
+      <%= link_to "編集", edit_energy_path %>
+      <%= link_to "削除", energy_path(@energys.ids), method: :delete %>
+    <% else %>
+      <li class="record-item">間食</li>
+      <%= @protein_lists %>
+      <%= @sugar_lists %>
+      <%=@kcal_lists %>
+      <%# <%= link_to "編集", edit_energy_path%> %>
+      <%# <%= link_to "削除", energy_path(energy.id), method: :delete %> %>
+      <%# <%binding.pry%> %>
+    <%end%>
+
+
 
 
 
