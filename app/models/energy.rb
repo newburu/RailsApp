@@ -9,11 +9,37 @@ class Energy < ApplicationRecord
   validates :date
   end
 
-    def user.gender
-    if exercise == "everytime"  #男性の場合
-       2600-kcla_amounts
-    elsif exercise == "Sometimes"#女性の場合
-
+  #男性のカロリー
+  def my_kcal
+    if exercise == "everytime" and gender == "man" 
+      2600-kcal_amounts_sum
+    elsif exercise == "Sometimes" and gender == "man"
+      2400-kcal_amounts_sum
+    elsif execire == "donot" and gender == "man"
+      2200-kcal_amounts_sum
     end
-end
+  end
 
+  #男性のタンパク質
+  def my_protein
+    if self.exercise == "everytime" and self.gender == "man"
+      (user.weight*1.2).round(0)-protein_amounts
+    elsif self.exercise == "Sometimes" and self.gender == "man"
+      (user.weight*1).round(0)-protein_amounts
+    else self.exercise == "donot" and self.gender== "man"
+      (user.weight*1).round(0)-protein_amounts
+    end
+  end
+
+  #男性の糖質
+  def my_sugar
+    if exercise == "everytime" and gender == "man"
+      390-sugar_amounts_sum
+    elsif exercise == "Sometimes" and gender == "man"
+      360-sugar_amounts_sum
+    else exercise == "donot" and gender== "man"
+      330 -sugar_amounts_sum
+    end
+  end
+
+end
