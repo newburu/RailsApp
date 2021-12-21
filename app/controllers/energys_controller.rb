@@ -83,6 +83,7 @@ class EnergysController < ApplicationController
   end
 
   def list#(date: Date.today)
+  logger.debug @date
   # def list(date(1i): Date.today.year, date(2i): Date.today.month, date(3i): Date.today.day)
     @energys = current_user.energys.where(date: Date.today)
     if params["date(1i)"]
@@ -99,19 +100,19 @@ class EnergysController < ApplicationController
   end
 
   def update
-    #  binding.pry
-    @energy = Energy.find(params[:id])
-    if @energy.update(energy_params)
-      redirect_to list_energy_path(current_user)
+    @energys = Energy.find(params[:id])
+    if @energys.update(energy_params)
+      @date = Date.new params[:energy]["date(1i)"].to_i,params[:energy]["date(2i)"].to_i,params[:energy]["date(3i)"].to_i
+      # binding.pry
+      redirect_to list_energy_path(@date), notice: '更新しました'
     else
-      render :list
+      render :edit
     end
   end
 
   def destroy
     energy = Energy.find(params[:id])
     if energy.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
-    #  binding.pry
       energy.destroy
       redirect_to list_energy_path#一覧ページに戻る
     end
@@ -122,3 +123,4 @@ class EnergysController < ApplicationController
       params.require(:energy).permit(:protein, :sugar, :kcal, :meal, :date)
     end
 end
+

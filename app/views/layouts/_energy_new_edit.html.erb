@@ -28,7 +28,7 @@
     <%= f.number_field :kcal, step: "0", class: "form-field", required:"required", min: 0 %>
     <% if local_assigns[:edit_flag].present? %>
     <div class="btn-container">
-    <%= link_to "戻る", energys_path, class:"back-btn" %>
+    <%= link_to "戻る", list_energy_path, class:"back-btn" %>
     <%= f.submit "更新する",class: "yellow-btn" %>
     </div>
     <% else %>

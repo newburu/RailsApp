@@ -2,35 +2,33 @@
 <ul class="form-container">
   <%= form_with url: list_energy_path(current_user.id),local:true do |f| %>
     <p class="radio-title">日付</p> 
-    <%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
+    <%= f.date_select :date, {selected: params[:@date], use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
     <%=f.submit "決定", class: "small-date-btn"%>
   <% end %>
-  <p class="record-list"><%=@date%>の履歴</p>
   <li class="record-list">体重</li>
   <li class="record-list">食事</li>
   <div class="record-container">
-    <div class="record-item">タンパク質</div>
-    <div class="record-item">糖質</div>
-    <div class="record-item">カロリー</div>
+    <div class="record-item-left">タンパク質</div>
+    <div class="record-item-center">糖質</div>
+    <div class="record-item-right">カロリー</div>
   </div>
   <% @energys.each do |energy|%>
     <div class="record-container">
-      <p class="record-item"><%meal = energy.meal%></p>
-      <%if meal == "morning"%>
-        <p class="record-item">朝</p>
+      <% meal = energy.meal %>
+      <% if meal == "morning"%>
+        <p class="record-items">朝</p>
       <% elsif meal == "lunch" %>
-        <p class="record-item">昼</p>
+        <p class="record-items">昼</p>
       <% elsif meal == "night" %>
-        <p class="record-item">夜</p>
+        <p class="record-items">夜</p>
       <% else %>
-        <p class="record-item">間食</p>
-      <%end%>
-      <p class="record-item"><%= energy.protein%></p>
-      <p class="record-item"><%=energy.kcal%></p>
-      <p class="record-item"><%=energy.sugar%></p>
-      <p class="record-item"><%= link_to "編集", edit_energy_path(energy.id) %></p>
-      <p class="record-item"><%= link_to "削除", energy_path(energy.id), method: :delete%></p>
+        <p class="record-items">間食</p>
+      <% end %>
+      <p class="record-item-left"><%= energy.protein%>g</p>
+      <p class="record-item-center"><%= energy.sugar%>g</p>
+      <p class="record-item-right"><%= energy.kcal%>kcal</p>
+      <p class="record-items"><%= link_to "編集", edit_energy_path(energy.id) %></p>
+      <p class="record-items"><%= link_to "削除", energy_path(energy.id), method: :delete%></p>
     </div>
   <% end %>
 </ul>
-
