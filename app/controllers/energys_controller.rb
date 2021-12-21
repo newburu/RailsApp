@@ -1,67 +1,15 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit]
   def index
-    @today = Date.today#今日の日付
-    @goal_weight =  (current_user.weight*0.95).round(2)#目標体重を計算
-    energys = current_user.energys.where(date: @today)#ログインしているユーザーの今日の日付を全件取得（配列）
-    protein_amounts_sum = energys.pluck(:protein).sum#配列で取得した値をカラムごとの配列に直してsumメソッドでたす
-    sugar_amounts_sum = energys.pluck(:sugar).sum
-    kcal_amounts_sum = energys.pluck(:kcal).sum
-    # aptitude_protien_exercise_well = (user.weight*1.2).round(0)#毎日運動する人のタンパク質量（男性）
-    # aptitude_protein_exercise_sometimes = (user.weight*1).round(0)#それ以外の人のタンパク質量（男性）
-    # @protein_differences_everytime = aptitude_protien_exercise_well-protein_amounts#目安量から今日食べた合計を引いた量(よく運動する人)
-    # @man_protein_difference_sometimes = aptitude_protein_exercise_sometimes-protein_amounts#目安量から今日食べた合計を引いた量(それ以外の人&男)
-
-# binding.pry
-
-    # @my_protein_difference = user.my_protein
-    # @my_kcal_difference = user.my_kcal
-    # @my_sugar_difference = user.my_sugar
-
-
-     # if user.gender == "man"
-    #   if user.exercise == "everytime"
-    #     @protein_difference_everytime
-    #   else
-    #     @man_protein_difference_sometimes
-    #   end
-    #   if user.exercise == "everytime"
-    #     @man_kcal_difference_everytime = 2600-kcal_amounts
-    #   elsif user.exercise == "Sometimes"
-    #     @man_kcal_difference_sometimes = 2400-kcal_amounts
-    #   else
-    #     @man_kcal_difference_not = 2200-kcal_amounts
-    #   end
-    #   if user.exercise == "everytime"
-    #     390-sugar_amounts
-    #   elsif user.exercise == "Sometimes"
-    #     360-sugar_amounts
-    #   else
-    #     330-sugar_amounts
-    #   end
-    # else
-    #   if user.exercise == "everytime"
-    #     aptitude_protien_exercise_well-protein_amounts
-    #   else
-    #     50-protein_amounts
-    #   end
-    #   if user.exercise == "everytime" 
-    #     2200-kcal_amounts
-    #   elsif user.exercise == "Sometimes"
-    #     2000-kcal_amounts
-    #   else
-    #     1800-kcal_amounts
-    #   end
-    #   if user.exercise == "everytime"
-    #     330-sugar_amounts
-    #   elsif user.exercise == "Sometimes"
-    #     300-sugar_amounts
-    #   else
-    #     270-sugar_amounts
-    #   end
-    # end
-
-
+    @today = Date.today
+    #目標体重を計算
+    @goal_weight =  (current_user.weight*0.95).round(2)
+    #ログインしているユーザーの今日の日付を全件取得（配列）
+    energys = current_user.energys.where(date: @today)
+    #メイン画面で適性を超えてるのかを計算して表示する
+    @protein_amounts_sum = energys.pluck(:protein).sum
+    @sugar_amounts_sum = energys.pluck(:sugar).sum
+    @kcal_amounts_sum = energys.pluck(:kcal).sum
   end
 
   def new

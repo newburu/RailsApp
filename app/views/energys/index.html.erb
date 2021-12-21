@@ -2,31 +2,28 @@
   <p class="page-title">今日の記録</p>
   <div class="goal-weight">目標体重:<%= @goal_weight %>kg</div>
 </div>
-<p class="s">ミッション</p>
-<div class="today"><%=@today%></div>
-<%= @my_prtotein_difference %>
+<p class="">ミッション</p>
+<div class="today"><%= @today %></div>
+<% if @protein_difference = @protein_amounts_sum - protein_amounts>0 %>
+  <p class="green-coment"><%="あと#{@protein_difference}g食べれます" %></p>
+<%elsif @protein_difference = @protein_amounts_sum - protein_amounts == 0 %>
+  <p class="green-coment">ちょうどです</p>
+<% else @protein_difference = @protein_amounts_sum - protein_amounts%>
+  <p class="red-coment"><%="#{@protein_difference}gオーバしてます注意しましょう" %></p>
+<% end %>
 
-<%# <% if @protein_difference_everytime>0 %> %>
-<%# <p class="green-coment"><%="あと#{@protein_difference_everytime}g食べれます"%> %>
-<%# <%elsif @protein_difference_everytime == 0%> %>
-<%# <p class="green-coment">ちょうどです</p> %>
-<%# <% else %> %>
-<%# <p class="red-coment"><%="#{@protein_difference_everytime}gオーバしてます注意しましょう"%></p> %>
-<%# <% end %> %>
+<% if @sugar_difference = @sugar_amounts_sum - sugar_amounts>0 %>
+  <p class="green-coment"><%="あと#{@sugar_difference}g食べれます" %></p>
+<%elsif @sugar_difference = @sugar_amounts_sum - sugar_amounts == 0 %>
+  <p class="green-coment">ちょうどです</p>
+<% else @sugar_difference = @sugar_amounts_sum - sugar_amounts%>
+  <p class="red-coment"><%="#{@sugar_difference}gオーバしてます注意しましょう" %></p>
+<% end %>
 
-<%# <% if  @man_protein_difference_sometimes>0 %> %>
-<%# <p class="green-coment"><%="あと#{ @man_protein_difference_sometimes}g食べれます"%> %>
-<%# <%elsif  @man_protein_difference_sometimes == 0%> %>
-<%# <p class="green-coment">ちょうどです</p> %>
-<%# <% else %> %>
-<%# <p class="red-coment"><%="#{ @man_protein_difference_sometimes}gオーバしてます注意しましょう"%></p> %>
-<%# <% end %> %>
-
-
-<%# <% if @man_kcal_difference_sometimes>0 %> %>
-  <%# <p class="green-coment"><%="あと#{@man_kcal_difference_sometimes}kcal食べていいですよ"%></p> %>
-<%# <% elsif @man_kcal_difference_sometimes==0 %> %>
-<%# <p class="green-coment">ちょうどです</p> %>
-<%# <% else %> %>
-  <%# <p class="red-coment"><%="#{@man_kcal_difference_sometimes}kcalオーバしてます注意しましょう"%></p> %>
-<%# <%end %> %>
+<% if @kcal_difference = @kcal_amounts_sum - kcal_amounts>0 %>
+  <p class="green-coment"><%="あと#{@kcal_difference}g食べれます" %></p>
+<%elsif @kcal_difference = @kcal_amounts_sum - kcal_amounts == 0 %>
+  <p class="green-coment">ちょうどです</p>
+<% else @kcal_difference = @kcal_amounts_sum - kcal_amounts%>
+  <p class="red-coment"><%="#{@protein_difference}gオーバしてます注意しましょう" %></p>
+<% end %>
