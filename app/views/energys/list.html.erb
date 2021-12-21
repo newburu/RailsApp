@@ -2,7 +2,7 @@
 <ul class="form-container">
   <%= form_with url: list_energy_path(current_user.id),local:true do |f| %>
     <p class="radio-title">日付</p> 
-    <%= f.date_select :date, {selected: params[:@date], use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
+    <%= f.date_select :date, {selected: @date, use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
     <%=f.submit "決定", class: "small-date-btn"%>
   <% end %>
   <li class="record-list">体重</li>

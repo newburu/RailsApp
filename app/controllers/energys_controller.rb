@@ -1,9 +1,8 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit]
   def index
-    user = current_user
     @today = Date.today#今日の日付
-    @goal_weight =  (user.weight*0.95).round(2)#目標体重を計算
+    @goal_weight =  (current_user.weight*0.95).round(2)#目標体重を計算
     energys = current_user.energys.where(date: @today)#ログインしているユーザーの今日の日付を全件取得（配列）
     protein_amounts_sum = energys.pluck(:protein).sum#配列で取得した値をカラムごとの配列に直してsumメソッドでたす
     sugar_amounts_sum = energys.pluck(:sugar).sum
@@ -14,8 +13,7 @@ class EnergysController < ApplicationController
     # @man_protein_difference_sometimes = aptitude_protein_exercise_sometimes-protein_amounts#目安量から今日食べた合計を引いた量(それ以外の人&男)
 
 # binding.pry
-    #新しく描いたエラー
-    #userがないってエラーがでる呼び出し方は合ってる
+
     # @my_protein_difference = user.my_protein
     # @my_kcal_difference = user.my_kcal
     # @my_sugar_difference = user.my_sugar
@@ -83,7 +81,9 @@ class EnergysController < ApplicationController
   end
 
   def list#(date: Date.today)
-  logger.debug @date
+ 
+  @date = params[:date].to_i
+    binding.pry
   # def list(date(1i): Date.today.year, date(2i): Date.today.month, date(3i): Date.today.day)
     @energys = current_user.energys.where(date: Date.today)
     if params["date(1i)"]
@@ -103,8 +103,8 @@ class EnergysController < ApplicationController
     @energys = Energy.find(params[:id])
     if @energys.update(energy_params)
       @date = Date.new params[:energy]["date(1i)"].to_i,params[:energy]["date(2i)"].to_i,params[:energy]["date(3i)"].to_i
-      # binding.pry
-      redirect_to list_energy_path(@date), notice: '更新しました'
+      #  binding.pry
+      redirect_to controller: 'energys', action: 'list', date:@date, notice: '更新しました'
     else
       render :edit
     end
@@ -122,5 +122,6 @@ class EnergysController < ApplicationController
     def energy_params#ストロングパラメーターでタンパク質と糖質とカロリーと日付と食事のみを保存するようにしている
       params.require(:energy).permit(:protein, :sugar, :kcal, :meal, :date)
     end
+    
 end
 
