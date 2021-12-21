@@ -82,33 +82,38 @@ class EnergysController < ApplicationController
     end
   end
 
-  def list(date: Date.today)
+  def list#(date: Date.today)
   # def list(date(1i): Date.today.year, date(2i): Date.today.month, date(3i): Date.today.day)
-    @energys = current_user.energys.where(date: date)
-    logger.debug date
-    @date = Date.new params["date(1i)"].to_i,params["date(2i)"].to_i,params["date(3i)"].to_i
-    
-    #日々の履歴ボタンを押されたら最初にデフォルトで表示される
-    logger.debug "日付が違います"   
-    #viewの引数を.to_iを使って数字にした
-    #  binding.pry
-    #日付を連結してdateカラムで検索できるようにした 
-    # logger.debug @date
-    #ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
-    @energys = current_user.energys.where(date: @date)
+    @energys = current_user.energys.where(date: Date.today)
+    if params["date(1i)"]
+      #日付を連結してdateカラムで検索できるようにした
+      @date = Date.new params["date(1i)"].to_i,params["date(2i)"].to_i,params["date(3i)"].to_i
+      #ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
+      @energys = current_user.energys.where(date: @date)
+    end
   end
 
 
   def edit
+    @energy = Energy.find(params[:id])
+  end
 
+  def update
+    #  binding.pry
+    @energy = Energy.find(params[:id])
+    if @energy.update(energy_params)
+      redirect_to list_energy_path(current_user)
+    else
+      render :list
+    end
   end
 
   def destroy
-#  binding.pry
-    energys = Energy.find(params[:id])
-    if energys.user_id == current_user.id#もしログインしているユーザーのidと
-      energys.destroy#一致したら消去
-      render action: :list#一覧ページに戻る
+    energy = Energy.find(params[:id])
+    if energy.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
+    #  binding.pry
+      energy.destroy
+      redirect_to list_energy_path#一覧ページに戻る
     end
   end
 
