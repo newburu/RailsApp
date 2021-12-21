@@ -16,9 +16,9 @@ class EnergysController < ApplicationController
 # binding.pry
     #新しく描いたエラー
     #userがないってエラーがでる呼び出し方は合ってる
-    @my_protein_difference = user.my_protein
-    @my_kcal_difference = user.my_kcal
-    @my_sugar_difference = user.my_sugar
+    # @my_protein_difference = user.my_protein
+    # @my_kcal_difference = user.my_kcal
+    # @my_sugar_difference = user.my_sugar
 
 
      # if user.gender == "man"
@@ -83,32 +83,19 @@ class EnergysController < ApplicationController
   end
 
   def list(date: Date.today)
-    @date = date
+  # def list(date(1i): Date.today.year, date(2i): Date.today.month, date(3i): Date.today.day)
+    @energys = current_user.energys.where(date: date)
+    logger.debug date
+    @date = Date.new params["date(1i)"].to_i,params["date(2i)"].to_i,params["date(3i)"].to_i
+    
     #日々の履歴ボタンを押されたら最初にデフォルトで表示される
-    @energys = current_user.energys.where(date: @date)
-    # binding.pry
     logger.debug "日付が違います"   
     #viewの引数を.to_iを使って数字にした
-    # date_year = params["date(1i)"].to_i
-    # date_month = params["date(2i)"].to_i
-    # date_day = params["date(3i)"].to_i
     #  binding.pry
     #日付を連結してdateカラムで検索できるようにした 
-    if params["date(1i)"]
-    @date = Date.new params["date(1i)"].to_i,params["date(2i)"].to_i,params["date(3i)"].to_i
+    # logger.debug @date
     #ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
     @energys = current_user.energys.where(date: @date)
-    
-    end       
-      @protein_lists = @energys.pluck(:protein)
-      @sugar_lists = @energys.pluck(:sugar)
-      @kcal_lists = @energys.pluck(:kcal)
-      @meal_lists = @energys.pluck(:meal)
-
-      @meal_lists.each do |meal_list|
-      @a = p meal_list
-      end
-      
   end
 
 
@@ -116,14 +103,14 @@ class EnergysController < ApplicationController
 
   end
 
-  # def destroy
-  #   @energys = Energy.find(params[:id])
-  #   if @energys.user_id == current_user.id#もしログインしているユーザーのidと
-  #     @energys.destroy#一致したら消去
-  #     # render :list#一覧ページに戻る
-  #     binding.pry
-  #   end
-  # end
+  def destroy
+#  binding.pry
+    energys = Energy.find(params[:id])
+    if energys.user_id == current_user.id#もしログインしているユーザーのidと
+      energys.destroy#一致したら消去
+      render action: :list#一覧ページに戻る
+    end
+  end
 
   private
     def energy_params#ストロングパラメーターでタンパク質と糖質とカロリーと日付と食事のみを保存するようにしている

@@ -14,19 +14,19 @@
 <%# <p class="red-coment"><%="#{@protein_difference_everytime}gオーバしてます注意しましょう"%></p> %>
 <%# <% end %> %>
 
-<% if  @man_protein_difference_sometimes>0 %>
-<p class="green-coment"><%="あと#{ @man_protein_difference_sometimes}g食べれます"%>
-<%elsif  @man_protein_difference_sometimes == 0%>
-<p class="green-coment">ちょうどです</p>
-<% else %>
-<p class="red-coment"><%="#{ @man_protein_difference_sometimes}gオーバしてます注意しましょう"%></p>
-<% end %>
+<%# <% if  @man_protein_difference_sometimes>0 %> %>
+<%# <p class="green-coment"><%="あと#{ @man_protein_difference_sometimes}g食べれます"%> %>
+<%# <%elsif  @man_protein_difference_sometimes == 0%> %>
+<%# <p class="green-coment">ちょうどです</p> %>
+<%# <% else %> %>
+<%# <p class="red-coment"><%="#{ @man_protein_difference_sometimes}gオーバしてます注意しましょう"%></p> %>
+<%# <% end %> %>
 
 
-<% if @man_kcal_difference_sometimes>0 %>
-  <p class="green-coment"><%="あと#{@man_kcal_difference_sometimes}kcal食べていいですよ"%></p>
-<% elsif @man_kcal_difference_sometimes==0 %>
-<p class="green-coment">ちょうどです</p>
-<% else %>
-  <p class="red-coment"><%="#{@man_kcal_difference_sometimes}kcalオーバしてます注意しましょう"%></p>
-<%end%>
+<%# <% if @man_kcal_difference_sometimes>0 %> %>
+  <%# <p class="green-coment"><%="あと#{@man_kcal_difference_sometimes}kcal食べていいですよ"%></p> %>
+<%# <% elsif @man_kcal_difference_sometimes==0 %> %>
+<%# <p class="green-coment">ちょうどです</p> %>
+<%# <% else %> %>
+  <%# <p class="red-coment"><%="#{@man_kcal_difference_sometimes}kcalオーバしてます注意しましょう"%></p> %>
+<%# <%end %> %>

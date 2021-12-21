@@ -13,41 +13,26 @@
     <div class="record-item">糖質</div>
     <div class="record-item">カロリー</div>
   </div>
+    
+<% @energys.each do |energy|%>
+<%logger.debug @energys%>
+<%# <%binding.pry%> %>
   <div class="record-container">
-    <%if @a == "morning"%>
-      <li class="record-item">朝</li>
-      <%= @protein_lists %>
-      <%= @sugar_lists %>
-      <%=@kcal_lists %>
-      <%# <%= link_to "編集", edit_energy_path%> %>
-      <%# <%= link_to "削除", energy_path(@energys.ids), method: :delete %> %>
-    <%elsif @a== "lunch"%>
-      <li class="record-item">昼</li>
-      <%= @protein_lists %>
-      <%= @sugar_lists %>
-      <%=@kcal_lists %>
-      <%# <%= link_to "編集", edit_energy_path%>
-      <%# <%= link_to "削除", energy_path(energy.id), method: :delete %>
-    <% elsif @a== "night" %>
-      <li class="record-item">夜</li>
-      <%= @protein_lists %>
-      <%= @sugar_lists %>
-      <%=@kcal_lists %>
-      <%= link_to "編集", edit_energy_path %>
-      <%= link_to "削除", energy_path(@energys.ids), method: :delete %>
+    <p class="record-item"><%meal = energy.meal%></p>
+    <%if meal == "morning"%>
+    <p class="record-item">朝</p>
+    <% elsif meal == "lunch" %>
+    <p class="record-item">昼</p>
+    <% elsif meal == "night" %>
+    <p class="record-item">夜</p>
     <% else %>
-      <li class="record-item">間食</li>
-      <%= @protein_lists %>
-      <%= @sugar_lists %>
-      <%=@kcal_lists %>
-      <%# <%= link_to "編集", edit_energy_path%> %>
-      <%# <%= link_to "削除", energy_path(energy.id), method: :delete %> %>
-      <%# <%binding.pry%> %>
+    <p class="record-item">間食</p>
     <%end%>
-
-
-
-
-
+    <p class="record-item"><%= energy.protein%></p>
+    <p class="record-item"><%=energy.kcal%></p>
+    <p class="record-item"><%=energy.sugar%></p>
+    <p class="record-item"><%= link_to "編集", edit_energy_path %></p>
+    <p class="record-item"><%= link_to "削除", energy_path(energy.id), method: :delete%></p>
+    
   </div>
-
+<%end %>
