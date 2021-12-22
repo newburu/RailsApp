@@ -14,14 +14,12 @@ class EnergysController < ApplicationController
   end
 
   def new
-   @user = current_user#ログインしてるユーザーを代入
    @energy = Energy.new#Energyモデルのインスタンスを作る
   end
 
   def create
-    @energy = current_user.energys.build(energy_params)#ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
-    #energysで複数形になってるのはUserモデルと1対多の関係にあるため
-    #buildはnewと一緒の役割だけどモデルの関連付ける際はbuildを使う
+    #ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
+    @energy = current_user.energys.build(energy_params)
     if @energy.save
       redirect_to energys_path, notice: '登録しました'
     else 
