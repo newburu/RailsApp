@@ -2,6 +2,7 @@ class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
     @today = Date.today
+    @day_weight = current_user.days.find_by(date: Date.today)
     #目標体重を計算
     @goal_weight =  (current_user.weight*0.95).round(2)
     #ログインしているユーザーの今日の日付を全件取得（配列）
@@ -10,9 +11,14 @@ class EnergysController < ApplicationController
     @protein_amounts_sum = energys.pluck(:protein).sum
     @sugar_amounts_sum = energys.pluck(:sugar).sum
     @kcal_amounts_sum = energys.pluck(:kcal).sum
-    # binding.pry
-    #メイン画面のグラフに使う
-    @day_weight = current_user.days.find_by(date: @date)
+    
+    if params[:date_year]
+      @date = Date.new params[:date_year].to_i,params[:date_month].to_i,params[:date_day].to_i
+      #メイン画面のグラフに使う
+      @day_weight = current_user.days.find_by(date: @date)
+      # binding.pry
+    end
+
   end
 
   def new
@@ -57,6 +63,7 @@ class EnergysController < ApplicationController
     if @energys.update(energy_params)
       flash[:notice] = '更新しました'
       redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
+    # binding.pry
     else
       render :edit
     end

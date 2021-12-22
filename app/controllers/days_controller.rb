@@ -6,10 +6,11 @@ before_action :authenticate_user!, only: [:record,:new,:create]
 
   def create
     day = current_user.days.build(day_params)
-    binding.pry
+    
     if day.save
-      redirect_to energys_path, date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"], notice: '今日の体重を保存しました'
-      flash[:notice] = '更新しました'
+      redirect_to controller: 'energys', action: 'index', date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"]
+      flash[:notice] = '今日の体重を保存しました'
+      # binding.pry
     else
       render :new
     end
