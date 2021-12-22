@@ -13,9 +13,9 @@ class EnergysController < ApplicationController
     @kcal_amounts_sum = energys.pluck(:kcal).sum
     
     if params[:date_year]
-      @date = Date.new params[:date_year].to_i,params[:date_month].to_i,params[:date_day].to_i
+      @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
       #メイン画面のグラフに使う
-      @day_weight = current_user.days.find_by(date: @date)
+      @day_weights = current_user.days.distinct.pluck(:date)
       # binding.pry
     end
 
@@ -27,6 +27,7 @@ class EnergysController < ApplicationController
 
   def create
     #ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
+            binding.pry
     @energy = current_user.energys.build(energy_params)
     if @energy.save
       redirect_to energys_path, notice: '登録しました'
@@ -41,13 +42,13 @@ class EnergysController < ApplicationController
     @energys = current_user.energys.where(date: Date.today)
     #編集されたらその日付をviewに渡す
     if params[:date_year]
-      @date = Date.new params[:date_year].to_i,params[:date_month].to_i,params[:date_day].to_i
+      @date = Date.new params[:date_year].to_i, params[:date_month].to_i,params[:date_day].to_i
       @energys = current_user.energys.where(date: @date)
     end
     #viewで入力された日付に紐づいたインスタンス
     if params["date(1i)"]
       #日付を連結してdateカラムで検索できるようにした
-      @date = Date.new params["date(1i)"].to_i,params["date(2i)"].to_i,params["date(3i)"].to_i
+      @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i,params["date(3i)"].to_i
       #ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
       @energys = current_user.energys.where(date: @date)
     end
@@ -63,7 +64,6 @@ class EnergysController < ApplicationController
     if @energys.update(energy_params)
       flash[:notice] = '更新しました'
       redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
-    # binding.pry
     else
       render :edit
     end
