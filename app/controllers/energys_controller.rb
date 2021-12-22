@@ -27,19 +27,19 @@ class EnergysController < ApplicationController
 
   def create
     #ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
-    energy = current_user.energys.build(energy_params)
+    @energy = current_user.energys.build(energy_params)
     date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i,energy_params["date(3i)"].to_i
     #登録する食事が既にDBにあるかを確認する
-    confirmation_data = current_user.energys.where(date: date).where(meal: energy_params[:meal])
-              #  binding.pry
-    if energy.meal == "snack"
-      energy.save
+    confirmation_data = current_user.energys.exists?(date: date, meal: energy_params[:meal])
+            #  binding.pry
+    if @energy.meal == "snack"
+      @energy.save
       redirect_to energys_path, notice: '登録しました'
     elsif confirmation_data
       flash.now[:alert] = "既に登録されています"
       render :new
     else
-      energy.save
+      @energy.save
       redirect_to energys_path, notice: '登録しました' 
     end
   end
