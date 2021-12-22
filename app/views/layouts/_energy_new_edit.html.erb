@@ -1,0 +1,40 @@
+<div class="form-container">
+
+<p class="radio-title">日付</p>
+<%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
+<p class="radio-title">食事</p>
+<%= f.radio_button :meal, :morning, checked: true %>
+    <%= f.label :meal, "朝", {value: :morning}%>
+                
+    <%= f.radio_button :meal, :lunch %>
+    <%= f.label :meal, "昼", {value: :lunch}%>
+
+    <%= f.radio_button :meal, :night %>
+    <%= f.label :meal, "夜", {value: :night}%>
+
+    <%= f.radio_button :meal, :snack %>
+    <%= f.label :meal, "間食", {value: :snack}%>
+    <p class="red-text">朝昼夜は1日に１回づつしか登録できません</p>
+
+    <%= f.label :protein, "タンパク質(g)", {class: 'label-class'}%>
+    <%= f.number_field :protein, step: "0", class: "form-field", required:"required", min: 0, max: 30 %>
+    <p class="red-text">※タンパク質は１食につき30gまでしか吸収されないためそれ以上は入力できません</p>
+
+    <%= f.label :sugar, "糖質(g)", {class: 'label-class'}%>
+    <%= f.number_field :sugar, step: "0", class: "form-field", required:"required", min: 0 %>
+    <p class="red-text">※糖質の量が分からない時は炭水化物の量を入力してください</p>
+
+    <%= f.label :kcal, "カロリー(kcal)", {class: 'label-class'}%>
+    <%= f.number_field :kcal, step: "0", class: "form-field", required:"required", min: 0 %>
+    <% if local_assigns[:edit_flag].present? %>
+    <div class="btn-container">
+    <%= link_to "戻る", list_energy_path, class:"back-btn" %>
+    <%= f.submit "更新する",class: "yellow-btn" %>
+    </div>
+    <% else %>
+    <div class="btn-container">
+      <%= link_to "戻る", energys_path, class:"back-btn" %>
+      <%= f.submit "登録する", class: "yellow-btn"%>
+    </div>
+<%end%>
+</div>

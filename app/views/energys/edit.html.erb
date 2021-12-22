@@ -1,0 +1,5 @@
+<h2 class="page-title">登録した食事を編集します</h2>
+<%= render 'layouts/error_message' %>
+<%= form_with model: @energy, local: true do |f| %>
+<%= render 'layouts/energy_new_edit', f: f, edit_flag: true %>
+<% end %>

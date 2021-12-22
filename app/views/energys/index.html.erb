@@ -1,49 +1,35 @@
 <div class="record-container">
   <p class="page-title">今日の記録</p>
-  <div class="goal-weight">目標体重:<%= goalweight %>kg</div>
+  <div class="goal-weight">目標体重:<%= @goal_weight %>kg</div>
 </div>
-<% if @user.gender == "man" %>
-        <% if @user.exercise == "everytime" %>
-          <%= (@user.weight*1.2).round(0)%>G
-        <% else %>
-          <%= (@user.weight*1).round(0) %>G
-        <% end %>
-      
-        <% if @user.exercise == "everytime" %>
-          2600kcal
-        <% elsif @user.exercise == "Sometimes" %>
-          2400kcal
-        <% else %>
-          2200kal
-        <% end %>
+<p class="">本日のミッション</p>
+<div class="today"><%= @today %></div>
+<div class="message-container">
+<% if (@protein_amounts_sum - protein_amounts) >0 %>
 
-  
-        <% if @user.exercise == "everytime" %>
-          390g
-        <% elsif @user.exercise == "Sometimes" %>
-          360g
-        <% else %>
-          330g
-        <% end %>
-  <% else %>
-    <% if @user.exercise == "everytime" %>
-      <%= (@user.weight*1.2).round(0) %>G
-    <% else %>
-      50g
-    <% end %>
-
-    <% if @user.exercise == "everytime" %>
-      2200kcal
-    <% elsif @user.exercise == "Sometimes" %>
-      2000kcal
-    <% else %>
-      1800kcal
-    <% end %>
-    <% if @user.exercise == "everytime" %>
-      330g
-    <% elsif @user.exercise == "Sometimes" %>
-      300g
-    <% else %>
-      270g
-    <% end %>
+  <p class="red-coment"><%="あと#{@protein_amounts_sum - protein_amounts}g食べましょう！" %></p>
+<% else %>
+  <p class="green-coment">目標達成！！</p>
 <% end %>
+</div>
+<div class="message-container">
+<% if (@sugar_amounts_sum - sugar_amounts) >0 %>
+  <p class="green-coment"><%="あと#{@sugar_amounts_sum - sugar_amounts}g食べれます" %></p>
+<%elsif (@sugar_amounts_sum - sugar_amounts) == 0 %>
+  <p class="green-coment">ちょうどです</p>
+<% else %>
+  <p class="red-coment"><%="#{(@sugar_amounts_sum - sugar_amounts).abs}gオーバしてます注意しましょう!!" %></p>
+<% end %>
+</div>
+
+<div class="message-container">
+<% if (@kcal_amounts_sum - kcal_amounts) > 0 %>
+  <p class="green-coment"><%="あと#{@kcal_amounts_sum - kcal_amounts}kcal食べましょう！！" %></p>
+ 
+<%elsif @kcal_amounts_sum - kcal_amounts == 0 %>
+  <p class="green-coment">ちょうどです</p>
+<% else %>
+  <p class="red-coment"><%="#{(@kcal_amounts_sum - kcal_amounts).abs}kcalオーバしてます注意しましょう!!" %></p>
+   <%# <%binding.pry%>
+<% end %>
+</div>
