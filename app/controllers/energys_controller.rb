@@ -10,6 +10,7 @@ class EnergysController < ApplicationController
     @protein_amounts_sum = energys.pluck(:protein).sum
     @sugar_amounts_sum = energys.pluck(:sugar).sum
     @kcal_amounts_sum = energys.pluck(:kcal).sum
+    # binding.pry
   end
 
   def new
@@ -54,7 +55,8 @@ class EnergysController < ApplicationController
   def update
     @energys = Energy.find(params[:id])
     if @energys.update(energy_params)
-      redirect_to controller: 'energys', action: 'list', date1: params[:energy]["date(1i)"],date2: params[:energy]["date(2i)"],date3: params[:energy]["date(3i)"], notice: '更新しました'
+      flash[:notice] = '更新しました'
+      redirect_to controller: 'energys', action: 'list', date1: params[:energy]["date(1i)"], date2: params[:energy]["date(2i)"], date3: params[:energy]["date(3i)"]
     else
       render :edit
     end
@@ -64,7 +66,7 @@ class EnergysController < ApplicationController
     energy = Energy.find(params[:id])
     if energy.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
       energy.destroy
-      redirect_to list_energy_path#一覧ページに戻る
+      redirect_to list_energy_path, notice: '削除しました'#一覧ページに戻る
     end
   end
 
