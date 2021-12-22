@@ -24,12 +24,6 @@
   @include btn;
   background-color: lime;
 }
-.record-container{
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 30px;
-}
 .sub-explanation{
   text-align: center;
   margin: 30px 0;
@@ -43,15 +37,6 @@
   text-align: center;
   margin: 0 50px 0 0;
 }
-.home-title{
-  margin: 30px;
-  font-size: 36px;
-  letter-spacing: 0.12em;
-}
-.record-table{
-  margin: 0px auto;
-  font-size: 20px;
-}
 .date_field{
   background-color: white;
   padding: 10px;
@@ -60,8 +45,10 @@
 }
 .record-container{
   display: flex;
-  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 }
+.p
 .record-items{
   font-size: 20px;
   margin: 0;
@@ -91,3 +78,18 @@ margin: 10px 20px;
   margin: 10px auto;
   background-color: chartreuse;
   }
+.index-left-items{
+  width: 700px;
+  min-width: 300px;
+  text-align: center;
+  margin: 30px 50px;
+  font-size: 22px;
+  }
+.green-coment{
+  color:chartreuse;
+  
+  }
+.red-coment{
+color: red;
+// text-align: center;
+}
