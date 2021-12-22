@@ -3,12 +3,6 @@
 <div class= "form-container">
   <%= form_with model: @day, url: days_path(@user), method: :post, local: true do |f| %>
     <p class="radio-title">日付</p>
-    <%# <%= f.radio_button :gender, :man, checked: true %>
-    <%# <%= f.label :gender, "今日", {value: :man}%> 
-                
-    <%# <%= f.radio_button :gender, :woman %> 
-    <%# <%= f.label :gender, "昨日", {value: :woman}%>
-
     <%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
     <%= f.label :weight, "今日の体重(g)", {class: 'label-class'} %>
     <%= f.number_field :weight, step:"0.1", class: "form-field", required:"required", min: 30, max: 150 %>

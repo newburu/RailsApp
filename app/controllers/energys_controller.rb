@@ -1,5 +1,5 @@
 class EnergysController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit]
+  before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
     @today = Date.today
     #目標体重を計算
@@ -11,6 +11,8 @@ class EnergysController < ApplicationController
     @sugar_amounts_sum = energys.pluck(:sugar).sum
     @kcal_amounts_sum = energys.pluck(:kcal).sum
     # binding.pry
+    #メイン画面のグラフに使う
+    @day_weight = current_user.days.find_by(date: @date)
   end
 
   def new
@@ -32,8 +34,8 @@ class EnergysController < ApplicationController
     @date = Date.today
     @energys = current_user.energys.where(date: Date.today)
     #編集されたらその日付をviewに渡す
-    if params[:date1]
-      @date = Date.new params[:date1].to_i,params[:date2].to_i,params[:date3].to_i
+    if params[:date_year]
+      @date = Date.new params[:date_year].to_i,params[:date_month].to_i,params[:date_day].to_i
       @energys = current_user.energys.where(date: @date)
     end
     #viewで入力された日付に紐づいたインスタンス
@@ -54,7 +56,7 @@ class EnergysController < ApplicationController
     @energys = Energy.find(params[:id])
     if @energys.update(energy_params)
       flash[:notice] = '更新しました'
-      redirect_to controller: 'energys', action: 'list', date1: params[:energy]["date(1i)"], date2: params[:energy]["date(2i)"], date3: params[:energy]["date(3i)"]
+      redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
     else
       render :edit
     end
