@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :days, only:[:new, :create] do
+  resources :days do
    collection do
       get :record
     end
