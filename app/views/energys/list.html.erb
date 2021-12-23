@@ -10,7 +10,7 @@
     <div class="record-container">
       <p class="record-items"><%= weight.weight%></p>
       <p class="record-items"><%= link_to "編集", edit_day_path(weight.id) %></p>
-      <p class="record-items"><%= link_to "削除", day_path(weight.id), method: :delete%></p>
+      <p class="record-items"><%= link_to "削除", day_path(weight.id), method: :delete, data: { confirm: "削除しますか？" }%></p>
     </div>
   <% end %>
   <li class="record-list">食事</li>
@@ -35,7 +35,7 @@
       <p class="record-item-center"><%= energy.sugar%>g</p>
       <p class="record-item-right"><%= energy.kcal%>kcal</p>
       <p class="record-items"><%= link_to "編集", edit_energy_path(energy.id) %></p>
-      <p class="record-items"><%= link_to "削除", energy_path(energy.id), method: :delete%></p>
+      <p class="record-items"><%= link_to "削除", energy_path(energy.id), method: :delete, data: { confirm: "削除しますか？" }%></p>
     </div>
   <% end %>
 </ul>

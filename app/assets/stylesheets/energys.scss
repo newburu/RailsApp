@@ -78,16 +78,20 @@ margin: 10px 20px;
   background-color: chartreuse;
   }
 .index-left-items{
-  width: 700px;
-  min-width: 300px;
-  text-align: center;
   margin: 30px 50px;
   font-size: 22px;
   }
+  .nutrition-item-container{
+  font-size: 22px;
+  display: flex;
+  list-style: none;
+  align-items: center;
+  }
 .green-coment{
   color: blue;
+  margin: 10px 50px;
   }
 .red-coment{
 color: red;
-// text-align: center;
+margin: 10px 50px;
 }
