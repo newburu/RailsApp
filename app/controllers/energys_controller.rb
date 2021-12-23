@@ -2,7 +2,7 @@ class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
     @today = Date.today
-    @day_weight = current_user.days.find_by(date: Date.today)
+    @day_weight = current_user.days.where(date: Date.today)
     #目標体重を計算
     @goal_weight =  (current_user.weight*0.95).round(2)
     #ログインしているユーザーの今日の日付を全件取得（配列）
@@ -13,9 +13,9 @@ class EnergysController < ApplicationController
     @kcal_amounts_sum = energys.pluck(:kcal).sum
     
     if params[:date_year]
-      @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
       #メイン画面のグラフに使う
-      @day_weights = current_user.days.distinct.pluck(:date)
+      @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
+      @day_weights = current_user.days.find_by(date: @date)
       binding.pry
     end
 
@@ -31,16 +31,15 @@ class EnergysController < ApplicationController
     date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i,energy_params["date(3i)"].to_i
     #登録する食事が既にDBにあるかを確認する
     confirmation_data = current_user.energys.exists?(date: date, meal: energy_params[:meal])
-            #  binding.pry
     if @energy.meal == "snack"
       @energy.save
-      redirect_to energys_path, notice: '登録しました'
+      redirect_to energys_path, notice: '食事を登録しました'
     elsif confirmation_data
       flash.now[:alert] = "既に登録されています"
       render :new
     else
       @energy.save
-      redirect_to energys_path, notice: '登録しました' 
+      redirect_to energys_path, notice: '食事を登録しました' 
     end
   end
 
