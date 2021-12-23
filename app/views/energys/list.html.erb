@@ -6,6 +6,13 @@
     <%=f.submit "決定", class: "small-date-btn"%>
   <% end %>
   <li class="record-list">体重</li>
+  <% @weight.each do |weight| %>
+    <div class="record-container">
+      <p class="record-items"><%= weight.weight%></p>
+      <p class="record-items"><%= link_to "編集", edit_day_path(weight.id) %></p>
+      <p class="record-items"><%= link_to "削除", day_path(weight.id), method: :delete%></p>
+    </div>
+  <% end %>
   <li class="record-list">食事</li>
   <div class="record-container">
     <div class="record-item-left">タンパク質</div>

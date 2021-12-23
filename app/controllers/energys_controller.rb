@@ -1,14 +1,16 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
-    @today = Date.today
+    @weight_graph_data = current_user.days
+    #  binding.pry
+    @data = User.group_by_day(:created_at).size
+    #このような形にしたい
     @data = ['2021-12-21', 58], ['2021-12-23', 55.7], ['2021-12-21', 57].to_json.html_safe
     @day_weight = current_user.days.where(date: Date.today)
     #目標体重を計算
     @goal_weight =  (current_user.weight*0.95).round(2)
-    # binding.pry
     #ログインしているユーザーの今日の日付を全件取得（配列）
-    energys = current_user.energys.where(date: @today)
+    energys = current_user.energys.where(date: Date.today)
     #メイン画面で適性を超えてるのかを計算して表示する
     @protein_amounts_sum = energys.pluck(:protein).sum
     @sugar_amounts_sum = energys.pluck(:sugar).sum
@@ -48,10 +50,13 @@ class EnergysController < ApplicationController
     #最初にデフォルトで今日のインスタンスを表示
     @date = Date.today
     @energys = current_user.energys.where(date: Date.today)
-    #編集されたらその日付をviewに渡す
+    @weight = current_user.days.where(date: Date.today)
+# binding.pry
+    #編集されたらviewで表示する
     if params[:date_year]
       @date = Date.new params[:date_year].to_i, params[:date_month].to_i,params[:date_day].to_i
       @energys = current_user.energys.where(date: @date)
+      @weight = current_user.days.where(date: @date)
     end
     #viewで入力された日付に紐づいたインスタンス
     if params["date(1i)"]
@@ -59,6 +64,7 @@ class EnergysController < ApplicationController
       @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i,params["date(3i)"].to_i
       #ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
       @energys = current_user.energys.where(date: @date)
+      @weight = current_user.days.where(date: @date)
     end
   end
 

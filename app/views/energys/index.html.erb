@@ -3,7 +3,7 @@
   <div class="goal-weight">目標体重:<%= @goal_weight %>kg</div>
 </div>
 <p class="index-left-items">本日のミッション</p>
-<div class="index-left-items"><%= @today %></div>
+<div class="index-left-items"><%= Date.today %></div>
 <div class="index-left-items">
   <% if (@protein_amounts_sum - protein_amounts) >0 %>
     <p class="red-coment"><%="あと#{@protein_amounts_sum - protein_amounts}g食べましょう！" %></p>
@@ -31,5 +31,6 @@
     <p class="red-coment"><%="#{(@kcal_amounts_sum - kcal_amounts).abs}kcalオーバしてます注意しましょう!!" %></p>
   <% end %>
 </div>
-
-<%= line_chart @data, id: "users-chart", width: "800px", height: "500px", xtitle: "日付(月)", ytitle: "体重(kg)" %>
+<%# <%binding.pry%> %>
+<%= line_chart @weight_graph_data.group_by_day(:date, series: false).average(:weight),height: "400px",xtitle: "日", ytitle: "体重",min: 30, max: 80, curve: false %>
+<%# <%= line_chart @data, id: "users-chart", width: "800px", height: "500px", xtitle: "日付(月)", ytitle: "体重(kg)" , min: 20, max: 200, xmin: "Time.current.ago(7.days)", xmax: "Date.today", decimal: "," %> %>

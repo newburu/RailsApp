@@ -1,5 +1,5 @@
 class DaysController < ApplicationController
-before_action :authenticate_user!, only: [:record,:new,:create]
+before_action :authenticate_user!, only: [:record, :new, :create, :update, :destroy, :edit]
   def new
     @day  = Day.new
   end
@@ -20,6 +20,27 @@ before_action :authenticate_user!, only: [:record,:new,:create]
 
   def record
     @day = Day.find(2)
+  end
+  def edit
+    @day = Day.find(params[:id])
+  end
+
+  def update
+    weight = Day.find(params[:id])
+    if weight.update(day_params)
+      flash[:notice] = "更新しました"
+      redirect_to controller: 'energys', action: 'list', date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"]
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+   day = Day.find(params[:id])
+    if day.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
+      day.destroy
+      redirect_to list_energy_path, notice: '削除しました'#一覧ページに戻る
+    end
   end
 
   private
