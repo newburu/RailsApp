@@ -5,9 +5,7 @@ class EnergysController < ApplicationController
     @data = ['2021-12-21', 58], ['2021-12-23', 55.7], ['2021-12-21', 57].to_json.html_safe
     @day_weight = current_user.days.where(date: Date.today)
     #目標体重を計算
-    array = []
     @goal_weight =  (current_user.weight*0.95).round(2)
-    @goal_weight_array = array.push(@goal_weight)
     # binding.pry
     #ログインしているユーザーの今日の日付を全件取得（配列）
     energys = current_user.energys.where(date: @today)
