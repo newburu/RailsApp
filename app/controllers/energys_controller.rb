@@ -16,7 +16,7 @@ class EnergysController < ApplicationController
       @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
       #メイン画面のグラフに使う
       @day_weights = current_user.days.distinct.pluck(:date)
-      # binding.pry
+      binding.pry
     end
 
   end
