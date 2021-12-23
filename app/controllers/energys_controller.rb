@@ -20,7 +20,6 @@ class EnergysController < ApplicationController
       @day_weights = current_user.days.find_by(date: @date)
       # binding.pry
     end
-
   end
 
   def new
