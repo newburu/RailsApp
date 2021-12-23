@@ -2,9 +2,13 @@ class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
     @today = Date.today
+    @data = ['2021-12-21', 58], ['2021-12-23', 55.7], ['2021-12-21', 57].to_json.html_safe
     @day_weight = current_user.days.where(date: Date.today)
     #目標体重を計算
+    array = []
     @goal_weight =  (current_user.weight*0.95).round(2)
+    @goal_weight_array = array.push(@goal_weight)
+    # binding.pry
     #ログインしているユーザーの今日の日付を全件取得（配列）
     energys = current_user.energys.where(date: @today)
     #メイン画面で適性を超えてるのかを計算して表示する
@@ -16,7 +20,7 @@ class EnergysController < ApplicationController
       #メイン画面のグラフに使う
       @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
       @day_weights = current_user.days.find_by(date: @date)
-      binding.pry
+      # binding.pry
     end
 
   end
