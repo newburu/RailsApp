@@ -17,3 +17,5 @@ ActiveStorage.start()
 $(function(){
   setTimeout("$('.notice').fadeOut('slow')", 2000);
 });
+require("chartkick")
+require("chart.js")

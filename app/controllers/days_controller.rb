@@ -1,24 +1,22 @@
 class DaysController < ApplicationController
 before_action :authenticate_user!, only: [:record,:new,:create]
   def new
-    #binding.pry
-    @user = current_user
     @day  = Day.new#Dayモデルのインスタンスを作る
   end
 
   def create
-    @day = current_user.days.build(day_params)
+    day = current_user.days.build(day_params)
     
-    if @day.save
-      redirect_to energys_path, notice: '今日の体重を保存しました'
+    if day.save
+      redirect_to controller: 'energys', action: 'index', date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"]
+      flash[:notice] = '今日の体重を保存しました'
+      # binding.pry
     else
-     render :new
+      render :new
     end
- 
   end
 
   def record
-    @user = current_user
     @day = Day.find(2)
   end
 
