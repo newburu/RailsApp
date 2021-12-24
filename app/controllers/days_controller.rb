@@ -19,7 +19,8 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   def record
-    @day = Day.find(2)
+    @days = Day.all
+@weight = current_user.days.find_by(params[:date]) 
   end
   def edit
     @day = Day.find(params[:id])
