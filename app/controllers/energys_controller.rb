@@ -1,12 +1,20 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
-    @weight_graph_data = current_user.days
-    #  binding.pry
-    @data = User.group_by_day(:created_at).size
+    # day_data = current_user.days
+    # day_dates = day_data.pluck(:date)
+    # day_weights = day_data.pluck(:weight)
+    # @day_data_array = [day_dates,day_weights].flatten!
+    @weight_graph_data = current_user.days 
+    week_ago = Time.now - 1.week
+    week_weight = current_user.days.where(date: week_ago...Date.today)
+    @week_day_weight = week_weight.pluck(:weight) 
+    @week_day_date = week_weight.pluck(:date)
+    # binding.pry
+    # @data = User.group_by_day(:created_at).size
     #このような形にしたい
-    @data = ['2021-12-21', 58], ['2021-12-23', 55.7], ['2021-12-21', 57].to_json.html_safe
-    @day_weight = current_user.days.where(date: Date.today)
+    @data = [['2021-12-23', 58],['2021-12-24',56],['2021-12-25',57]]
+    # @day_weight = current_user.days.where(date: Date.today)
     #目標体重を計算
     @goal_weight =  (current_user.weight*0.95).round(2)
     #ログインしているユーザーの今日の日付を全件取得（配列）
@@ -15,13 +23,6 @@ class EnergysController < ApplicationController
     @protein_amounts_sum = energys.pluck(:protein).sum
     @sugar_amounts_sum = energys.pluck(:sugar).sum
     @kcal_amounts_sum = energys.pluck(:kcal).sum
-    
-    if params[:date_year]
-      #メイン画面のグラフに使う
-      @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
-      @day_weights = current_user.days.find_by(date: @date)
-      # binding.pry
-    end
   end
 
   def new
