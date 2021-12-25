@@ -26,7 +26,7 @@ class EnergysController < ApplicationController
   end
 
   def new
-   @energy = Energy.new#Energyモデルのインスタンスを作る
+    @energy = Energy.new#Energyモデルのインスタンスを作る
   end
 
   def create
@@ -55,6 +55,7 @@ class EnergysController < ApplicationController
 # binding.pry
     #編集されたらviewで表示する
     if params[:date_year]
+    # binding.pry
       @date = Date.new params[:date_year].to_i, params[:date_month].to_i,params[:date_day].to_i
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
@@ -64,6 +65,12 @@ class EnergysController < ApplicationController
       #日付を連結してdateカラムで検索できるようにした
       @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i,params["date(3i)"].to_i
       #ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
+      @energys = current_user.energys.where(date: @date)
+      @weight = current_user.days.where(date: @date)
+    end
+   
+    if params[:date]
+      @date =  params[:date].to_date
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
     end
@@ -91,7 +98,11 @@ class EnergysController < ApplicationController
     energy = Energy.find(params[:id])
     if energy.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
       energy.destroy
-      redirect_to list_energy_path, notice: '削除しました'#一覧ページに戻る
+      # binding.pry
+      flash[:notice] = "削除しました"
+      redirect_to controller: 'energys', action: 'list', date: energy.date
+    else
+      render :list
     end
   end
 

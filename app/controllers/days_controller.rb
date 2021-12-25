@@ -25,7 +25,11 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
 
   def update
     weight = Day.find(params[:id])
-    if weight.update(day_params)
+    #編集からも同じ日のを複数登録するのを防ぐ
+    if current_user.days.exists?(date: weight.date)
+    flash[:alert] = "既に登録されています"
+    redirect_to edit_day_path(weight.id)
+    elsif weight.update(day_params)
       flash[:notice] = "更新しました"
       redirect_to controller: 'energys', action: 'list', date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"]
     else
@@ -35,9 +39,10 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
 
   def destroy
    day = Day.find(params[:id])
-    if day.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
+    if day.user_id == current_user.id
       day.destroy
-      redirect_to list_energy_path, notice: '削除しました'#一覧ページに戻る
+      flash[:notice] = "削除しました"
+      redirect_to controller: 'energys', action: 'list', date: day.date
     end
   end
 
