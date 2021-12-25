@@ -2,35 +2,78 @@
   <p class="page-title">今日の記録</p>
   <div class="goal-weight">目標体重:<%= @goal_weight %>kg</div>
 </div>
-<p class="index-left-items">本日のミッション</p>
-<div class="index-left-items"><%= Date.today %></div>
-<div class="index-left-items">
-  <% if (@protein_amounts_sum - protein_amounts) >0 %>
-    <p class="red-coment"><%="あと#{@protein_amounts_sum - protein_amounts}g食べましょう！" %></p>
-  <% else %>
-    <p class="green-coment">目標達成！！</p>
-  <% end %>
-</div>
-<div class="index-left-items">
-  <% if (@sugar_amounts_sum - sugar_amounts) >0 %>
-    <p class="green-coment"><%="あと#{@sugar_amounts_sum - sugar_amounts}g食べれます" %></p>
-  <%elsif (@sugar_amounts_sum - sugar_amounts) == 0 %>
-    <p class="green-coment">ちょうどです</p>
-  <% else %>
-    <p class="red-coment"><%="#{(@sugar_amounts_sum - sugar_amounts).abs}gオーバしてます注意しましょう!!" %></p>
-  <% end %>
-</div>
 
-<div class="index-left-items">
-  <% if (@kcal_amounts_sum - kcal_amounts) > 0 %>
-    <p class="green-coment"><%="あと#{@kcal_amounts_sum - kcal_amounts}kcal食べましょう！！" %></p>
-  
-  <%elsif @kcal_amounts_sum - kcal_amounts == 0 %>
-    <p class="green-coment">ちょうどです</p>
-  <% else %>
-    <p class="red-coment"><%="#{(@kcal_amounts_sum - kcal_amounts).abs}kcalオーバしてます注意しましょう!!" %></p>
-  <% end %>
+<div class="index-container">
+  <div class="index-left">
+    <p class="index-left-items"><%="#{Date.today}のミッション"%></p>
+    <div class="nutrition-item-container">
+      <% if @protein_amounts_sum == 0 %>
+        <li class = "green-coment"><%="タンパク質の目標は#{protein_amounts}gだよ！！" %></li>
+      <% elsif (@protein_amounts_sum - protein_amounts) < 0  %>
+        <li class="red-coment">注意</li>
+        <li class="nutrition-item">タンパク質</li>
+        <li class="red-coment"><%="目標まであと#{(@protein_amounts_sum - protein_amounts).abs}g頑張って！" %></li>
+      <% else %>
+        <li class="green-coment">○</li>
+        <li class="nutrition-item">タンパク質</li>
+        <li class="green-coment">目標達成！！</li>
+      <% end %>
+    </div>
+
+    <div class="nutrition-item-container">
+      <% if (@sugar_amounts_sum - sugar_amounts) > 0 %>
+        <li class="red-coment">注意</li>
+        <li class="nutrition-item">糖質</li>
+        <li class="red-coment"><%="#{(@sugar_amounts_sum - sugar_amounts)}gオーバしてます注意しよう!!" %></li>
+      <% elsif (@sugar_amounts_sum - sugar_amounts) == 0 %>
+        <li class="green-coment">○</li>
+        <li class="nutrition-item">糖質</li>
+        <li class="green-coment">ちょうどだよ</li>
+      <% else %>
+        <li class="green-coment">○</li>
+        <li class="nutrition-item">糖質</li>
+        <li class="green-coment"><%="あと#{(@sugar_amounts_sum - sugar_amounts).abs}g食べれるよ！" %></li>
+      <% end %>
+    </div>
+
+    <div class="nutrition-item-container">
+      <% if (@kcal_amounts_sum - kcal_amounts) > 0 %>
+        <li class="red-coment">注意</li>
+        <li class="nutrition-item">カロリー</li>
+        <li class="red-coment"><%="#{(@kcal_amounts_sum - kcal_amounts)}kcalオーバしてます注意しよう!!" %></li>
+      <% elsif @kcal_amounts_sum - kcal_amounts == 0 %>
+        <li class="green-coment">○</li>
+        <li class="nutrition-item">カロリー</li>
+        <li class="green-coment">ちょうどだよ</li>
+      <% else %>
+        <li class="green-coment">○</li>
+        <li class="nutrition-item">カロリー</li>
+        <li class="green-coment"><%="あと#{(@kcal_amounts_sum - kcal_amounts).abs}kcal食べれるよ！" %></li>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="index-right">
+    <div class="graph-container">
+      <%if @week_graph_data %>
+        <%= line_chart @week_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: Time.now-1.week, xmax: Date.today %>
+      <% elsif @month_graph_data %>
+        <%= line_chart @month_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: Time.current.prev_month, xmax: Date.today %>
+      <% elsif @half_year_graph_data %>
+        <%= line_chart @half_year_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: Date.today - 6.months, xmax: Date.today %>
+      <% elsif @year_graph_data %>
+        <%= line_chart @year_graph_data , height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: Time.current.prev_year, xmax: Date.today %>
+      <% else %>
+        <%= line_chart @all_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: "2021-12-25", xmax: Date.today %>
+      <% end %>
+    </div>
+
+    <div class="link_container">
+      <%= link_to "１週間のグラフを見る", energys_path(graph_sort: 0) %>
+      <%= link_to "１ヶ月間のグラフを見る", energys_path(graph_sort: 1) %>
+      <%= link_to "半年間のグラフを見る", energys_path(graph_sort: 2) %>
+      <%= link_to "１年間のグラフを見る", energys_path(graph_sort: 3) %>
+      <%= link_to "全件のグラフを見る", energys_path(gragh_sort: 4) %>
+    </div>
+  </div>
 </div>
-<%# <%binding.pry%> %>
-<%= line_chart @weight_graph_data.group_by_day(:date, series: false).average(:weight),height: "400px",xtitle: "日", ytitle: "体重",min: 30, max: 80, curve: false %>
-<%# <%= line_chart @data, id: "users-chart", width: "800px", height: "500px", xtitle: "日付(月)", ytitle: "体重(kg)" , min: 20, max: 200, xmin: "Time.current.ago(7.days)", xmax: "Date.today", decimal: "," %> %>

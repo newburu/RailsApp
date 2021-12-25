@@ -11,6 +11,11 @@
   min-width: 200px;
   text-align: center
 }
+@mixin small-btn {
+  min-width: 20px;
+  padding: 7px 15px;
+  margin: 0px auto;
+}
 .yellow-btn{
   @include btn;
   color: black;
@@ -35,7 +40,7 @@
   padding: 20px 50px;
   width: 250px;
   text-align: center;
-  margin: 0 50px 0 0;
+  margin: 0 30px 0 auto;
 }
 .date_field{
   background-color: white;
@@ -43,26 +48,16 @@
   border-radius: 20px;
   margin: 3px;
 }
-.record-container{
+.record-meal-container{
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-.record-items{
   font-size: 20px;
-  margin: 0;
 }
-.record-item-left{
-font-size: 20px;
-margin: 10px 30px 0 0;
-}
-.record-item-center{
-font-size: 20px;
-margin: 10px 20px;
-}
-.record-item-right{
-font-size: 20px;
-margin: 10px 20px;
+.record-weigth-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
 }
 .record-list{
   font-size: 28px;
@@ -70,24 +65,74 @@ margin: 10px 20px;
   list-style: none;
   margin: 30px;
 }
-.small-date-btn{
+.small-green-btn{
   @include btn;
-  min-width: 20px;
-  padding: 7px 15px;
-  margin: 10px auto;
+  @include small-btn; 
   background-color: chartreuse;
-  }
+}
+.small-yellow-btn{
+  @include btn;
+  @include small-btn; 
+  background-color: yellow; 
+}
+.small-red-btn{
+  @include btn;
+  @include small-btn; 
+  background-color: red;
+}
 .index-left-items{
-  width: 700px;
-  min-width: 300px;
-  text-align: center;
   margin: 30px 50px;
   font-size: 22px;
-  }
+}
+.nutrition-item-container{
+  font-size: 20px;
+  display: flex;
+  list-style: none;
+  align-items: center;
+  width: 600px;
+}
+
 .green-coment{
   color: blue;
-  }
+  margin: 10px 50px;
+}
 .red-coment{
 color: red;
-// text-align: center;
+margin: 10px 50px;
+}
+.link-container{
+display: flex;
+}
+.index-container{
+  display: flex;
+}
+.record-item-protein{
+margin: 30px 0 30px 350px;
+}
+.record-item-sugar{
+margin: 30px 0 30px 200px;
+}
+.record-item-kcal{
+margin: 30px 0 30px 200px;
+}
+.record-meal{
+margin: 0 30px 30px 150px;
+}
+.record-meal-snack{
+margin: 0 30px 30px 130px;
+}
+.record-meal-protein{
+margin: 0 30px 30px 170px;
+}
+.record-meal-sugar{
+margin: 0 30px 30px 230px;
+}
+.record-meal-kcal{
+margin: 0 30px 30px 180px;
+}
+.small-yellow-btn{
+margin: 0 30px 30px 100px;
+}
+.small-red-btn{
+margin: 0 30px 30px 100px;
 }

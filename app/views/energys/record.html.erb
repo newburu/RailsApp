@@ -1,0 +1,9 @@
+<p class="sub-explanation">毎日の記録を見てみましょう</p>
+<%= month_calendar days: @events do |date, events|%>
+  <%= date.day %>
+  <% events.each do |event| %>
+    <div>
+      <%= event.weight %>
+    </div>
+  <% end %>
+<% end %>

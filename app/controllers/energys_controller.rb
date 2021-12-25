@@ -1,12 +1,20 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
-    @weight_graph_data = current_user.days
-    #  binding.pry
-    @data = User.group_by_day(:created_at).size
-    #このような形にしたい
-    @data = ['2021-12-21', 58], ['2021-12-23', 55.7], ['2021-12-21', 57].to_json.html_safe
-    @day_weight = current_user.days.where(date: Date.today)
+    weight_graph_data = current_user.days 
+    # binding.pry
+    case params[:graph_sort]
+    when "0"
+      @week_graph_data = weight_graph_data.group_by_day(:date,  series: false,last: 7).average(:weight)
+    when "1"
+      @month_graph_data = weight_graph_data.group_by_day(:date, series: false, last: 30).average(:weight)
+    when "2"
+      @half_year_graph_data =  weight_graph_data.group_by_day(:date, series: false, last: 180).average(:weight)
+    when "3"
+      @year_graph_data = weight_graph_data.group_by_day(:date, series: false, last: 360).average(:weight)
+    else
+      @all_graph_data = weight_graph_data.group_by_day(:date, series: false).average(:weight)
+    end
     #目標体重を計算
     @goal_weight =  (current_user.weight*0.95).round(2)
     #ログインしているユーザーの今日の日付を全件取得（配列）
@@ -15,17 +23,10 @@ class EnergysController < ApplicationController
     @protein_amounts_sum = energys.pluck(:protein).sum
     @sugar_amounts_sum = energys.pluck(:sugar).sum
     @kcal_amounts_sum = energys.pluck(:kcal).sum
-    
-    if params[:date_year]
-      #メイン画面のグラフに使う
-      @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
-      @day_weights = current_user.days.find_by(date: @date)
-      # binding.pry
-    end
   end
 
   def new
-   @energy = Energy.new#Energyモデルのインスタンスを作る
+    @energy = Energy.new#Energyモデルのインスタンスを作る
   end
 
   def create
@@ -54,6 +55,7 @@ class EnergysController < ApplicationController
 # binding.pry
     #編集されたらviewで表示する
     if params[:date_year]
+    # binding.pry
       @date = Date.new params[:date_year].to_i, params[:date_month].to_i,params[:date_day].to_i
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
@@ -66,16 +68,29 @@ class EnergysController < ApplicationController
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
     end
+   
+    if params[:date]
+      @date =  params[:date].to_date
+
+      @energys = current_user.energys.where(date: @date)
+      @weight = current_user.days.where(date: @date)
+    end
   end
 
+  def record
+    @events = current_user.energys.all
+  end
 
   def edit
     @energy = Energy.find(params[:id])
   end
 
   def update
-    @energys = Energy.find(params[:id])
-    if @energys.update(energy_params)
+    energy = Energy.find(params[:id])
+    # binding.pry
+    if current_user.energys.where(date: energy.date, meal: energy_params[:meal]).count >= 2
+    redirect_to edit_energy_path(energy.id),alert: '既に登録されています'
+    elsif energy.update(energy_params)
       flash[:notice] = '更新しました'
       redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
     else
@@ -87,12 +102,16 @@ class EnergysController < ApplicationController
     energy = Energy.find(params[:id])
     if energy.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
       energy.destroy
-      redirect_to list_energy_path, notice: '削除しました'#一覧ページに戻る
+      # binding.pry
+      flash[:notice] = "削除しました"
+      redirect_to controller: 'energys', action: 'list', date: energy.date
+    else
+      render :list
     end
   end
 
   private
-    def energy_params#ストロングパラメーターでタンパク質と糖質とカロリーと日付と食事のみを保存するようにしている
+    def energy_params
       params.require(:energy).permit(:protein, :sugar, :kcal, :meal, :date)
     end
     
