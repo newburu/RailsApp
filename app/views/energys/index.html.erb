@@ -2,7 +2,7 @@
   <p class="page-title">今日の記録</p>
   <div class="goal-weight">目標体重:<%= @goal_weight %>kg</div>
 </div>
-<div class="index">
+<%# <div class="index"> %>
 <p class="index-left-items"><%="#{Date.today}のミッション"%></p>
 <div class="nutrition-item-container">
   <% if @protein_amounts_sum == 0 %>
@@ -49,6 +49,8 @@
   <% end %>
 </div>
 <div class="graph-container">
-<%= line_chart @weight_graph_data.group_by_day(:date, series: false).average(:weight),height: "500px",width: "700px",xtitle: "日付", ytitle: "体重（kg）",min: 30, max: 80, curve: false %>
-</div>
+<%= line_chart @weight_graph_data.group_by_day(:date,  series: false,last: 7).average(:weight),height: "500px",width: "700px",xtitle: "日付", ytitle: "体重（kg）",min: 30, max: 80, colors: ["pink", "#999"], xmin: Time.now-1.week, xmax: Date.today %>
+<%= line_chart @weight_graph_data.group_by_day(:date, series: false, last: 30).average(:weight),height: "500px",width: "700px",xtitle: "日付", ytitle: "体重（kg）",min: 30, max: 80, colors: ["pink", "#999"], xmin: Time.current.prev_month, xmax: Date.today %>
+<%= line_chart @weight_graph_data.group_by_day(:date, series: false, last: 180).average(:weight),height: "500px",width: "700px",xtitle: "日付", ytitle: "体重（kg）",min: 30, max: 80, colors: ["pink", "#999"], xmin: Date.today - 6.months, xmax: Date.today %>
+<%= line_chart @weight_graph_data.group_by_day(:date, series: false, last: 360).average(:weight),height: "500px",width: "700px",xtitle: "日付", ytitle: "体重（kg）",min: 30, max: 80, colors: ["pink", "#999"], xmin: Time.current.prev_year, xmax: Date.today %>
 </div>

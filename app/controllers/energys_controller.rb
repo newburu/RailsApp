@@ -1,17 +1,8 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
-    # day_data = current_user.days
-    # day_dates = day_data.pluck(:date)
-    # day_weights = day_data.pluck(:weight)
-    # @day_data_array = [day_dates,day_weights].flatten!
     @weight_graph_data = current_user.days 
-    week_ago = Time.now - 1.week
-    week_weight = current_user.days.where(date: week_ago...Date.today)
-    @week_day_weight = week_weight.pluck(:weight) 
-    @week_day_date = week_weight.pluck(:date)
     # binding.pry
-    # @data = User.group_by_day(:created_at).size
     #このような形にしたい
     @data = [['2021-12-23', 58],['2021-12-24',56],['2021-12-25',57]]
     # @day_weight = current_user.days.where(date: Date.today)
