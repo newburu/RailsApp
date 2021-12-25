@@ -1,11 +1,20 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
-    @weight_graph_data = current_user.days 
+    weight_graph_data = current_user.days 
     # binding.pry
-    #このような形にしたい
-    @data = [['2021-12-23', 58],['2021-12-24',56],['2021-12-25',57]]
-    # @day_weight = current_user.days.where(date: Date.today)
+    case params[:graph_sort]
+    when "0"
+      @week_graph_data = weight_graph_data.group_by_day(:date,  series: false,last: 7).average(:weight)
+    when "1"
+      @month_graph_data = weight_graph_data.group_by_day(:date, series: false, last: 30).average(:weight)
+    when "2"
+      @half_year_graph_data =  weight_graph_data.group_by_day(:date, series: false, last: 180).average(:weight)
+    when "3"
+      @year_graph_data = weight_graph_data.group_by_day(:date, series: false, last: 360).average(:weight)
+    else
+      @all_graph_data = weight_graph_data.group_by_day(:date, series: false).average(:weight)
+    end
     #目標体重を計算
     @goal_weight =  (current_user.weight*0.95).round(2)
     #ログインしているユーザーの今日の日付を全件取得（配列）

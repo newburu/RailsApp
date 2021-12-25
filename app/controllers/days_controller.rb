@@ -8,7 +8,7 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
     day = current_user.days.build(day_params)
     date = Date.new day_params["date(1i)"].to_i, day_params["date(2i)"].to_i, day_params["date(3i)"].to_i
     confirmation_data = current_user.days.exists?(date: date)
-    binding.pry
+    # binding.pry
     if confirmation_data
       flash.now[:alert] = "既に登録されています"
       render :new
