@@ -27,8 +27,7 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
     weight = Day.find(params[:id])
     #編集からも同じ日のを複数登録するのを防ぐ
     if current_user.days.exists?(date: weight.date)
-    flash[:alert] = "既に登録されています"
-    redirect_to edit_day_path(weight.id)
+    redirect_to edit_day_path(weight.id), alert: '既に登録されています'
     elsif weight.update(day_params)
       flash[:notice] = "更新しました"
       redirect_to controller: 'energys', action: 'list', date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"]

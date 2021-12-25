@@ -85,8 +85,11 @@ class EnergysController < ApplicationController
   end
 
   def update
-    @energys = Energy.find(params[:id])
-    if @energys.update(energy_params)
+    energy = Energy.find(params[:id])
+    # binding.pry
+    if current_user.energys.exists?(date: energy.date, meal: energy_params[:meal])
+    redirect_to edit_energy_path(energy.id),alert: '既に登録されています'
+    elsif energy.update(energy_params)
       flash[:notice] = '更新しました'
       redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
     else
