@@ -71,6 +71,7 @@ class EnergysController < ApplicationController
    
     if params[:date]
       @date =  params[:date].to_date
+
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
     end
@@ -87,7 +88,7 @@ class EnergysController < ApplicationController
   def update
     energy = Energy.find(params[:id])
     # binding.pry
-    if current_user.energys.exists?(date: energy.date, meal: energy_params[:meal])
+    if current_user.energys.where(date: energy.date, meal: energy_params[:meal]).count >= 2
     redirect_to edit_energy_path(energy.id),alert: '既に登録されています'
     elsif energy.update(energy_params)
       flash[:notice] = '更新しました'
@@ -110,7 +111,7 @@ class EnergysController < ApplicationController
   end
 
   private
-    def energy_params#ストロングパラメーターでタンパク質と糖質とカロリーと日付と食事のみを保存するようにしている
+    def energy_params
       params.require(:energy).permit(:protein, :sugar, :kcal, :meal, :date)
     end
     

@@ -8,7 +8,6 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
     day = current_user.days.build(day_params)
     date = Date.new day_params["date(1i)"].to_i, day_params["date(2i)"].to_i, day_params["date(3i)"].to_i
     confirmation_data = current_user.days.exists?(date: date)
-    # binding.pry
     if confirmation_data
       flash.now[:alert] = "既に登録されています"
       render :new
@@ -26,7 +25,7 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   def update
     weight = Day.find(params[:id])
     #編集からも同じ日のを複数登録するのを防ぐ
-    if current_user.days.exists?(date: weight.date)
+    if current_user.days.where(date: weight.date).count >= 2
     redirect_to edit_day_path(weight.id), alert: '既に登録されています'
     elsif weight.update(day_params)
       flash[:notice] = "更新しました"
@@ -46,7 +45,7 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   private
-    def day_params
-      params.require(:day).permit(:weigth, :date)
-    end
+  def day_params
+    params.require(:day).permit(:weight, :date)
+  end
 end
