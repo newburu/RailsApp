@@ -5,14 +5,8 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   def create
-    if params[:day].nil?
-         date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
-      day = current_user.days.build(weight: params[:weight], date: date) 
-    else
-     date = Date.new params[:day]["date(1i)"].to_i, params[:day]["date(2i)"].to_i, params[:day]["date(3i)"].to_i
-    day = current_user.days.build(weight: params[:day][:weight], date: date)
-    end
-
+    date = Date.new day_params["date(1i)"].to_i, day_params["date(2i)"].to_i, day_params["date(3i)"].to_i
+    @day = current_user.days.build(day_params)
     if current_user.days.exists?(date: date)
       flash.now[:alert] = "既に登録されています"
       render :new
@@ -20,7 +14,7 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
       flash.now[:alert] = "明日以降の分は登録出来ません"
       render :new
     else
-      day.save
+      @day.save
       logger.debug  "保存したよ"
       flash[:notice] = '今日の体重を登録しました'
       redirect_to energys_path
@@ -57,10 +51,7 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   private
-  # def day_params
-  # # binding.pry
-  #   #  params.require(:"day(1i)",:"day(2i)",:"day(3i)").permit(:weight, :date)
-  #   #  params.require(:day).permit!
-  #   params.require(:day).permit(:weight, :date)
-  # end
+  def day_params
+    params.require(:day).permit(:weight, :date)
+  end
 end
