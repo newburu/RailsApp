@@ -5,16 +5,25 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   def create
-    day = current_user.days.build(day_params)
-    date = Date.new day_params["date(1i)"].to_i, day_params["date(2i)"].to_i, day_params["date(3i)"].to_i
-    confirmation_data = current_user.days.exists?(date: date)
-    if confirmation_data
+    if params[:day].nil?
+         date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
+      day = current_user.days.build(weight: params[:weight], date: date) 
+    else
+     date = Date.new params[:day]["date(1i)"].to_i, params[:day]["date(2i)"].to_i, params[:day]["date(3i)"].to_i
+    day = current_user.days.build(weight: params[:day][:weight], date: date)
+    end
+
+    if current_user.days.exists?(date: date)
       flash.now[:alert] = "既に登録されています"
       render :new
+    elsif date > Date.today
+      flash.now[:alert] = "明日以降の分は登録出来ません"
+      render :new
     else
-      day.save    
+      day.save
+      logger.debug  "保存したよ"
       flash[:notice] = '今日の体重を登録しました'
-      redirect_to controller: 'energys', action: 'index', date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"]  
+      redirect_to energys_path
     end
   end
 
@@ -26,7 +35,10 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
     weight = Day.find(params[:id])
     #編集からも同じ日のを複数登録するのを防ぐ
     if current_user.days.where(date: weight.date).count >= 2
-    redirect_to edit_day_path(weight.id), alert: '既に登録されています'
+      redirect_to edit_day_path(weight.id), alert: '既に登録されています'
+    elsif weight.date > Date.today
+      flash.now[:alert] = "明日以降の分は登録出来ません"
+      render :edit
     elsif weight.update(day_params)
       flash[:notice] = "更新しました"
       redirect_to controller: 'energys', action: 'list', date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"]
@@ -45,7 +57,10 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   private
-  def day_params
-    params.require(:day).permit(:weight, :date)
-  end
+  # def day_params
+  # # binding.pry
+  #   #  params.require(:"day(1i)",:"day(2i)",:"day(3i)").permit(:weight, :date)
+  #   #  params.require(:day).permit!
+  #   params.require(:day).permit(:weight, :date)
+  # end
 end

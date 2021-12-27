@@ -4,16 +4,16 @@ class EnergysController < ApplicationController
     weight_graph_data = current_user.days 
     # binding.pry
     case params[:graph_sort]
-    when "0"
-      @week_graph_data = weight_graph_data.group_by_day(:date,  series: false,last: 7).average(:weight)
-    when "1"
-      @month_graph_data = weight_graph_data.group_by_day(:date, series: false, last: 30).average(:weight)
-    when "2"
-      @half_year_graph_data =  weight_graph_data.group_by_day(:date, series: false, last: 180).average(:weight)
-    when "3"
-      @year_graph_data = weight_graph_data.group_by_day(:date, series: false, last: 360).average(:weight)
-    else
-      @all_graph_data = weight_graph_data.group_by_day(:date, series: false).average(:weight)
+      when "0"
+        @week_graph_data = weight_graph_data.group_by_day(:date, last: 7).average(:weight)
+      when "1"
+        @month_graph_data = weight_graph_data.group_by_day(:date, last: 30).average(:weight)
+      when "2"
+        @half_year_graph_data =  weight_graph_data.group_by_day(:date, last: 180).average(:weight)
+      when "3"
+        @year_graph_data = weight_graph_data.group_by_day(:date, last: 360).average(:weight)
+      else
+        @all_graph_data = weight_graph_data.group_by_day(:date).average(:weight)
     end
     #目標体重を計算
     @goal_weight =  (current_user.weight*0.95).round(2)
@@ -35,7 +35,10 @@ class EnergysController < ApplicationController
     date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i,energy_params["date(3i)"].to_i
     #登録する食事が既にDBにあるかを確認する
     confirmation_data = current_user.energys.exists?(date: date, meal: energy_params[:meal])
-    if @energy.meal == "snack"
+    if date > Date.today
+      flash.now[:alert] = "明日以降の分は登録出来ません"
+      render :new
+    elsif @energy.meal == "snack"
       @energy.save
       redirect_to energys_path, notice: '食事を登録しました'
     elsif confirmation_data
@@ -71,7 +74,6 @@ class EnergysController < ApplicationController
    
     if params[:date]
       @date =  params[:date].to_date
-
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
     end
@@ -87,9 +89,11 @@ class EnergysController < ApplicationController
 
   def update
     energy = Energy.find(params[:id])
-    # binding.pry
     if current_user.energys.where(date: energy.date, meal: energy_params[:meal]).count >= 2
-    redirect_to edit_energy_path(energy.id),alert: '既に登録されています'
+      redirect_to edit_energy_path(energy.id),alert: '既に登録されています'
+    elsif energy.date > Date.today
+      flash.now[:alert] = "明日以降の分は登録出来ません"
+      render :edit
     elsif energy.update(energy_params)
       flash[:notice] = '更新しました'
       redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
@@ -112,6 +116,7 @@ class EnergysController < ApplicationController
 
   private
     def energy_params
+    # binding.pry
       params.require(:energy).permit(:protein, :sugar, :kcal, :meal, :date)
     end
     
