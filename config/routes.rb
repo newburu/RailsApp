@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   get 'users/show'
   root 'homes#index'
-  # get 'energys/day', to: "energys#day"
 
   resources :energys do
     member do
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
       get :record
     end
   end
+  
   resources :days do
   end
 
