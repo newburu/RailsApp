@@ -1,8 +1,7 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
-    weight_graph_data = current_user.days 
-    # binding.pry
+    weight_graph_data = current_user.days
     case params[:graph_sort]
       when "0"
         @week_graph_data = weight_graph_data.group_by_day(:date, last: 7).average(:weight)
@@ -58,21 +57,17 @@ class EnergysController < ApplicationController
 # binding.pry
     #編集されたらviewで表示する
     if params[:date_year]
-    # binding.pry
       @date = Date.new params[:date_year].to_i, params[:date_month].to_i,params[:date_day].to_i
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
-    end
-    #viewで入力された日付に紐づいたインスタンス
-    if params["date(1i)"]
-      #日付を連結してdateカラムで検索できるようにした
+      #新規登録用
+    elsif params["date(1i)"]
       @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i,params["date(3i)"].to_i
       #ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
-    end
-   
-    if params[:date]
+      #更新された時に使う
+    elsif params[:date]
       @date =  params[:date].to_date
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
