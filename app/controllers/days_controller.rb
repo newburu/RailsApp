@@ -26,13 +26,14 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   def update
+    @date = Date.new day_params["date(1i)"].to_i, day_params["date(2i)"].to_i, day_params["date(3i)"].to_i
     @day = Day.find(params[:id])
     #編集からも同じ日のを複数登録するのを防ぐ
     #  binding.pry
-    if @day.date > Date.today
+    if @date > Date.today
       flash.now[:alert] = "明日以降の分は登録出来ません"
       render :edit
-    elsif current_user.days.where(date: @day.date).count >= 2
+    elsif current_user.days.where(date: @date).count >= 2
       redirect_to edit_day_path(@day.id), alert: '既に登録されています'
     elsif @day.update(day_params)
       flash[:notice] = "更新しました"
