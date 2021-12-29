@@ -43,11 +43,11 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   def destroy
-   day = Day.find(params[:id])
-    if day.user_id == current_user.id
-      day.destroy
+    @day = Day.find(params[:id])
+    if @day.user_id == current_user.id
+      @day.destroy
       flash[:notice] = "削除しました"
-      redirect_to controller: 'energys', action: 'list', date: day.date
+      redirect_to controller: 'energys', action: 'list', date: @day.date
     end
   end
 

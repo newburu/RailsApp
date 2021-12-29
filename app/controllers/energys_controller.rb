@@ -3,16 +3,16 @@ class EnergysController < ApplicationController
   def index
     weight_graph_data = current_user.days
     case params[:graph_sort]
-      when "0"
-        @week_graph_data = weight_graph_data.group_by_day(:date, last: 7).average(:weight)
       when "1"
         @month_graph_data = weight_graph_data.group_by_day(:date, last: 30).average(:weight)
       when "2"
         @half_year_graph_data =  weight_graph_data.group_by_day(:date, last: 180).average(:weight)
       when "3"
         @year_graph_data = weight_graph_data.group_by_day(:date, last: 360).average(:weight)
-      else
+      when "4"
         @all_graph_data = weight_graph_data.group_by_day(:date).average(:weight)
+      else
+        @week_graph_data = weight_graph_data.group_by_day(:date, last: 7).average(:weight)
     end
     #目標体重を計算
     @goal_weight =  (current_user.weight*0.95).round(2)
@@ -99,12 +99,11 @@ class EnergysController < ApplicationController
   end
 
   def destroy
-    energy = Energy.find(params[:id])
-    if energy.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
-      energy.destroy
-      # binding.pry
+    @energy = Energy.find(params[:id])
+    if @energy.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
+      @energy.destroy
       flash[:notice] = "削除しました"
-      redirect_to controller: 'energys', action: 'list', date: energy.date
+      redirect_to controller: 'energys', action: 'list', date: @energy.date
     else
       render :list
     end
@@ -112,7 +111,6 @@ class EnergysController < ApplicationController
 
   private
     def energy_params
-    # binding.pry
       params.require(:energy).permit(:protein, :sugar, :kcal, :meal, :date)
     end
     
