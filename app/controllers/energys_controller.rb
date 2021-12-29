@@ -83,17 +83,18 @@ class EnergysController < ApplicationController
   end
 
   def update
-    energy = Energy.find(params[:id])
-    if current_user.energys.where(date: energy.date, meal: energy_params[:meal]).count >= 2
-      redirect_to edit_energy_path(energy.id),alert: '既に登録されています'
-    elsif energy.date > Date.today
+    @date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
+    @energy = Energy.find(params[:id])
+    # binding.pry
+    if current_user.energys.where(date: @date, meal: energy_params[:meal]).count > 0 && @energy.date != @date
+      redirect_to edit_energy_path(@energy.id),alert: '既に登録されています'
+    elsif @energy.date > Date.today
       flash.now[:alert] = "明日以降の分は登録出来ません"
       render :edit
-    elsif energy.update(energy_params)
+    else 
+      @energy.update(energy_params)
       flash[:notice] = '更新しました'
       redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
-    else
-      render :edit
     end
   end
 
