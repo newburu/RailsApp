@@ -1,23 +1,29 @@
 class DaysController < ApplicationController
 before_action :authenticate_user!, only: [:record, :new, :create, :update, :destroy, :edit]
+include DaysHelper
+
   def new
     @day  = Day.new
   end
 
   def create
-    date = Date.new day_params["date(1i)"].to_i, day_params["date(2i)"].to_i, day_params["date(3i)"].to_i
-    @day = current_user.days.build(day_params)
-    if current_user.days.exists?(date: date)
-      flash.now[:alert] = "既に登録されています"
-      render :new
-    elsif date > Date.today
-      flash.now[:alert] = "明日以降の分は登録出来ません"
-      render :new
+    if date_judgment
+      date = Date.new day_params["date(1i)"].to_i, day_params["date(2i)"].to_i, day_params["date(3i)"].to_i
+      @day = current_user.days.build(day_params)
+      if current_user.days.exists?(date: date)
+        flash.now[:alert] = "既に登録されています"
+        render :new
+      elsif date > Date.today
+        flash.now[:alert] = "明日以降の分は登録出来ません"
+        render :new
+      else
+        @day.save
+        logger.debug  "保存したよ"
+        flash[:notice] = '今日の体重を登録しました'
+        redirect_to energys_path
+      end
     else
-      @day.save
-      logger.debug  "保存したよ"
-      flash[:notice] = '今日の体重を登録しました'
-      redirect_to energys_path
+      redirect_to new_day_path, alert: '無効な日付です'
     end
   end
 
@@ -26,10 +32,8 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   def update
-  # date_judgment
-    date = day_params["date(1i)"].to_i, day_params["date(2i)"].to_i, day_params["date(3i)"].to_i
     @day = Day.find(params[:id])
-    if Date.valid_date?(date[0],date[1],date[2])
+    if date_judgment
       @date = Date.new day_params["date(1i)"].to_i,day_params["date(2i)"].to_i,day_params["date(3i)"].to_i
       if @date > Date.today
         flash.now[:alert] = "明日以降の分は登録出来ません"
@@ -43,8 +47,8 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
         redirect_to controller: 'energys', action: 'list', date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"]
       end
     else 
-      flash[:alert] = "無効な日付です"
-      redirect_to energys_path
+      flash[:alert] = "選択された日付は無効な日付です"
+      redirect_to edit_day_path
     end
   end
 
@@ -58,7 +62,13 @@ before_action :authenticate_user!, only: [:record, :new, :create, :update, :dest
   end
 
   private
-  def day_params
-    params.require(:day).permit(:weight, :date)
-  end
+    def day_params
+      params.require(:day).permit(:weight, :date)
+    end
+
+    def date_judgment
+      #無効な日付を入力された時にエラーが出ないように使う
+      date = day_params["date(1i)"].to_i, day_params["date(2i)"].to_i, day_params["date(3i)"].to_i
+      Date.valid_date?(date[0], date[1], date[2])
+    end
 end

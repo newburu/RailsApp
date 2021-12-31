@@ -29,48 +29,52 @@ class EnergysController < ApplicationController
   end
 
   def create
-    #ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
-    @energy = current_user.energys.build(energy_params)
-    date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i,energy_params["date(3i)"].to_i
-    #登録する食事が既にDBにあるかを確認する
-    confirmation_data = current_user.energys.exists?(date: date, meal: energy_params[:meal])
-    if date > Date.today
-      flash.now[:alert] = "明日以降の分は登録出来ません"
-      render :new
-    elsif @energy.meal == "snack"
-      @energy.save
-      redirect_to energys_path, notice: '食事を登録しました'
-    elsif confirmation_data
-      flash.now[:alert] = "既に登録されています"
-      render :new
+    if date_judgment
+      #ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
+      @energy = current_user.energys.build(energy_params)
+      binding.pry
+      date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i,energy_params["date(3i)"].to_i
+      #登録する食事が既にDBにあるかを確認する
+      confirmation_data = current_user.energys.exists?(date: date, meal: energy_params[:meal])
+      if date > Date.today
+        flash.now[:alert] = "明日以降の分は登録出来ません"
+        render :new
+      elsif @energy.meal == "snack"
+        @energy.save
+        redirect_to energys_path, notice: '食事を登録しました'
+      elsif confirmation_data
+        flash.now[:alert] = "既に登録されています"
+        render :new
+      else
+        @energy.save
+        redirect_to energys_path, notice: '食事を登録しました' 
+      end
     else
-      @energy.save
-      redirect_to energys_path, notice: '食事を登録しました' 
+      redirect_to new_energy_path, alert: '選択された日付は無効です'
     end
   end
 
   def list#(date: Date.today)
     #最初にデフォルトで今日のインスタンスを表示
     @date = Date.today
-    @energys = current_user.energys.where(date: Date.today)
-    @weight = current_user.days.where(date: Date.today)
-# binding.pry
+    list_items
     #編集されたらviewで表示する
     if params[:date_year]
       @date = Date.new params[:date_year].to_i, params[:date_month].to_i,params[:date_day].to_i
-      @energys = current_user.energys.where(date: @date)
-      @weight = current_user.days.where(date: @date)
-      #新規登録用
+      list_items
+    #新規登録用
     elsif params["date(1i)"]
-      @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i,params["date(3i)"].to_i
-      #ログインしてるユーザーに紐付いたエネルギーモデルのインスタンスで日付をviewから取ってその日付をdateカラムから検索したい
-      @energys = current_user.energys.where(date: @date)
-      @weight = current_user.days.where(date: @date)
-      #更新された時に使う
+      if list_date_judgment
+        # binding.pry
+        @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i,params["date(3i)"].to_i
+        list_items
+      else
+        redirect_to list_energy_path, alert: '選択された日付は無効です'
+      end
+    #更新された時に使う
     elsif params[:date]
       @date =  params[:date].to_date
-      @energys = current_user.energys.where(date: @date)
-      @weight = current_user.days.where(date: @date)
+      list_items 
     end
   end
 
@@ -83,19 +87,23 @@ class EnergysController < ApplicationController
   end
 
   def update
-    @date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
-    @energy = Energy.find(params[:id])
-    if current_user.energys.where(date: @date, meal: energy_params[:meal]).exists? && @energy.date != @date
-      redirect_to edit_energy_path(@energy.id),alert: '既に登録されています'
-    elsif current_user.energys.where(date: @date, meal: energy_params[:meal]).exists?  && @energy.meal != energy_params[:meal]
-      redirect_to edit_energy_path(@energy.id),alert: '既に登録されています' 
-    elsif @energy.date > Date.today
-      flash.now[:alert] = "明日以降の分は登録出来ません"
-      render :edit
-    else 
-      @energy.update(energy_params)
-      flash[:notice] = '更新しました'
-      redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
+    if date_judgment
+      @date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
+      @energy = Energy.find(params[:id])
+      if current_user.energys.where(date: @date, meal: energy_params[:meal]).exists? && @energy.date != @date
+        redirect_to edit_energy_path(@energy.id),alert: '既に登録されています'
+      elsif current_user.energys.where(date: @date, meal: energy_params[:meal]).exists?  && @energy.meal != energy_params[:meal]
+        redirect_to edit_energy_path(@energy.id),alert: '既に登録されています' 
+      elsif @energy.date > Date.today
+        flash.now[:alert] = "明日以降の分は登録出来ません"
+        render :edit
+      else 
+        @energy.update(energy_params)
+        flash[:notice] = '更新しました'
+        redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
+      end
+    else
+      redirect_to edit_energy_path,alert: '選択された日付は無効な日付です'
     end
   end
 
@@ -115,5 +123,20 @@ class EnergysController < ApplicationController
       params.require(:energy).permit(:protein, :sugar, :kcal, :meal, :date)
     end
     
+    def date_judgment
+      #無効な日付を入力された時にエラーが出ないようにする
+      date = energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
+      Date.valid_date?(date[0], date[1], date[2])
+    end
+
+    def list_date_judgment
+      date = params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
+      Date.valid_date?(date[0], date[1], date[2])
+    end
+
+    def list_items
+      @energys = current_user.energys.where(date: @date)
+      @weight = current_user.days.where(date: @date)
+    end
 end
 
