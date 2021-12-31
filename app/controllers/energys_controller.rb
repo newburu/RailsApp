@@ -139,4 +139,3 @@ class EnergysController < ApplicationController
       @weight = current_user.days.where(date: @date)
     end
 end
-
