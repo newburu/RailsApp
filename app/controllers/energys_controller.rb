@@ -85,7 +85,6 @@ class EnergysController < ApplicationController
   def update
     @date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
     @energy = Energy.find(params[:id])
-    # binding.pry
     if current_user.energys.where(date: @date, meal: energy_params[:meal]).exists? && @energy.date != @date
       redirect_to edit_energy_path(@energy.id),alert: '既に登録されています'
     elsif current_user.energys.where(date: @date, meal: energy_params[:meal]).exists?  && @energy.meal != energy_params[:meal]
@@ -98,11 +97,6 @@ class EnergysController < ApplicationController
       flash[:notice] = '更新しました'
       redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
     end
-
-    # if @date > Date.today
-    #   flash.now[:alert] = "明日以降の分は登録出来ません"
-    #   render :edit
-    # elsif 
   end
 
   def destroy
