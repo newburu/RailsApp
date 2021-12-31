@@ -18,34 +18,34 @@ module EnergysHelper
   #適正カロリー量
   def kcal_amounts
     if current_user.exercise == "everytime" && current_user.gender == "man" 
-      2600
-    elsif current_user.exercise == "Sometimes" && current_user.gender == "man"
       2400
+    elsif current_user.exercise == "Sometimes" && current_user.gender == "man"
+      2200
     elsif current_user.execire == "donot" && current_user.gender == "man"
-      2200
-    elsif current_user.exercise == "everytime" && current_user.gender == "woman" 
-      2200
-    elsif current_user.exercise == "Sometimes" && current_user.gender == "woman"
       2000
-    else
+    elsif current_user.exercise == "everytime" && current_user.gender == "woman" 
+      2000
+    elsif current_user.exercise == "Sometimes" && current_user.gender == "woman"
       1800
+    else
+      1600
     end
   end
 
   #適正糖質量
   def sugar_amounts
     if current_user.exercise == "everytime" && current_user.gender == "man"
-      390
+      210
     elsif current_user.exercise == "Sometimes" && current_user.gender == "man"
-      360
+      180
     elsif current_user.exercise == "donot" && current_user.gender== "man"
-      330
+      150
     elsif current_user.exercise == "everytime" && current_user.gender == "woman"
-      330
+      190
     elsif current_user.exercise == "Sometimes" && current_user.gender == "woman"
-      300
+      160
     elsif current_user.exercise == "donot" && current_user.gender == "woman"
-      270
+      130
     end
   end
 end
