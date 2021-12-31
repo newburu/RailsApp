@@ -97,42 +97,55 @@
   margin: 10px 50px;
 }
 .red-coment{
-color: red;
-margin: 10px 50px;
+  color: red;
+  margin: 10px 50px;
 }
 .link-container{
-display: flex;
+  display: flex;
 }
 .index-container{
   display: flex;
 }
 .record-item-protein{
-margin: 30px 0 30px 350px;
+  margin: 30px 0 30px 350px;
 }
 .record-item-sugar{
-margin: 30px 0 30px 200px;
+  margin: 30px 0 30px 200px;
 }
 .record-item-kcal{
-margin: 30px 0 30px 200px;
+  margin: 30px 0 30px 200px;
 }
 .record-meal{
-margin: 0 30px 30px 150px;
+  margin: 0 30px 30px 150px;
 }
 .record-meal-snack{
-margin: 0 30px 30px 130px;
+  margin: 0 30px 30px 130px;
 }
 .record-meal-protein{
-margin: 0 30px 30px 170px;
+  margin: 0 30px 30px 170px;
 }
 .record-meal-sugar{
-margin: 0 30px 30px 230px;
+  margin: 0 30px 30px 230px;
 }
 .record-meal-kcal{
-margin: 0 30px 30px 180px;
+  margin: 0 30px 30px 180px;
 }
 .small-yellow-btn{
-margin: 0 30px 30px 100px;
+  margin: 0 30px 30px 100px;
 }
 .small-red-btn{
-margin: 0 30px 30px 100px;
+  margin: 0 30px 30px 100px;
+}
+.link_container{
+  justify-content: space-around;
+  display: flex;
+  margin-top: 20px;
+}
+.graph-item{
+  background-color: orange;
+  border-radius: 10px;
+  padding: 3px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
 }

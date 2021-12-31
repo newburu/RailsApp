@@ -69,11 +69,11 @@
     </div>
 
     <div class="link_container">
-      <%= link_to "１週間のグラフを見る", energys_path(graph_sort: 0) %>
-      <%= link_to "１ヶ月間のグラフを見る", energys_path(graph_sort: 1) %>
-      <%= link_to "半年間のグラフを見る", energys_path(graph_sort: 2) %>
-      <%= link_to "１年間のグラフを見る", energys_path(graph_sort: 3) %>
-      <%= link_to "全件のグラフを見る", energys_path(gragh_sort: 4) %>
+      <%= link_to "１週間", energys_path(graph_sort: 0), class: "graph-item" %>
+      <%= link_to "１ヶ月間", energys_path(graph_sort: 1), class: "graph-item" %>
+      <%= link_to "半年間", energys_path(graph_sort: 2), class: "graph-item" %>
+      <%= link_to "１年間", energys_path(graph_sort: 3), class: "graph-item" %>
+      <%= link_to "全件", energys_path(gragh_sort: 4), class: "graph-item" %>
     </div>
   </div>
 </div>
