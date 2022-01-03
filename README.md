@@ -31,6 +31,7 @@
 * Ruby 3.0.2
 * Rails 6.1.4
 * jquery
+* heroku
 
 # *画面遷移図*
 https://www.figma.com/file/Q38wXr5raqnNwyYCACWZma/potohorio?node-id=0%3A1
