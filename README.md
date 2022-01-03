@@ -1,24 +1,28 @@
-# README
+# サービス概要
+日々の体重と食事管理をしてくれるアプリです。
+自分が筋トレで食事制限やダイエットをしていた事もありそこで毎日食べた量と体重を管理できるアプリがあればいいなと思い開発しました。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# これまでの健康管理アプリとの違う点
+既存の健康管理アプリは体重と食事管理機能だけのもが多く以下のようなアプリは存在しませんでした
 
-Things you may want to cover:
+* タンパク質や糖質などが後どのくらい食べていいのかを１目で分かりやすく教えてくれるアプリがない
+* 体重管理と食事を一緒にできるアプリが少ない
+* 無料でできるものが少ない
 
-* Ruby version
+# 使い方
+１. 会員登録をする
+まず、新規会員登録画面から身長、体重、運動量などの必須項目を入力します。
 
-* System dependencies
+2. 食事登録をする
+食事登録画面から日付を選んでタンパク質、糖質、カロリーを入力して登録ボタンを押します。
+登録した内容がメイン画面に反映されます。
 
-* Configuration
+3. 体重登録をする
+1日１回体重を登録画面から体重を登録します。
+登録した内容がメイン画面のグラフに反映されます。
 
-* Database creation
+4. 編集、削除
+登録した内容の編集や削除をしたいときはリスト画面から日付を選択すると体重と食事が出てくるのでそこからします。
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+5. アカウントを編集する
+プロフィールボタンを押してプロフィール編集画面からパスワードを入力して編集事項を入力して更新ボタンを押します。
