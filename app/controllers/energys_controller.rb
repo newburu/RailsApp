@@ -12,7 +12,29 @@ class EnergysController < ApplicationController
       when "4"
         @all_graph_data = weight_graph_data.group_by_day(:date).average(:weight)
       else
-        @week_graph_data = weight_graph_data.group_by_day(:date, last: 7).average(:weight)
+      # binding.pry
+      #この形にしたい
+    #  @week_graph_data = [["2021-12-24", 55.0] ,["2021-12-26", 66.0] ,["2021-12-31", 54.8]]
+     @week_graph_data = [[Date.today, 55.0] ,[Date.yesterday, 66.0] ,["2021-12-31", 54.8]] 
+        # @week_graph_data = [["Fri, 31 Dec 2021".to_i, 55.0] ["Sat, 01 Jan 2022".to_i, 66.0] ["Tue, 04 Jan 2022".to_i, 54.8]]
+        @week_graph_data = current_user.days.where(date: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
+
+
+
+
+
+
+
+
+
+
+
+
+        #ログインしてるユーザーの情報に紐づいたDayモデルの1週間前までのデータをとってきて日付に対応してる体重を配列として括る(１週間前をもっと細分化する)この形をどうやったら出来るかを考える
+        # graph_date[0][:date]
+        # ASC_date = graph_date.sort_by{|data|data.date}
+        # @week_graph_data = weight_graph_data.group(:date).sum(:weight)
+        # @all_graph_data = weight_graph_data.group_by_day(:date, last: 7).average(:weight)
     end
     #目標体重を計算
     @goal_weight =  (current_user.weight*0.95).round(2)
@@ -32,7 +54,6 @@ class EnergysController < ApplicationController
     if date_judgment
       #ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
       @energy = current_user.energys.build(energy_params)
-      binding.pry
       date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i,energy_params["date(3i)"].to_i
       #登録する食事が既にDBにあるかを確認する
       confirmation_data = current_user.energys.exists?(date: date, meal: energy_params[:meal])

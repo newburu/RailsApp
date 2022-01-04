@@ -56,18 +56,24 @@
   <div class="index-right">
     <div class="graph-container">
       <%if @week_graph_data %>
-        <%= line_chart @week_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: Time.now-1.week, xmax: Date.today %>
+         <%# <%@week_graph_data.each do |data| %> %>
+    <%# <%= line_chart [data.date,data.weight], height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"] %> %>
+    <%# <%end%> %>
+        <%= line_chart @week_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"] %>
       <% elsif @month_graph_data %>
-        <%= line_chart @month_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: Time.current.prev_month, xmax: Date.today %>
+        <%= line_chart @month_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"] %>
       <% elsif @half_year_graph_data %>
-        <%= line_chart @half_year_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: Date.today - 6.months, xmax: Date.today %>
+        <%= line_chart @half_year_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"] %>
       <% elsif @year_graph_data %>
-        <%= line_chart @year_graph_data , height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: Time.current.prev_year, xmax: Date.today %>
+        <%= line_chart @year_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"]%>
       <% else %>
-        <%= line_chart @all_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], xmin: "2021-12-25", xmax: Date.today %>
+        <%= line_chart @all_graph_data, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"] %>
       <% end %>
     </div>
-
+<%# <%binding.pry%> %>
+  <%@week_graph_data.each do |data| %>
+    <%= [data.date,data.weight] %>
+    <%end %>
     <div class="link_container">
       <%= link_to "１週間", energys_path(graph_sort: 0), class: "graph-item" %>
       <%= link_to "１ヶ月間", energys_path(graph_sort: 1), class: "graph-item" %>
