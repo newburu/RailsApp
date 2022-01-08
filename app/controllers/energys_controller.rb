@@ -1,22 +1,29 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
-    weight_graph_data = current_user.days
+    # weight_graph_datas = current_user.days
+    #この形はよくない（何日前って引数を渡すようにする）
+    #パラメーターで引数を渡してdateの中身を変えるようにする（デフォルトをアクションのアクションにする）
     case params[:graph_sort]
-      when "1"
-        @month_graph_data = weight_graph_data.group_by_day(:date, last: 30).average(:weight)
-      when "2"
-        @half_year_graph_data =  weight_graph_data.group_by_day(:date, last: 180).average(:weight)
-      when "3"
-        @year_graph_data = weight_graph_data.group_by_day(:date, last: 360).average(:weight)
-      when "4"
-        @all_graph_data = weight_graph_data.group_by_day(:date).average(:weight)
+      when "month"
+        month_datas = current_user.days.where(date: Time.current.ago(1.month).beginning_of_day..Time.zone.now.end_of_day)
+        @month_graph = month_datas.map{|n| [n.date, n.weight]}
+      when "half_year"
+        half_year_datas = current_user.days.where(date: Time.current.ago(6.month).beginning_of_day..Time.zone.now.end_of_day)
+        @half_year_graph = half_year_datas.map{|n| [n.date, n.weight]} 
+      when "year"
+        year_datas = current_user.days.where(date: Time.current.ago(1.years).beginning_of_day..Time.zone.now.end_of_day)
+        @year_graph = year_datas.map{|n| [n.date, n.weight]}
+      when "all"
+        all_datas = current_user.days.where("date <= ?", Time.now)
+        @all_graph = all_datas.map{|n| [n.date, n.weight]}
       else
-        @week_graph_data = weight_graph_data.group_by_day(:date, last: 7).average(:weight)
+        week_datas = current_user.days.where(date: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
+        @week_graph = week_datas.map{|n| [n.date, n.weight]}
     end
-    #目標体重を計算
+    #目標体重を計算してメイン画面で表示
     @goal_weight =  (current_user.weight*0.95).round(2)
-    #ログインしているユーザーの今日の日付を全件取得（配列）
+
     energys = current_user.energys.where(date: Date.today)
     #メイン画面で適性を超えてるのかを計算して表示する
     @protein_amounts_sum = energys.pluck(:protein).sum
@@ -25,14 +32,12 @@ class EnergysController < ApplicationController
   end
 
   def new
-    @energy = Energy.new#Energyモデルのインスタンスを作る
+    @energy = Energy.new
   end
 
   def create
     if date_judgment
-      #ストロングパラメータを渡してインスタンスを作ってインスタンス変数に代入
       @energy = current_user.energys.build(energy_params)
-      binding.pry
       date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i,energy_params["date(3i)"].to_i
       #登録する食事が既にDBにあるかを確認する
       confirmation_data = current_user.energys.exists?(date: date, meal: energy_params[:meal])
