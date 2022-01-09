@@ -2,7 +2,7 @@ module EnergysHelper
 
   #適正タンパク質量
   def protein_amounts
-    if current_user.exercise== "everytime" && current_user.gender == "man"
+    if current_user.exercise == "everytime" && current_user.gender == "man"
       (current_user.weight*1.2).round(0)
     elsif current_user.exercise == "Sometimes" && current_user.gender == "man"
       (current_user.weight*1).round(0)

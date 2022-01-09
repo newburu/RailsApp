@@ -20,22 +20,22 @@
     <%= f.radio_button :gender, :woman %>
     <%= f.label :gender, "女性", {value: :woman}%>
           
-    <%= f.label :height, '身長(cm)' , {class: 'label-class'}%>
+    <%= f.label :height, '身長(cm)', {class: 'label-class'}%>
     <%= f.number_field :height, step: "0.1", class: "form-field", min: 100, max: 220 %>
 
-    <%= f.label :weight, '体重(kg)' , {class: 'label-class'}%>
+    <%= f.label :weight, '体重(kg)', {class: 'label-class'}%>
     <%= f.number_field :weight, step: "0.1", class: "form-field", min: 40, max: 150 %>
 
     <p class="radio-title">運動量</p>
 
     <%= f.radio_button :exercise, :everytime %>
-    <%= f.label :exercise,"毎日", {value: :everytime}%>
-            
+    <%= f.label :exercise, "毎日", {value: :everytime}%>
+           
     <%= f.radio_button :exercise, :Sometimes %>
-    <%= f.label :exercise,"たまに", {value: :Sometimes}%>
+    <%= f.label :exercise, "たまに", {value: :Sometimes}%>
 
     <%= f.radio_button :exercise, :donot %>
-    <%= f.label :exercise,"しない", {value: :donot}%>
+    <%= f.label :exercise, "しない", {value: :donot}%>
   </div>
   <div class="btn-container">
     <%= f.submit "戻る", name: :back, class: "back-btn"%>

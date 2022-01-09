@@ -1,7 +1,6 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
-    # weight_graph_datas = current_user.days
     #この形はよくない（何日前って引数を渡すようにする）
     #パラメーターで引数を渡してdateの中身を変えるようにする（デフォルトをアクションのアクションにする）
     case params[:graph_sort]
@@ -23,7 +22,6 @@ class EnergysController < ApplicationController
     end
     #目標体重を計算してメイン画面で表示
     @goal_weight =  (current_user.weight*0.95).round(2)
-
     energys = current_user.energys.where(date: Date.today)
     #メイン画面で適性を超えてるのかを計算して表示する
     @protein_amounts_sum = energys.pluck(:protein).sum
@@ -38,7 +36,7 @@ class EnergysController < ApplicationController
   def create
     if date_judgment
       @energy = current_user.energys.build(energy_params)
-      date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i,energy_params["date(3i)"].to_i
+      date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
       #登録する食事が既にDBにあるかを確認する
       confirmation_data = current_user.energys.exists?(date: date, meal: energy_params[:meal])
       if date > Date.today
@@ -59,19 +57,19 @@ class EnergysController < ApplicationController
     end
   end
 
-  def list#(date: Date.today)
+  def list
     #最初にデフォルトで今日のインスタンスを表示
     @date = Date.today
     list_items
     #編集されたらviewで表示する
     if params[:date_year]
-      @date = Date.new params[:date_year].to_i, params[:date_month].to_i,params[:date_day].to_i
+      @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
       list_items
     #新規登録用
     elsif params["date(1i)"]
       if list_date_judgment
         # binding.pry
-        @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i,params["date(3i)"].to_i
+        @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
         list_items
       else
         redirect_to list_energy_path, alert: '選択された日付は無効です'
@@ -108,13 +106,13 @@ class EnergysController < ApplicationController
         redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
       end
     else
-      redirect_to edit_energy_path,alert: '選択された日付は無効な日付です'
+      redirect_to edit_energy_path, alert: '選択された日付は無効な日付です'
     end
   end
 
   def destroy
     @energy = Energy.find(params[:id])
-    if @energy.user_id == current_user.id#もしログインしているユーザーのidと一致したら消去
+    if @energy.user_id == current_user.id
       @energy.destroy
       flash[:notice] = "削除しました"
       redirect_to controller: 'energys', action: 'list', date: @energy.date
