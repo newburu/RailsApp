@@ -1,5 +1,5 @@
 <div class="record-container">
-  <p class="page-title">今日の記録</p>
+  <p class="page-explanation">今日の記録</p>
   <div class="goal-weight">目標体重:<%= @goal_weight %>kg</div>
 </div>
 
@@ -8,47 +8,47 @@
     <p class="index-left-items"><%="#{Date.today}のミッション"%></p>
     <div class="nutrition-item-container">
       <% if @protein_amounts_sum == 0 %>
-        <li class = "green-coment"><%="タンパク質の目標は#{protein_amounts}gだよ！！" %></li>
+        <li class = "blue-judgement"><%="タンパク質の目標は#{protein_amounts}gだよ！！" %></li>
       <% elsif (@protein_amounts_sum - protein_amounts) < 0  %>
-        <li class="red-coment">注意</li>
+        <li class="red-judgement">注意</li>
         <li class="nutrition-item">タンパク質</li>
-        <li class="red-coment"><%="目標まであと#{(@protein_amounts_sum - protein_amounts).abs}g頑張って！" %></li>
+        <li class="red-judgement"><%="目標まであと#{(@protein_amounts_sum - protein_amounts).abs}g頑張って！" %></li>
       <% else %>
-        <li class="green-coment">○</li>
+        <li class="blue-judgement">○</li>
         <li class="nutrition-item">タンパク質</li>
-        <li class="green-coment">目標達成！！</li>
+        <li class="blue-judgement">目標達成！！</li>
       <% end %>
     </div>
 
     <div class="nutrition-item-container">
       <% if (@sugar_amounts_sum - sugar_amounts) > 0 %>
-        <li class="red-coment">注意</li>
+        <li class="red-judgement">注意</li>
         <li class="nutrition-item">糖質</li>
-        <li class="red-coment"><%="#{(@sugar_amounts_sum - sugar_amounts)}gオーバしてます注意しよう!!" %></li>
+        <li class="red-judgement"><%="#{(@sugar_amounts_sum - sugar_amounts)}gオーバしてます注意しよう!!" %></li>
       <% elsif (@sugar_amounts_sum - sugar_amounts) == 0 %>
-        <li class="green-coment">○</li>
+        <li class="blue-judgement">○</li>
         <li class="nutrition-item">糖質</li>
-        <li class="green-coment">ちょうどだよ</li>
+        <li class="blue-judgement">ちょうどだよ</li>
       <% else %>
-        <li class="green-coment">○</li>
+        <li class="blue-judgement">○</li>
         <li class="nutrition-item">糖質</li>
-        <li class="green-coment"><%="あと#{(@sugar_amounts_sum - sugar_amounts).abs}g食べれるよ！" %></li>
+        <li class="blue-judgement"><%="あと#{(@sugar_amounts_sum - sugar_amounts).abs}g食べれるよ！" %></li>
       <% end %>
     </div>
 
     <div class="nutrition-item-container">
       <% if (@kcal_amounts_sum - kcal_amounts) > 0 %>
-        <li class="red-coment">注意</li>
+        <li class="red-judgement">注意</li>
         <li class="nutrition-item">カロリー</li>
-        <li class="red-coment"><%="#{(@kcal_amounts_sum - kcal_amounts)}kcalオーバしてます注意しよう!!" %></li>
+        <li class="red-judgement"><%="#{(@kcal_amounts_sum - kcal_amounts)}kcalオーバしてます注意しよう!!" %></li>
       <% elsif @kcal_amounts_sum - kcal_amounts == 0 %>
-        <li class="green-coment">○</li>
+        <li class="blue-judgement">○</li>
         <li class="nutrition-item">カロリー</li>
-        <li class="green-coment">ちょうどだよ</li>
+        <li class="blue-judgement">ちょうどだよ</li>
       <% else %>
-        <li class="green-coment">○</li>
+        <li class="blue-judgement">○</li>
         <li class="nutrition-item">カロリー</li>
-        <li class="green-coment"><%="あと#{(@kcal_amounts_sum - kcal_amounts).abs}kcal食べれるよ！" %></li>
+        <li class="blue-judgement"><%="あと#{(@kcal_amounts_sum - kcal_amounts).abs}kcal食べれるよ！" %></li>
       <% end %>
     </div>
   </div>

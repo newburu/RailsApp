@@ -1,15 +1,15 @@
-<h2 class="page-title">お知らせ</h2>
-<p class="red-text">誠に申し訳ありませんがこちらのアプリはダイエットを促すアプリとなっていますので</br>お客様の体重、身長ですとこれ以上のダイエットの必要性はないためこちらのアプリの利用はできません</p>
+<h2 class="page-explanation">お知らせ</h2>
+<p class="red-texts">誠に申し訳ありませんがこちらのアプリはダイエットを促すアプリとなっていますので</br>お客様の体重、身長ですとこれ以上のダイエットの必要性はないためこちらのアプリの利用はできません</p>
 <%= form_with model: @user, method: :post, url: users_sign_up_next_path, local: true do |f| %>
-    <%= f.hidden_field :name %>
-    <%= f.hidden_field :email %>
-    <%= f.hidden_field :password %>
-    <%= f.hidden_field :gender %>
-    <%= f.hidden_field :weight %>
-    <%= f.hidden_field :height %>
-    <%= f.hidden_field :exercise %>
-    <div class="btn-container">
-  <%= f.submit "戻る", class: "back-btn"%>
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :email %>
+  <%= f.hidden_field :password %>
+  <%= f.hidden_field :gender %>
+  <%= f.hidden_field :weight %>
+  <%= f.hidden_field :height %>
+  <%= f.hidden_field :exercise %>
+  <div class="btn-container">
+    <%= f.submit "戻る", class: "back-btn"%>
+  </div>
 <% end %>
 <div class="start-link"><%=link_to "TOPへ", root_path, class: "start-btn"%></div>
-</div>

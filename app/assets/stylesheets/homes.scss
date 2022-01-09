@@ -1,9 +1,12 @@
 // Place all the styles related to the Homes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-.main-title{
+.page-title{
+  font-size: 36px;
   text-align: center;
-  margin: 30px 0;
+  margin: 30px;
+  letter-spacing: 0.12em;
+  color: orange;
 }
 .li-container{
   display: block;
@@ -13,26 +16,25 @@
 .worries-title{
   font-size: 24px;
 }
-
-.red-text{
-  font-size: 16px;
+.worries-texts{
+  font-size: 20px;
   margin-top: 10px;
-  color: red;
   text-align: center;
 }
-.name-title{
+
+.service-features{
   text-align: center;
   margin: 30px 0 20px 0;
-  font-family: cursive;
 }
-.explanation{
+.features-explanations{
   text-align: center;
   margin-top: 10px;
   font-size: 18px;
+  list-style: none;
 }
-.login_link,.start_link{
+.login_link, .start_link{
   text-align: center;
-  margin-top: 50px;
+  margin: 20px 0;
   a{
     text-decoration: none;
     color: blue;
@@ -41,10 +43,9 @@
 }
 .singup_link{
   text-align: center;
-  margin-top: 20px;
   a{
     text-decoration: none;
-    color: chartreuse;
+    color: green;
     font-size: 20px;
     }
 }

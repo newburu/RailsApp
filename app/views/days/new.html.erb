@@ -1,4 +1,4 @@
-<p class="sub-explanation">今日の体重を入力してみましょう</p>
+<p class="page-explanation">今日の体重を入力してみましょう</p>
 <div class= "form-container">
   <%= form_with model: @day, method: :post, local: true do |f| %>
     <p class="radio-title">日付</p>
@@ -7,7 +7,7 @@
     <%= f.number_field :weight, step:"0.1", class: "form-field", required:"required", min: 30, max: 150 %>
     <div class="btn-container">
       <%= link_to "戻る", energys_path, class:"back-btn" %>
-      <%= f.submit "登録", class: "new-btn" %>
+      <%= f.submit "登録", class: "register-btn" %>
     </div>
   <% end %>
 </div>
