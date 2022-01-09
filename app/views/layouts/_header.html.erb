@@ -2,22 +2,21 @@
   <nav class="header-nav">
     <ul class="header-ul">
       <li><%= link_to "healthier", energys_path, class: "header-logo" %></li>
-        <% if user_signed_in? %>
-          <div class="header-container">
-            <li class="header-register"><%= link_to "食事登録", new_energy_path %></li>
-            <li class="header-weight"><%= link_to "体重入力", new_day_path %></li>
-            <li class="header-history"><%= link_to "日々の履歴", list_energy_path(current_user.id) %></li>
-            <%# <li class="header-record"><%= link_to "ミッション履歴", record_energy_path(current_user) %></li>
-            <li class="header-profile"><%= link_to "プロフィール", edit_user_registration_path %></li>
-            <li class="header-logout"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-          </div>
-        <% elsif current_page?(root_path) %>
+      <% if user_signed_in? %>
+        <div class="header-container">
+          <li class="header-register"><%= link_to "食事登録", new_energy_path %></li>
+          <li class="header-weight"><%= link_to "体重入力", new_day_path %></li>
+          <li class="header-history"><%= link_to "日々の履歴", list_energy_path(current_user.id) %></li>
+          <%# <li class="header-record"><%= link_to "ミッション履歴", record_energy_path(current_user) %></li>
+          <li class="header-profile"><%= link_to "プロフィール", edit_user_registration_path %></li>
+          <li class="header-logout"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        </div>
+      <% elsif current_page?(root_path) %>
         <div class="header-container">
           <li class="header-login"><%= link_to "ログイン", new_user_session_path %></li>
           <li class="header-singup"><%= link_to "会員登録" , new_user_registration_path %></li>
         </div>
       <% end %>
-      </div>
     </ul>
   </nav>
 </header>
