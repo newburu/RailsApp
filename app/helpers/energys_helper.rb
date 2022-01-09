@@ -21,7 +21,7 @@ module EnergysHelper
       2400
     elsif current_user.exercise == "Sometimes" && current_user.gender == "man"
       2200
-    elsif current_user.execire == "donot" && current_user.gender == "man"
+    elsif current_user.exercise == "donot" && current_user.gender == "man"
       2000
     elsif current_user.exercise == "everytime" && current_user.gender == "woman" 
       2000

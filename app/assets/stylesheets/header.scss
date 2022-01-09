@@ -1,87 +1,27 @@
 @mixin header-link{
-  cursor: pointer;
   text-decoration: none;
-  color: #fff;
-  border-radius: 10px;
-  padding: 5px;
+  color: orange;
 }
 .header-ul{
   display: flex;
   align-items: center;
-  background-color: #FFEEFF; 
+  background-color: #FFF;
   font-size: 28px;
   list-style: none;
   padding: 10px;
 }
 .header-logo{
-  cursor: pointer;
   font-family: cursive;
-  text-decoration: none;
   margin-left: 30px;
-}
-.header-login a{
-  border: 1px solid #00FF7F;
-  background-color: #00FF7F;
-  @include header-link;
-  margin-right: 10px;
-}
-.header-singup a{
-  border: 1px solid #00FFFF;
-  background-color: #00FFFF;
   @include header-link;
 }
-.header-profile a{
-  border: 1px solid #00ff7f;
-  background-color: #00FF7f;
+.header-items a{
   @include header-link;
 }
-.header-logout a{
-  border: 1px solid red;
-  background-color: red;
-  @include header-link;
-}
-.header-register a{
-  border: 1px solid lime;
-  background-color: lime;
-  @include header-link;
-}
-.header-weight a{
-  border: 1px solid blue;
-  background-color: blue;
-  @include header-link;
-}
-.header-record a{
-  border: 1px solid skyblue;
-  background-color: skyblue;
-  @include header-link;
-}
-.header-history a{
-  border: 1px solid pink;
-  background-color: pink;
-  @include header-link;
+.header-items{
+  margin: 0 10px;
 }
 .header-container{
   display: flex;
   margin: 0 20px 0 auto;
-}
-.header-login, .header-singup{
-  min-width: 100px;
-}
-.header-register{
-  min-width: 130px;
-}
-.header-weight{
-  min-width: 130px;
-}
-.header-history{
-  min-width: 170px;
-}
-.header-record{
-  min-width: 220px;
-}
-.header-logout{
-  min-width: 160px;
-}
-.header-profile{
-  min-width: 180px;
 }
