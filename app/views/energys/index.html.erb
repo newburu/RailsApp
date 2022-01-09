@@ -1,14 +1,20 @@
 <div class="record-container">
   <p class="page-explanation">今日の記録</p>
-  <div class="goal-weight">目標体重:<%= @goal_weight %>kg</div>
 </div>
-
+<div class="head-heading">
+  <p class="today-mission"><%="#{Date.today}のミッション"%></p>
+  <div class="weight-category">
+    <p class="weight-title">体重グラフ</p>
+    <p class="goal-weight">目標体重:<%= @goal_weight %>kg</p>
+  </div>
+</div>
 <div class="index-container">
-  <div class="index-left">
-    <p class="index-left-items"><%="#{Date.today}のミッション"%></p>
-    <div class="nutrition-item-container">
+  <div class="mainpage-left">
+    <div class="judge-item-container">
       <% if @protein_amounts_sum == 0 %>
-        <li class = "blue-judgement"><%="タンパク質の目標は#{protein_amounts}gだよ！！" %></li>
+        <li class="blue-judgement">○</li>
+        <li class="nutrition-item">タンパク質</li>
+        <li class="blue-judgement"><%="タンパク質の目標は#{protein_amounts}gだよ！！" %></li>
       <% elsif (@protein_amounts_sum - protein_amounts) < 0  %>
         <li class="red-judgement">注意</li>
         <li class="nutrition-item">タンパク質</li>
@@ -20,7 +26,7 @@
       <% end %>
     </div>
 
-    <div class="nutrition-item-container">
+    <div class="judge-item-container">
       <% if (@sugar_amounts_sum - sugar_amounts) > 0 %>
         <li class="red-judgement">注意</li>
         <li class="nutrition-item">糖質</li>
@@ -36,7 +42,7 @@
       <% end %>
     </div>
 
-    <div class="nutrition-item-container">
+    <div class="judge-item-container">
       <% if (@kcal_amounts_sum - kcal_amounts) > 0 %>
         <li class="red-judgement">注意</li>
         <li class="nutrition-item">カロリー</li>
@@ -53,18 +59,18 @@
     </div>
   </div>
 
-  <div class="index-right">
+  <div class="mainpage-right">
     <div class="graph-container">
       <%if @week_graph %>
-        <%= line_chart @week_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"]%>
+        <%= line_chart @week_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください"%>
       <% elsif @month_graph %>
-        <%= line_chart @month_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"] %>
+        <%= line_chart @month_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @half_year_graph %>
-        <%= line_chart @half_year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"] %>
+        <%= line_chart @half_year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @year_graph %>
-        <%= line_chart @year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"]%>
+        <%= line_chart @year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください"%>
       <% elsif @all_graph%>
-        <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"] %>
+        <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください"%>
       <% end %>
     </div>
     <div class="link_container">
