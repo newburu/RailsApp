@@ -1,14 +1,14 @@
-<h2 class="page-title">登録した体重を編集します</h2>
+<p class="page-explanation">登録した体重を編集します</p>
 <div class="form-container">
   <%= form_with model: @day, local: true do |f| %>
     <p class="radio-title">日付</p>
     <%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
     <%= f.label :weight, "体重(kg)", {class: 'label-class'}%>
     <%= f.number_field :weight, step: "0.1", class: "form-field", required:"required", min: 30, max: 200 %>
-    <p class="red-text">※小数点第一位までしか入力できません</p>
+    <p class="red-texts">※小数点第1位までしか入力できません</p>
     <div class="btn-container">
       <%= link_to "戻る", list_energy_path(date: @day.date), class:"back-btn" %>
-      <%= f.submit "更新する",class: "yellow-btn" %>
+      <%= f.submit "更新する", class: "register-btn" %>
     </div>
   <% end %>
 </div>

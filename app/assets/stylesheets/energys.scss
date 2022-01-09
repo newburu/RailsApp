@@ -16,23 +16,20 @@
   padding: 7px 15px;
   margin: 0px auto;
 }
-.yellow-btn{
-  @include btn;
-  color: black;
-  background-color: yellow;
-}
-.record-btn{
-  @include btn;
-  background-color: blue;
-}
-.new-btn{
+.register-btn{
   @include btn;
   background-color: lime;
 }
-.sub-explanation{
+.page-explanation{
   text-align: center;
   margin: 30px 0;
-  font-size: 20px;
+  font-size: 24px;
+}
+.red-texts{
+  font-size: 16px;
+  margin-top: 10px;
+  color: red;
+  text-align: center;
 }
 .goal-weight{
   background-color: #fff;
@@ -92,11 +89,11 @@
   width: 600px;
 }
 
-.green-coment{
+.blue-judgement{
   color: blue;
   margin: 10px 50px;
 }
-.red-coment{
+.red-judgement{
   color: red;
   margin: 10px 50px;
 }
