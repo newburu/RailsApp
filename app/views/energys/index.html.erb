@@ -62,15 +62,15 @@
   <div class="mainpage-right">
     <div class="graph-container">
       <%if @week_graph %>
-        <%= line_chart @week_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください"%>
+        <%= line_chart @week_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmin: 1.week.ago, xmax: Date.today %>
       <% elsif @month_graph %>
-        <%= line_chart @month_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
+        <%= line_chart @month_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmin: Time.current.ago(1.month), xmax: Date.today%>
       <% elsif @half_year_graph %>
-        <%= line_chart @half_year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
+        <%= line_chart @half_year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmin: Time.current.ago(6.month), xmax: Date.today %>
       <% elsif @year_graph %>
-        <%= line_chart @year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください"%>
+        <%= line_chart @year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmin: Time.current.ago(1.years), xmax: Date.today%>
       <% elsif @all_graph%>
-        <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 30, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください"%>
+        <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmax: Date.today%>
       <% end %>
     </div>
     <div class="link_container">
