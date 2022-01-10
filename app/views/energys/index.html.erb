@@ -62,17 +62,17 @@
   <div class="mainpage-right">
     <div class="graph-container">
       <%if @week_graph %>
-        <%= line_chart @week_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
+        <%= line_chart @week_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @month_graph %>
-        <%= line_chart @month_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
+        <%= line_chart @month_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @half_year_graph %>
-        <%= line_chart @half_year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
+        <%= line_chart @half_year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @year_graph %>
-        <%= line_chart @year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
+        <%= line_chart @year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @all_graph%>
-        <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
+        <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @today_data %>
-        <%= line_chart  @today_data , height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %> 
+        <%= line_chart  @today_data , height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %> 
       <% end %>
     </div>
     <div class="link_container">
