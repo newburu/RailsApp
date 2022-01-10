@@ -62,15 +62,17 @@
   <div class="mainpage-right">
     <div class="graph-container">
       <%if @week_graph %>
-        <%= line_chart @week_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmin: 1.week.ago, xmax: Date.today %>
+        <%= line_chart @week_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @month_graph %>
-        <%= line_chart @month_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmin: Time.current.ago(1.month), xmax: Date.today%>
+        <%= line_chart @month_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @half_year_graph %>
-        <%= line_chart @half_year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmin: Time.current.ago(6.month), xmax: Date.today %>
+        <%= line_chart @half_year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @year_graph %>
-        <%= line_chart @year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmin: Time.current.ago(1.years), xmax: Date.today%>
+        <%= line_chart @year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @all_graph%>
-        <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: 0, max: 80, colors: ["pink", "#999"], empty: "データがありません体重を登録してください", xmax: Date.today%>
+        <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
+      <% elsif @today_data %>
+        <%= line_chart  @today_data , height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %> 
       <% end %>
     </div>
     <div class="link_container">
@@ -78,7 +80,7 @@
       <%= link_to "１ヶ月間", energys_path(graph_sort: :month), class: "graph-item" %>
       <%= link_to "半年間", energys_path(graph_sort: :half_year), class: "graph-item" %>
       <%= link_to "１年間", energys_path(graph_sort: :year), class: "graph-item" %>
-      <%= link_to "全件", energys_path(graph_sort: :all), class: "graph-item"%>
+      <%= link_to "全件", energys_path(graph_sort: :all), class: "graph-item" %>
     </div>
   </div>
 </div>
