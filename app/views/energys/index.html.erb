@@ -72,7 +72,6 @@
       <% elsif @all_graph%>
         <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
       <% elsif @today_data %>
-      <%# <%binding.pry%> %>
         <%= line_chart  @today_data , height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: current_user.weight-20, max: current_user.weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %> 
       <% end %>
     </div>

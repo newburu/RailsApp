@@ -22,12 +22,9 @@ class EnergysController < ApplicationController
           @week_graph = week_datas.map{|n| [n.date, n.weight]}
       end
     else
-    #  binding.pry
-        user = current_user
-          @today_data = [[user.created_at,user.weight]]
+      #体重がない時は登録した時の体重を使う
+      @today_data = [[current_user.created_at.strftime('%Y/%m/%d'), current_user.weight]]
     end
-
-    # binding.pry
     #目標体重を計算してメイン画面で表示
     @goal_weight =  (current_user.weight*0.95).round(2)
     energys = current_user.energys.where(date: Date.today)

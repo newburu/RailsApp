@@ -12,6 +12,8 @@ module RailsApp
     config.load_defaults 6.1
     #時間を東京にする
     config.time_zone = 'Tokyo'
+    # デフォルトのロケールを日本（ja）に設定
+    config.i18n.default_locale = :ja
     # 日本語の設定
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
