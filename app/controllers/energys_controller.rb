@@ -86,10 +86,6 @@ class EnergysController < ApplicationController
     end
   end
 
-  def record
-    @events = current_user.energys.all
-  end
-
   def edit
     @energy = Energy.find(params[:id])
   end

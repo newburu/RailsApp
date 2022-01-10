@@ -9,10 +9,9 @@ class User < ApplicationRecord
   enum exercise: {everytime: 0, Sometimes: 1, donot: 2}
 
   VALID_PASSWORD_REGEX =/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])\w{6,12}\z/
-  validates :password, presence: true,
-            format: { with: VALID_PASSWORD_REGEX,
-             message: "は半角6~12文字英大文字・小文字・数字それぞれ１文字以上含む必要があります"},
-             confirmation: true
+  validates :password, on: :create, presence: true, confirmation: true, format: { with: VALID_PASSWORD_REGEX, message: "は半角6~12文字英大文字・小文字・数字それぞれ１文字以上含む必要があります"}
+  validates :email, on: :create, presence: true, uniqueness: true
+  #on: でアクション指定したいけどcreateしか使えないそれだと新規登録の時にエラーメッセージが増える
   with_options on: :confirm do
     validates_presence_of :name, length: {maximum:6}
     validates_presence_of :gender
