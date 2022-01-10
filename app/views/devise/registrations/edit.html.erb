@@ -16,23 +16,6 @@
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
 
-    <div class="field">
-      <%= f.label :password, {class: 'label-class'} %> <i>(新しいパスワードを入力してください)</i><br />
-      <%= f.password_field :password, autocomplete: "new-password", class: "form-field" %>
-      <% if @minimum_password_length %><br />
-        <em><%= @minimum_password_length %> 文字以上</em>
-      <% end %>
-    </div>
-
-    <div class="field">
-      <%= f.label :password_confirmation, {class: 'label-class'} %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-field" %>
-    </div>
-
-    <div class="field">
-      <%= f.label :current_password, {class: 'label-class'} %> <i>(プロフィールを変更するには現在のパスワードを入力してください)</i><br />
-      <%= f.password_field :current_password, autocomplete: "current-password", class: "form-field" %>
-    </div>
     <p class="radio-title">性別</p>
     <%= f.radio_button :gender, :man %>
     <%= f.label :gender, "男性", {value: :man}%>
