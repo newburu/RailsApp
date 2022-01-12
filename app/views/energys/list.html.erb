@@ -1,41 +1,46 @@
 <p class="page-explanation">登録した履歴を見てみましょう</p>
-<ul class="form-container">
+<div class="form-container">
   <%= form_with url: list_energy_path(current_user.id),local:true do |f| %>
     <p class="radio-title">日付</p> 
     <%= f.date_select :date, {selected: @date, use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
     <%=f.submit "決定", class: "small-green-btn"%>
   <% end %>
-  <li class="record-list">体重</li>
+  <p class="record-list">体重</p>
   <% @weight.each do |weight| %>
     <div class="record-weigth-container">
       <p class="record-items"><%= weight.weight%></p>
-      <p class="record-items"><%= link_to "編集", edit_day_path(weight.id), class: "small-yellow-btn" %></p>
+      <p class="record-items"><%= link_to "編集", edit_day_path(weight.id), class: "small-orange-btn" %></p>
       <p class="record-items"><%= link_to "削除", day_path(weight.id), method: :delete, data: { confirm: "削除しますか？" }, class: "small-red-btn" %></p>
     </div>
   <% end %>
-  <li class="record-list">食事</li>
-  <div class="record-meal-container">
-    <div class="record-item-protein">タンパク質</div>
-    <div class="record-item-sugar">糖質</div>
-    <div class="record-item-kcal">カロリー</div>
-  </div>
-  <% @energys.each do |energy|%>
-    <div class="record-meal-container">
-      <% meal = energy.meal %>
-      <% if meal == "morning"%>
-        <p class="record-meal">朝</p>
-      <% elsif meal == "lunch" %>
-        <p class="record-meal">昼</p>
-      <% elsif meal == "night" %>
-        <p class="record-meal">夜</p>
-      <% else %>
-        <p class="record-meal-snack">間食</p>
+  <p class="record-list">食事</p>
+  <table class="table-container">
+    <tr class="table-title">
+      <td></td>
+      <td>タンパク質</td>
+      <td>糖質</td>
+      <td>カロリー</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <% @energys.each do |energy|%>
+        <% meal = energy.meal %>
+        <% if meal == "morning"%>
+          <td>朝</td>
+        <% elsif meal == "lunch" %>
+          <td>昼</td>
+        <% elsif meal == "night" %>
+          <td>夜</td>
+        <% else %>
+          <td>間食</td>
+        <% end %>
+        <td class="a"><%= energy.protein%>g</td>
+        <td><%= energy.sugar%>g</td>
+        <td><%= energy.kcal%>kcal</td>
+        <td><%= link_to "編集", edit_energy_path(energy.id), class: "food-edit-btn" %></td>
+        <td><%= link_to "削除", energy_path(energy.id), method: :delete, data: { confirm: "削除しますか？" }, class: "food-delete-btn"%></td>
       <% end %>
-      <p class="record-meal-protein"><%= energy.protein%>g</p>
-      <p class="record-meal-sugar"><%= energy.sugar%>g</p>
-      <p class="record-meal-kcal"><%= energy.kcal%>kcal</p>
-      <p class="record-items-edit"><%= link_to "編集", edit_energy_path(energy.id), class: "small-yellow-btn" %></p>
-      <p class="record-items-delete"><%= link_to "削除", energy_path(energy.id), method: :delete, data: { confirm: "削除しますか？" }, class: "small-red-btn"%></p>
-    </div>
-  <% end %>
-</ul>
+    </tr>
+  </table>   
+</div><!--form-container-->

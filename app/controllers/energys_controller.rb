@@ -1,25 +1,30 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
-    #この形はよくない（何日前って引数を渡すようにする）
+    #この形はよくない（日付を引数で渡す）
     #パラメーターで引数を渡してdateの中身を変えるようにする（デフォルトをアクションのアクションにする）
     if current_user.days.present?
       case params[:graph_sort]
         when "month"
           month_datas = current_user.days.where(date: Time.current.ago(1.month).beginning_of_day..Time.zone.now.end_of_day)
           @month_graph = month_datas.map{|n| [n.date, n.weight]}
+          @graph_period = "1ヶ月間"
         when "half_year"
           half_year_datas = current_user.days.where(date: Time.current.ago(6.month).beginning_of_day..Time.zone.now.end_of_day)
-          @half_year_graph = half_year_datas.map{|n| [n.date, n.weight]} 
+          @half_year_graph = half_year_datas.map{|n| [n.date, n.weight]}
+          @graph_period = "半年間"
         when "year"
           year_datas = current_user.days.where(date: Time.current.ago(1.years).beginning_of_day..Time.zone.now.end_of_day)
           @year_graph = year_datas.map{|n| [n.date, n.weight]}
+          @graph_period = "1年間"
         when "all"
           all_datas = current_user.days.where("date <= ?", Time.now)
           @all_graph = all_datas.map{|n| [n.date, n.weight]}
+          @graph_period = "過去全部"
         else
           week_datas = current_user.days.where(date: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
           @week_graph = week_datas.map{|n| [n.date, n.weight]}
+          @graph_period = "1週間"
       end
     else
       #体重がない時は登録した時の体重を使う
@@ -44,9 +49,11 @@ class EnergysController < ApplicationController
       date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
       #登録する食事が既にDBにあるかを確認する
       confirmation_data = current_user.energys.exists?(date: date, meal: energy_params[:meal])
+      #そもそも明日以降の日づを選択できないようにしたらifを１つ消せる
       if date > Date.today
         flash.now[:alert] = "明日以降の分は登録出来ません"
         render :new
+      #snackのロジックを消してconfirmation_dataの後ろにかつスナックじゃなかったらにする
       elsif @energy.meal == "snack"
         @energy.save
         redirect_to energys_path, notice: '食事を登録しました'
@@ -66,6 +73,7 @@ class EnergysController < ApplicationController
     #最初にデフォルトで今日のインスタンスを表示
     @date = Date.today
     list_items
+    #引数の形を上手く統一できるように考えて直す
     #編集されたらviewで表示する
     if params[:date_year]
       @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
@@ -91,14 +99,19 @@ class EnergysController < ApplicationController
   end
 
   def update
+  #間食を登録できるようにする
     if date_judgment
+      # binding.pry
       @date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
       @energy = Energy.find(params[:id])
+      #&& @energy.date != @dateここがなぜ必要かを調査
+      #これは変数にするcurrent_user.energys.where(date: @date, meal: energy_params[:meal]).exists?
       if current_user.energys.where(date: @date, meal: energy_params[:meal]).exists? && @energy.date != @date
-        redirect_to edit_energy_path(@energy.id),alert: '既に登録されています'
+        redirect_to edit_energy_path(@energy.id), alert: '既に登録されています'
       elsif current_user.energys.where(date: @date, meal: energy_params[:meal]).exists?  && @energy.meal != energy_params[:meal]
-        redirect_to edit_energy_path(@energy.id),alert: '既に登録されています' 
+        redirect_to edit_energy_path(@energy.id), alert: '既に登録されています' 
       elsif @energy.date > Date.today
+      #明日以降の日付を選べないようにする
         flash.now[:alert] = "明日以降の分は登録出来ません"
         render :edit
       else 
