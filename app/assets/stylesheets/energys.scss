@@ -16,6 +16,11 @@
   padding: 7px 15px;
   margin: 0px auto;
 }
+.page-explanation{
+  text-align: center;
+  margin: 30px 0;
+  font-size: 24px;
+}
 .main-container{
   display: flex;
   font-size: 22px;
@@ -80,11 +85,6 @@
   background-color: lime;
   font-size: 20px;
 }
-.page-explanation{
-  text-align: center;
-  margin: 30px 0;
-  font-size: 24px;
-}
 .red-texts{
   font-size: 16px;
   margin-top: 10px;
@@ -99,6 +99,23 @@
 }
 
 //リスト画面CSS
+.small-green-btn{
+  @include btn;
+  @include small-btn; 
+  background-color: lime;
+}
+.small-orange-btn{
+  @include btn;
+  @include small-btn; 
+  background-color: orange;
+  margin: 0 30px 30px 100px;
+}
+.small-red-btn{
+  @include btn;
+  @include small-btn; 
+  background-color: red;
+  margin: 0 30px 30px 100px;
+}
 .record-list{
   font-size: 28px;
   list-style: none;
@@ -118,28 +135,19 @@
 }
 tr{
   font-size: 20px;
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 30px;
   width: 35em;
 }
-.a{
-  margin-right:90px;
+td{
+  padding: 20px;
 }
-.small-green-btn{
+.food-edit-btn{
   @include btn;
   @include small-btn; 
-  background-color: lime;
+  background-color: orange; 
 }
-.small-orange-btn{
+.food-delete-btn{
   @include btn;
-  @include small-btn; 
-  background-color: orange;
-  margin: 0 30px 30px 100px;
-}
-.small-red-btn{
-  @include btn;
-  @include small-btn; 
+  @include small-btn;
   background-color: red;
-  margin: 0 30px 30px 100px;
 }

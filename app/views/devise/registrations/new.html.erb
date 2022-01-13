@@ -11,7 +11,7 @@
       <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
       <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-field", required:"required"%>
     </div>
-    
+    <%= devise_error_messages %>
     <div class="field">
       <%= f.label :password, 'パスワード', {class: 'label-class'} %><em>（半角大文字小文字数字を１文字以上含んでください）</em>
       <% if @minimum_password_length %>

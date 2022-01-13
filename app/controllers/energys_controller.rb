@@ -29,6 +29,7 @@ class EnergysController < ApplicationController
     else
       #体重がない時は登録した時の体重を使う
       @today_data = [[current_user.created_at.strftime('%Y/%m/%d'), current_user.weight]]
+      @graph_period = "1週間"
     end
     #目標体重を計算してメイン画面で表示
     @goal_weight =  (current_user.weight*0.95).round(2)
