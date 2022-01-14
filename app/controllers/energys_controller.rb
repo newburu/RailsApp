@@ -101,12 +101,11 @@ class EnergysController < ApplicationController
   def update
   #間食を登録できるようにする
     if date_judgment
-      # binding.pry
       @date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
       @energy = Energy.find(params[:id])
       #&& @energy.date != @dateここがなぜ必要かを調査（これがないと同じ日の更新ができない）
       meal_check = current_user.energys.where(date: @date, meal: energy_params[:meal]).exists?
-      if @energy.date > Date.today
+      if @date > Date.today
       #明日以降の日付を選べないようにする
         flash.now[:alert] = "明日以降の分は登録出来ません"
         render :edit
