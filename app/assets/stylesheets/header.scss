@@ -17,6 +17,7 @@
 }
 .header-items a{
   @include header-link;
+  min-width: auto;
 }
 .header-items{
   margin: 0 10px;
