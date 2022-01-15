@@ -3,34 +3,37 @@ class EnergysController < ApplicationController
   def index
     #この形はよくない（日付を引数で渡す）
     #パラメーターで引数を渡してdateの中身を変えるようにする（デフォルトをアクションのアクションにする）
-    if current_user.days.present?
+    # if current_user.days.present?
+    # graph_datas = current_user.days.where(date: Time.current.ago(params[:graph_sort]).beginning_of_day..Time.zone.now.end_of_day)
+    # @month_graph = graph_datas.map{|n| [n.date, n.weight]}
       case params[:graph_sort]
-        when "month"
-          month_datas = current_user.days.where(date: Time.current.ago(1.month).beginning_of_day..Time.zone.now.end_of_day)
-          @month_graph = month_datas.map{|n| [n.date, n.weight]}
-          @graph_period = "1ヶ月間"
-        when "half_year"
-          half_year_datas = current_user.days.where(date: Time.current.ago(6.month).beginning_of_day..Time.zone.now.end_of_day)
-          @half_year_graph = half_year_datas.map{|n| [n.date, n.weight]}
-          @graph_period = "半年間"
-        when "year"
-          year_datas = current_user.days.where(date: Time.current.ago(1.years).beginning_of_day..Time.zone.now.end_of_day)
-          @year_graph = year_datas.map{|n| [n.date, n.weight]}
-          @graph_period = "1年間"
-        when "all"
-          all_datas = current_user.days.where("date <= ?", Time.now)
-          @all_graph = all_datas.map{|n| [n.date, n.weight]}
-          @graph_period = "過去全部"
-        else
-          week_datas = current_user.days.where(date: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
-          @week_graph = week_datas.map{|n| [n.date, n.weight]}
-          @graph_period = "1週間"
-      end
-    else
-      #体重がない時は登録した時の体重を使う
-      @today_data = [[current_user.created_at.strftime('%Y/%m/%d'), current_user.weight]]
-      @graph_period = "1週間"
+      when "month"
+        month_datas = current_user.days.where(date: Time.current.ago(1.month).beginning_of_day..Time.zone.now.end_of_day)
+        @month_graph = month_datas.map{|n| [n.date, n.weight]}
+        @graph_period = "1ヶ月間"
+      when "half_year"
+        half_year_datas = current_user.days.where(date: Time.current.ago(6.month).beginning_of_day..Time.zone.now.end_of_day)
+        @half_year_graph = half_year_datas.map{|n| [n.date, n.weight]}
+        @graph_period = "半年間"
+      when "year"
+        year_datas = current_user.days.where(date: Time.current.ago(1.years).beginning_of_day..Time.zone.now.end_of_day)
+        @year_graph = year_datas.map{|n| [n.date, n.weight]}
+        @graph_period = "1年間"
+      when "all"
+        all_datas = current_user.days.where("date <= ?", Time.now)
+        @all_graph = all_datas.map{|n| [n.date, n.weight]}
+        @graph_period = "過去全部"
+      else
+        week_datas = current_user.days.where(date: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
+        @week_graph = week_datas.map{|n| [n.date, n.weight]}
+        @graph_period = "1週間"
     end
+    
+    # else
+    #   #体重がない時は登録した時の体重を使う
+    #   @today_data = [[current_user.created_at.strftime('%Y/%m/%d'), current_user.weight]]
+    #   @graph_period = "1週間"
+    # end
     #目標体重を計算してメイン画面で表示
     @goal_weight =  (current_user.weight*0.95).round(2)
     energys = current_user.energys.where(date: Date.today)

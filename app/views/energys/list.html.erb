@@ -15,16 +15,16 @@
   <% end %>
   <p class="record-list">食事</p>
   <table class="table-container">
-    <tr class="table-title">
-      <td></td>
-      <td>タンパク質</td>
-      <td>糖質</td>
-      <td>カロリー</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <% @energys.each do |energy|%>
+    <% @energys.each do |energy|%>
+      <tr class="table-title">
+        <td></td>
+        <td>タンパク質</td>
+        <td>糖質</td>
+        <td>カロリー</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
         <% meal = energy.meal %>
         <% if meal == "morning"%>
           <td>朝</td>
