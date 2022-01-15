@@ -1,7 +1,7 @@
 <div class="form-container">
 
   <p class="radio-title">日付</p>
-  <%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/'}, {class: "date_field"}%>
+  <%= f.date_select :date, {use_month_numbers: true, start_year:2020, end_year: Time.now.year, date_separator: '/', end_yrs: Date.today}, {class: "date_field"}%>
   <p class="radio-title">食事</p>
   <%= f.radio_button :meal, :morning, checked: true %>
   <%= f.label :meal, "朝", {value: :morning}%>
