@@ -3,8 +3,10 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  prepend_before_action :authenticate_scope!, only: [:edit, :edit_password, :update, :update_password, :destroy]
+  prepend_before_action :set_minimum_password_length, only: [:new, :edit, :edit_password]
 
-    # GET /resource/sign_up
+  # GET /resource/sign_up
   # def new
   #   super
   # end
@@ -34,11 +36,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def complete
-   @user = current_user
+    @user = current_user
   end
 
-  def exception
-    
+  # def exception
+  # end
+
+  # def edit_password
+  # end
+
+  def update_password
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+
+    resource_updated = update_resource(resource, account_update_params)
+    yield resource if block_given?
+    if resource_updated
+      set_flash_message_for_update(resource, prev_unconfirmed_email)
+      bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
+      redirect_to energys_path, notice: 'パスワードを変更しました'
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      flash.now[:alert] = "パスワードが変更できませんでした"
+      render 'edit_password'
+    end
   end
 
   # GET /resource/edit
@@ -76,9 +98,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :encrypted_password, :email, :gender, :weight, :height, :exercise])
   end
 
-  #プロフィール編集でパスワードの要求を無しにする
+  #プロフィール編集でパスワードの要求を無しにしてパスワードの変更をする時だけパスワードを必要とする
   def update_resource(resource, params)
-    resource.update_without_password(params)
+    if params[:password].blank? && params[:password_confirmation].blank? && params[:current_password].blank?
+      resource.update_without_password(params)
+    else
+      resource.update_with_password(params)
+    end
   end
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

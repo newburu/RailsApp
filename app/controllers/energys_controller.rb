@@ -3,10 +3,7 @@ class EnergysController < ApplicationController
   def index
     #この形はよくない（日付を引数で渡す）
     #パラメーターで引数を渡してdateの中身を変えるようにする（デフォルトをアクションのアクションにする）
-    # if current_user.days.present?
-    # graph_datas = current_user.days.where(date: Time.current.ago(params[:graph_sort]).beginning_of_day..Time.zone.now.end_of_day)
-    # @month_graph = graph_datas.map{|n| [n.date, n.weight]}
-      case params[:graph_sort]
+    case params[:graph_sort]
       when "month"
         month_datas = current_user.days.where(date: Time.current.ago(1.month).beginning_of_day..Time.zone.now.end_of_day)
         @month_graph = month_datas.map{|n| [n.date, n.weight]}
@@ -28,12 +25,6 @@ class EnergysController < ApplicationController
         @week_graph = week_datas.map{|n| [n.date, n.weight]}
         @graph_period = "1週間"
     end
-    
-    # else
-    #   #体重がない時は登録した時の体重を使う
-    #   @today_data = [[current_user.created_at.strftime('%Y/%m/%d'), current_user.weight]]
-    #   @graph_period = "1週間"
-    # end
     #目標体重を計算してメイン画面で表示
     @goal_weight =  (current_user.weight*0.95).round(2)
     energys = current_user.energys.where(date: Date.today)

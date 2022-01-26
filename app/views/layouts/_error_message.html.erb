@@ -1,7 +1,15 @@
-<% if @energy.errors.any? %>
+<% if @energy.present? && @energy.errors.any? %>
   <ul class="error-form">
     <% @energy.errors.full_messages.each do |message| %>
       <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @user.present? && @user.errors.any? %>
+  <ul class="error-form">
+    <% @user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
     <% end %>
   </ul>
 <% end %>
