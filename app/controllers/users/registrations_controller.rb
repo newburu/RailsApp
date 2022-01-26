@@ -39,14 +39,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = current_user
   end
 
-  def exception
-  end
+  # def exception
+  # end
 
-  def edit_password
-  end
+  # def edit_password
+  # end
 
   def update_password
-    # binding.pry
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
@@ -55,8 +54,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if resource_updated
       set_flash_message_for_update(resource, prev_unconfirmed_email)
       bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
-
-      respond_with resource, location: after_update_path_for(resource)
+      redirect_to energys_path, notice: 'パスワードを変更しました'
     else
       clean_up_passwords resource
       set_minimum_password_length

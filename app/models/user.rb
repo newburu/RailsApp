@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :email, on: :create, presence: true, uniqueness: true
 
   with_options on: :create do
-    validates_presence_of :name, length: {maximum:6}, allow_nil: true
+    validates_presence_of :name, length: {maximum:6}
     validates_presence_of :gender, allow_nil: true
     validates_presence_of :weight, allow_nil: true
     validates_presence_of :height, allow_nil: true
