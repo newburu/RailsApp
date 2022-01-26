@@ -12,12 +12,12 @@ class User < ApplicationRecord
   validates :password, on: :create, presence: true, confirmation: true, format: { with: VALID_PASSWORD_REGEX, message: "は半角6~12文字英大文字・小文字・数字それぞれ１文字以上含む必要があります"}
   validates :password, on: :update, presence: true, confirmation: true, format: { with: VALID_PASSWORD_REGEX, message: "は半角6~12文字英大文字・小文字・数字それぞれ１文字以上含む必要があります"}, allow_nil: true
   validates :email, on: :create, presence: true, uniqueness: true
-  #on: でアクション指定したいけどcreateしか使えないそれだと新規登録の時にエラーメッセージが増える
-  # with_options on: :create do
-  #   validates_presence_of :name, length: {maximum:6}
-  #   validates_presence_of :gender
-  #   validates_presence_of :weight
-  #   validates_presence_of :height
-  #   validates_presence_of :exercise
-  # end
+
+  with_options on: :create do
+    validates_presence_of :name, length: {maximum:6}, allow_nil: true
+    validates_presence_of :gender, allow_nil: true
+    validates_presence_of :weight, allow_nil: true
+    validates_presence_of :height, allow_nil: true
+    validates_presence_of :exercise, allow_nil: true
+  end
 end
