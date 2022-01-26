@@ -2,7 +2,7 @@
 <p class="caution-text">こちらの情報を元に適正カロリーを計算します<br />
   <span class="red-texts">※こちらの情報はあとで変更できます</span></p>
 <%= form_with model: @user, url: users_sign_up_confirm_path(@user), local: true do |f| %>
- <div class="hidden-container">
+  <div class="hidden-container">
     <%= f.label :名前, {class: 'label-class'} %>
     <%= f.text_field :name, placeholder: "ニックネーム" , class: "form-field"%>
 
@@ -30,7 +30,7 @@
 
     <%= f.radio_button :exercise, :everytime %>
     <%= f.label :exercise, "毎日", {value: :everytime}%>
-           
+    
     <%= f.radio_button :exercise, :Sometimes %>
     <%= f.label :exercise, "たまに", {value: :Sometimes}%>
 
