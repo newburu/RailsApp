@@ -27,9 +27,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(sign_up_params)
     render :new and return if params[:back]
     render :next if @user.invalid?(:confirm)
-    weight = @user.weight
-    height = @user.height/100
-    bmi = weight/height/height
+    #BMIを計算してダイエットする必要がない人は弾く
+    bmi = (@user.weight)/(@user.height/100)/(@user.height/100)
     if bmi<15
       render :exception
     end
@@ -37,6 +36,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def complete
     @user = current_user
+    #会員登録した時に入力した体重を今日の体重として登録する
+    current_user.days.create(weight: current_user.weight, date: Date.today)
   end
 
   def update_password
@@ -63,9 +64,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    #プロフィール編集で入力した体重を今日の体重として更新する
+    current_user.days.find_by(date: Date.today).update(weight: params[:user][:weight])
+    super
+  end
 
   # DELETE /resource
   # def destroy

@@ -1,35 +1,18 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
-  def index
-    #この形はよくない（日付を引数で渡す）
+  def index(today_weight: params[:today_weight])
+  # def index(params_datas:  current_user.days.where(date: (Time.current.ago(7.days)).beginning_of_day..Time.zone.now.end_of_day))
     #パラメーターで引数を渡してdateの中身を変えるようにする（デフォルトをアクションの引数にする）
-    case params[:graph_sort]
-      when "month"
-        month_datas = current_user.days.where(date: Time.current.ago(1.month).beginning_of_day..Time.zone.now.end_of_day)
-        @month_graph = month_datas.map{|n| [n.date, n.weight]}
-        @graph_period = "1ヶ月間"
-      when "half_year"
-        half_year_datas = current_user.days.where(date: Time.current.ago(6.month).beginning_of_day..Time.zone.now.end_of_day)
-        @half_year_graph = half_year_datas.map{|n| [n.date, n.weight]}
-        @graph_period = "半年間"
-      when "year"
-        year_datas = current_user.days.where(date: Time.current.ago(1.years).beginning_of_day..Time.zone.now.end_of_day)
-        @year_graph = year_datas.map{|n| [n.date, n.weight]}
-        @graph_period = "1年間"
-      when "all"
-        all_datas = current_user.days.where("date <= ?", Time.now)
-        @all_graph = all_datas.map{|n| [n.date, n.weight]}
-        @graph_period = "過去全部"
-      else
-        week_datas = current_user.days.where(date: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
-        @week_graph = week_datas.map{|n| [n.date, n.weight]}
-        @graph_period = "1週間"
-      end
-    #体重グラフの縦軸で使う 
+    if params[:graph_sort]
+      params_datas = current_user.days.where(date: Time.parse(params[:graph_sort]).beginning_of_day..Time.zone.now.end_of_day)
+      @weight_graphs = params_datas.map{|n| [n.date, n.weight]}
+    end
+    # @graph_period = "1週間" 
+    #体重グラフの縦軸で使う
     @today_weight = current_user.days.find_by(date: Date.today).weight.round
     #目標体重を計算してメイン画面で表示
     @goal_weight =  (current_user.weight*0.95).round(2)
-    #メイン画面で適性を超えてるのかを計算して表示する
+    #メイン画面で適性量を超えてるのかを計算
     energys = current_user.energys.where(date: Date.today)
     @protein_amounts_sums = energys.pluck(:protein).sum
     @sugar_amounts_sums = energys.pluck(:sugar).sum
@@ -153,4 +136,5 @@ class EnergysController < ApplicationController
       @energys = current_user.energys.where(date: @date)
       @weight = current_user.days.where(date: @date)
     end
+
 end
