@@ -2,7 +2,7 @@ class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
   def index
     #この形はよくない（日付を引数で渡す）
-    #パラメーターで引数を渡してdateの中身を変えるようにする（デフォルトをアクションのアクションにする）
+    #パラメーターで引数を渡してdateの中身を変えるようにする（デフォルトをアクションの引数にする）
     case params[:graph_sort]
       when "month"
         month_datas = current_user.days.where(date: Time.current.ago(1.month).beginning_of_day..Time.zone.now.end_of_day)
@@ -24,14 +24,16 @@ class EnergysController < ApplicationController
         week_datas = current_user.days.where(date: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
         @week_graph = week_datas.map{|n| [n.date, n.weight]}
         @graph_period = "1週間"
-    end
+      end
+    #体重グラフの縦軸で使う 
+    @today_weight = current_user.days.find_by(date: Date.today).weight.round
     #目標体重を計算してメイン画面で表示
     @goal_weight =  (current_user.weight*0.95).round(2)
-    energys = current_user.energys.where(date: Date.today)
     #メイン画面で適性を超えてるのかを計算して表示する
-    @protein_amounts_sum = energys.pluck(:protein).sum
-    @sugar_amounts_sum = energys.pluck(:sugar).sum
-    @kcal_amounts_sum = energys.pluck(:kcal).sum
+    energys = current_user.energys.where(date: Date.today)
+    @protein_amounts_sums = energys.pluck(:protein).sum
+    @sugar_amounts_sums = energys.pluck(:sugar).sum
+    @kcal_amounts_sums = energys.pluck(:kcal).sum
   end
 
   def new
