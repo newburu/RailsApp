@@ -3,78 +3,66 @@
   <div class="main-left-container">
     <p class="today-mission"><%="#{Date.today}のミッション"%></p>
     <div class="judge-item-container">
-      <% if @protein_amounts_sum == 0 %>
+      <% if @protein_amounts_sums == 0 %>
         <li class="blue-judgement">○</li>
         <li class="nutrition-item">タンパク質</li>
-        <li class="blue-judgement"><%="タンパク質の目標は#{protein_amounts}gだよ！！" %></li>
-      <% elsif (@protein_amounts_sum - protein_amounts) < 0  %>
+        <li class="blue-judgement"><%="タンパク質の目標は#{protein_amounts}gだよ!!" %></li>
+      <% elsif (@protein_amounts_sums - protein_amounts) < 0  %>
         <li class="red-judgement">注意</li>
         <li class="nutrition-item">タンパク質</li>
-        <li class="red-judgement"><%="目標まであと#{(@protein_amounts_sum - protein_amounts).abs}g頑張って！" %></li>
+        <li class="red-judgement"><%="目標まであと#{(@protein_amounts_sums - protein_amounts).abs}g頑張って！" %></li>
       <% else %>
         <li class="blue-judgement">○</li>
         <li class="nutrition-item">タンパク質</li>
-        <li class="blue-judgement">目標達成！！</li>
+        <li class="blue-judgement">目標達成!!</li>
       <% end %>
     </div>
 
     <div class="judge-item-container">
-      <% if (@sugar_amounts_sum - sugar_amounts) > 0 %>
+      <% if (@sugar_amounts_sums - sugar_amounts) > 0 %>
         <li class="red-judgement">注意</li>
         <li class="nutrition-item">糖質</li>
         <li class="red-judgement"><%="#{(@sugar_amounts_sum - sugar_amounts)}gオーバしてます注意しよう!!" %></li>
-      <% elsif (@sugar_amounts_sum - sugar_amounts) == 0 %>
+      <% elsif (@sugar_amounts_sums - sugar_amounts) == 0 %>
         <li class="blue-judgement">○</li>
         <li class="nutrition-item">糖質</li>
         <li class="blue-judgement">ちょうどだよ</li>
       <% else %>
         <li class="blue-judgement">○</li>
         <li class="nutrition-item">糖質</li>
-        <li class="blue-judgement"><%="あと#{(@sugar_amounts_sum - sugar_amounts).abs}g食べれるよ！" %></li>
+        <li class="blue-judgement"><%="あと#{(@sugar_amounts_sums - sugar_amounts).abs}g食べれるよ！" %></li>
       <% end %>
     </div>
 
     <div class="judge-item-container">
-      <% if (@kcal_amounts_sum - kcal_amounts) > 0 %>
+      <% if (@kcal_amounts_sums - kcal_amounts) > 0 %>
         <li class="red-judgement">注意</li>
         <li class="nutrition-item">カロリー</li>
-        <li class="red-judgement"><%="#{(@kcal_amounts_sum - kcal_amounts)}kcalオーバしてます注意しよう!!" %></li>
-      <% elsif @kcal_amounts_sum - kcal_amounts == 0 %>
+        <li class="red-judgement"><%="#{(@kcal_amounts_sums - kcal_amounts)}kcalオーバしてます注意しよう!!" %></li>
+      <% elsif @kcal_amounts_sums - kcal_amounts == 0 %>
         <li class="blue-judgement">○</li>
         <li class="nutrition-item">カロリー</li>
         <li class="blue-judgement">ちょうどだよ</li>
       <% else %>
         <li class="blue-judgement">○</li>
         <li class="nutrition-item">カロリー</li>
-        <li class="blue-judgement"><%="あと#{(@kcal_amounts_sum - kcal_amounts).abs}kcal食べれるよ！" %></li>
+        <li class="blue-judgement"><%="あと#{(@kcal_amounts_sums - kcal_amounts).abs}kcal食べれるよ！" %></li>
       <% end %>
     </div>
   </div><!--main-left-container-->
 
   <div class="main-right-container">
     <p class="goal-weight">目標体重:<%= @goal_weight %>kg</p>
-    <p class="graph-name">【<%=@graph_period%>】のグラフ</p>
+    <p class="graph-name">【<%=%>】のグラフ</p>
     <div class="graph-container">
-      <%if @week_graph %>
-        <%= line_chart @week_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
-      <% elsif @month_graph %>
-        <%= line_chart @month_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
-      <% elsif @half_year_graph %>
-        <%= line_chart @half_year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
-      <% elsif @year_graph %>
-        <%= line_chart @year_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
-      <% elsif @all_graph%>
-        <%= line_chart @all_graph, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
-      <% elsif @today_data %>
-        <%= line_chart  @today_data , height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: (current_user.weight-20).round, max: (current_user.weight+10).round, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %> 
-      <% end %>
+      <%= line_chart @weight_graphs, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: @today_weight-20, max: @today_weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
     </div>
     <div class="link_container">
-      <%= link_to "１週間", energys_path(graph_sort: :week), class: "graph-btn" %>
-      <%= link_to "１ヶ月間", energys_path(graph_sort: :month), class: "graph-btn" %>
-      <%= link_to "半年間", energys_path(graph_sort: :half_year), class: "graph-btn" %>
-      <%= link_to "１年間", energys_path(graph_sort: :year), class: "graph-btn" %>
-      <%= link_to "全件", energys_path(graph_sort: :all), class: "graph-btn" %>
+      <%= link_to "１週間", energys_path(graph_sort: Time.current.ago(7.days)), class: "graph-btn" %>
+      <%= link_to "１ヶ月間", energys_path(graph_sort: Time.current.ago(1.month)), class: "graph-btn" %>
+      <%= link_to "半年間", energys_path(graph_sort: Time.current.ago(6.month)), class: "graph-btn" %>
+      <%= link_to "１年間", energys_path(graph_sort: Time.current.ago(1.years)), class: "graph-btn" %>
+      <%= link_to "全件", energys_path(graph_sort: Time.current.ago(5.years)), class: "graph-btn" %>
     </div>
-  </div><!--main-left-container-->
+  </div><!--main-right-container-->
 </div><!--main-container-->
