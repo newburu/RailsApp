@@ -1,12 +1,10 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
-  def index(today_weight: params[:today_weight])
-  # def index(params_datas:  current_user.days.where(date: (Time.current.ago(7.days)).beginning_of_day..Time.zone.now.end_of_day))
-    #パラメーターで引数を渡してdateの中身を変えるようにする（デフォルトをアクションの引数にする）
+  def index(params_datas: current_user.days.where(date: (Time.current.ago(7.days)).beginning_of_day..Time.zone.now.end_of_day))
     if params[:graph_sort]
       params_datas = current_user.days.where(date: Time.parse(params[:graph_sort]).beginning_of_day..Time.zone.now.end_of_day)
-      @weight_graphs = params_datas.map{|n| [n.date, n.weight]}
     end
+    @weight_graphs = params_datas.map{|n| [n.date, n.weight]}
     # @graph_period = "1週間" 
     #体重グラフの縦軸で使う
     @today_weight = current_user.days.find_by(date: Date.today).weight.round
@@ -33,11 +31,7 @@ class EnergysController < ApplicationController
       if date > Date.today
         flash.now[:alert] = "明日以降の分は登録出来ません"
         render :new
-      #snackのロジックを消してconfirmation_dataの後ろにかつスナックじゃなかったらにする
-      elsif @energy.meal == "snack"
-        @energy.save
-        redirect_to energys_path, notice: '食事を登録しました'
-      elsif confirmation_data
+      elsif confirmation_data && @energy.meal != "snack"
         flash.now[:alert] = "既に登録されています"
         render :new
       else
@@ -51,6 +45,7 @@ class EnergysController < ApplicationController
 
   def list
     #最初にデフォルトで今日のインスタンスを表示
+    binding.pry
     @date = Date.today
     list_items
     #引数の形を上手く統一できるように考えて直す

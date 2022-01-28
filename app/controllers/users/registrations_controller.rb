@@ -65,8 +65,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    #プロフィール編集で入力した体重を今日の体重として更新する
-    current_user.days.find_by(date: Date.today).update(weight: params[:user][:weight])
+    #プロフィール編集で入力した体重を更新または作成する
+    if current_user.days.exists?(date: Date.today)
+      current_user.days.find_by(date: Date.today).update(weight: params[:user][:weight])
+    else
+      current_user.days.create(date: Date.today, weight: params[:user][:weight])
+    end
     super
   end
 
