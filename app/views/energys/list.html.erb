@@ -6,7 +6,7 @@
     <%=f.submit "決定", class: "small-green-btn"%>
   <% end %>
   <p class="record-list">体重</p>
-  <% @weight.each do |weight| %>
+  <% @weights.each do |weight| %>
     <div class="record-weigth-container">
       <p class="record-items"><%= weight.weight%></p>
       <p class="record-items"><%= link_to "編集", edit_day_path(weight.id), class: "small-orange-btn" %></p>

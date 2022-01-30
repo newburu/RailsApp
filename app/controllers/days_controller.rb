@@ -33,7 +33,7 @@ class DaysController < ApplicationController
   def update
     @day = Day.find(params[:id])
     if date_judgment
-      @date = Date.new day_params["date(1i)"].to_i,day_params["date(2i)"].to_i,day_params["date(3i)"].to_i
+      @date = Date.new day_params["date(1i)"].to_i, day_params["date(2i)"].to_i,day_params["date(3i)"].to_i
       if @date > Date.today
         flash.now[:alert] = "明日以降の分は登録出来ません"
         render :edit
@@ -43,9 +43,11 @@ class DaysController < ApplicationController
       else
         @day.update(day_params)
         flash[:notice] = "更新しました"
-        redirect_to controller: 'energys', action: 'list', date_year: params[:day]["date(1i)"], date_month: params[:day]["date(2i)"], date_day: params[:day]["date(3i)"]
+        params_date = Date.new params[:day]["date(1i)"].to_i, params[:day]["date(2i)"].to_i, params[:day]["date(3i)"].to_i
+        redirect_to controller: 'energys', action: 'list', date: params_date
+        # binding.pry
       end
-    else 
+    else
       flash[:alert] = "選択された日付は無効な日付です"
       redirect_to edit_day_path
     end

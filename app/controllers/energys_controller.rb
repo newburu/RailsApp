@@ -7,7 +7,7 @@ class EnergysController < ApplicationController
     @weight_graphs = params_datas.map{|n| [n.date, n.weight]}
     # @graph_period = "1週間" 
     #体重グラフの縦軸で使う
-    @today_weight = current_user.days.find_by(date: Date.today).weight.round
+    @today_weight = current_user.days.last.weight.round
     #目標体重を計算してメイン画面で表示
     @goal_weight =  (current_user.weight*0.95).round(2)
     #メイン画面で適性量を超えてるのかを計算
@@ -43,29 +43,27 @@ class EnergysController < ApplicationController
     end
   end
 
-  def list
+  def list#(date: Date.today)#(params[:date]: Date.today)のような形にしたい
+    #viewから選択された日付を取得するのと編集された時の日付と削除された時の日付を同じ形のパラメーターとして持ってきてパラメーターに日付がない時はデフォルトで今日の日付を使う
     #最初にデフォルトで今日のインスタンスを表示
-    binding.pry
-    @date = Date.today
-    list_items
     #引数の形を上手く統一できるように考えて直す
-    #編集されたらviewで表示する
-    if params[:date_year]
-      @date = Date.new params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i
-      list_items
-    #新規登録用
-    elsif params["date(1i)"]
-      if list_date_judgment
-        @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
-        list_items
+    if params["date(1i)"]
+      #list_date_judgmentなぜかメソッドを作ってそれをここに入れてもviewの日付が全部同じデフォルト値になる
+      #２重ifをうまくまとめたい今の所elseのところをまとめたいparams["date(1i)"]の時で勝つelseの時
+      # submit で引数を渡したいけどうまくできない
+      if Date.valid_date?(params["date(1i)"].to_i,params["date(2i)"].to_i,params["date(3i)"].to_i)
+        date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
       else
         redirect_to list_energy_path, alert: '選択された日付は無効です'
       end
-    #更新された時に使う
     elsif params[:date]
-      @date =  params[:date].to_date
-      list_items 
+      date = params[:date].to_date
+    else
+      date = Date.today
     end
+    @date = date
+    @energys = current_user.energys.where(date: @date)
+    @weights = current_user.days.where(date: @date)
   end
 
   def edit
@@ -73,7 +71,6 @@ class EnergysController < ApplicationController
   end
 
   def update
-  #間食を登録できるようにする
     if date_judgment
       @date = Date.new energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
       @energy = Energy.find(params[:id])
@@ -87,13 +84,15 @@ class EnergysController < ApplicationController
       elsif energy_params[:meal] == "snack"
         @energy.update(energy_params)
         flash[:notice] = '更新しました'
-        redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"] 
+        params_date = Date.new params[:energy]["date(1i)"].to_i, params[:energy]["date(2i)"].to_i, params[:energy]["date(3i)"].to_i
+        redirect_to controller: 'energys', action: 'list', date: params_date
       elsif meal_check && (@energy.date != @date or @energy.meal != energy_params[:meal])
         redirect_to edit_energy_path(@energy.id), alert: '既に登録されています'
       else
         @energy.update(energy_params)
         flash[:notice] = '更新しました'
-        redirect_to controller: 'energys', action: 'list', date_year: params[:energy]["date(1i)"], date_month: params[:energy]["date(2i)"], date_day: params[:energy]["date(3i)"]
+        params_date = Date.new params[:energy]["date(1i)"].to_i, params[:energy]["date(2i)"].to_i, params[:energy]["date(3i)"].to_i
+        redirect_to controller: 'energys', action: 'list', date: params_date
       end
     else
       redirect_to edit_energy_path, alert: '選択された日付は無効な日付です'
@@ -121,15 +120,14 @@ class EnergysController < ApplicationController
       date = energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
       Date.valid_date?(date[0], date[1], date[2])
     end
-
-    def list_date_judgment
-      date = params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
-      Date.valid_date?(date[0], date[1], date[2])
-    end
-
-    def list_items
-      @energys = current_user.energys.where(date: @date)
-      @weight = current_user.days.where(date: @date)
-    end
-
+    #これはつかえない
+    # def list_date_judgment
+    #   if  Date.valid_date?(params["date(1i)"].to_i,params["date(2i)"].to_i,params["date(3i)"].to_i)
+    #     # binding.pry
+    #     date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
+    #   else
+    #     redirect_to list_energy_path, alert: '選択された日付は無効です'
+    #   end
+    #   # Date.valid_date?(date[0], date[1], date[2]) ? date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i : redirect_to list_energy_path, alert: '選択された日付は無効です'   
+    # end
 end
