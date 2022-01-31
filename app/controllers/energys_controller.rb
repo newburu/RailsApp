@@ -1,11 +1,22 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
-  def index(params_datas: current_user.days.where(date: (Time.current.ago(7.days)).beginning_of_day..Time.zone.now.end_of_day))
-    if params[:graph_sort]
-      params_datas = current_user.days.where(date: Time.parse(params[:graph_sort]).beginning_of_day..Time.zone.now.end_of_day)
+  def index(params_datas: current_user.days.where(date: (Time.current.ago(7.days)).beginning_of_day..Time.zone.now.end_of_day), graph_sort: "1週間")
+  # def index(params_datas: Time.current.ago(7.days))
+    # binding.pry
+    Rails.logger.info 'テスト'
+    Rails.logger.info params[:params_datas]
+    Rails.logger.info params_datas
+  #viewから渡された値を引数としてとってきてその値を使いたい、何も引数がない時は１週間分の日付をデフォルト地に取る
+    if params[:params_datas]
+      params_datas = current_user.days.where(date: Time.parse(params[:params_datas]).beginning_of_day..Time.zone.now.end_of_day)
     end
     @weight_graphs = params_datas.map{|n| [n.date, n.weight]}
-    # @graph_period = "1週間" 
+
+    if params[:graph_sort]
+      graph_sort = params[:graph_sort]
+    end
+    @graph_sort = graph_sort
+
     #体重グラフの縦軸で使う
     @today_weight = current_user.days.last.weight.round
     #目標体重を計算してメイン画面で表示
@@ -43,23 +54,18 @@ class EnergysController < ApplicationController
     end
   end
 
-  def list#(date: Date.today)#(params[:date]: Date.today)のような形にしたい
+  def list(date: Date.today)
     #viewから選択された日付を取得するのと編集された時の日付と削除された時の日付を同じ形のパラメーターとして持ってきてパラメーターに日付がない時はデフォルトで今日の日付を使う
     #最初にデフォルトで今日のインスタンスを表示
     #引数の形を上手く統一できるように考えて直す
     if params["date(1i)"]
       #list_date_judgmentなぜかメソッドを作ってそれをここに入れてもviewの日付が全部同じデフォルト値になる
       #２重ifをうまくまとめたい今の所elseのところをまとめたいparams["date(1i)"]の時で勝つelseの時
-      # submit で引数を渡したいけどうまくできない
       if Date.valid_date?(params["date(1i)"].to_i,params["date(2i)"].to_i,params["date(3i)"].to_i)
         date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
       else
         redirect_to list_energy_path, alert: '選択された日付は無効です'
       end
-    elsif params[:date]
-      date = params[:date].to_date
-    else
-      date = Date.today
     end
     @date = date
     @energys = current_user.energys.where(date: @date)
@@ -78,9 +84,9 @@ class EnergysController < ApplicationController
       meal_check = current_user.energys.where(date: @date, meal: energy_params[:meal]).exists?
       if @date > Date.today
       #明日以降の日付を選べないようにする
-        flash.now[:alert] = "明日以降の分は登録出来ません"
+        flash.now[:alert] = "明日以降の分は登録出来ません"#viewで制御する
         render :edit
-        #間食を何度でも更新できるようにした
+      #間食を何度でも更新できるようにした
       elsif energy_params[:meal] == "snack"
         @energy.update(energy_params)
         flash[:notice] = '更新しました'
@@ -91,11 +97,11 @@ class EnergysController < ApplicationController
       else
         @energy.update(energy_params)
         flash[:notice] = '更新しました'
-        params_date = Date.new params[:energy]["date(1i)"].to_i, params[:energy]["date(2i)"].to_i, params[:energy]["date(3i)"].to_i
-        redirect_to controller: 'energys', action: 'list', date: params_date
+        redirect_to controller: 'energys', action: 'list', "date(1i)": params[:energy]["date(1i)"], "date(2i)": params[:energy]["date(2i)"], "date(3i)": params[:energy]["date(3i)"]
       end
     else
-      redirect_to edit_energy_path, alert: '選択された日付は無効な日付です'
+      redirect_to edit_energy_path, alert: '選択された日付は無効な日付です'#viewで制御する
+      #選択肢をコントローラーで生成してインスタンス変数としてviewに渡す可能性でもある
     end
   end
 
@@ -104,7 +110,7 @@ class EnergysController < ApplicationController
     if @energy.user_id == current_user.id
       @energy.destroy
       flash[:notice] = "削除しました"
-      redirect_to controller: 'energys', action: 'list', date: @energy.date
+      redirect_to controller: 'energys', action: 'list', "date(1i)": @energy.date.year, "date(2i)": @energy.date.month, "date(3i)": @energy.date.day 
     else
       render :list
     end

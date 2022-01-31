@@ -43,9 +43,7 @@ class DaysController < ApplicationController
       else
         @day.update(day_params)
         flash[:notice] = "更新しました"
-        params_date = Date.new params[:day]["date(1i)"].to_i, params[:day]["date(2i)"].to_i, params[:day]["date(3i)"].to_i
-        redirect_to controller: 'energys', action: 'list', date: params_date
-        # binding.pry
+        redirect_to controller: 'energys', action: 'list', "date(1i)": params[:day]["date(1i)"], "date(2i)": params[:day]["date(2i)"], "date(3i)": params[:day]["date(3i)"]
       end
     else
       flash[:alert] = "選択された日付は無効な日付です"
@@ -58,7 +56,7 @@ class DaysController < ApplicationController
     if @day.user_id == current_user.id
       @day.destroy
       flash[:notice] = "削除しました"
-      redirect_to controller: 'energys', action: 'list', date: @day.date
+      redirect_to controller: 'energys', action: 'list', "date(1i)": @day.date.year, "date(2i)": @day.date.month, "date(3i)": @day.date.day
     end
   end
 
