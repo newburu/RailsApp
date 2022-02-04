@@ -57,12 +57,12 @@
     <div class="graph-container">
       <%= line_chart @weight_graphs, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: @today_weight-20, max: @today_weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
     </div>
-    <div class="link_container"> 
+    <div class="link_container">
       <%= link_to "１週間", energys_path(params_datas: Time.current.ago(7.days), graph_sort: "１週間"), class: "graph-btn" %>
       <%= link_to "１ヶ月間", energys_path(params_datas: Time.current.ago(1.month), graph_sort: "１ヶ月間"), class: "graph-btn" %>
       <%= link_to "半年間", energys_path(params_datas: Time.current.ago(6.month), graph_sort: "半年間"), class: "graph-btn" %>
       <%= link_to "１年間", energys_path(params_datas: Time.current.ago(1.years), graph_sort: "１年間"), class: "graph-btn" %>
-      <%= link_to "全件", energys_path(graph_datas: Time.current.ago(5.years), graph_sort: "全件"), class: "graph-btn" %>
+      <%= link_to "全件", energys_path(params_datas: Time.current.ago(5.years), graph_sort: "全件"), class: "graph-btn" %>
     </div>
   </div><!--main-right-container-->
 </div><!--main-container-->

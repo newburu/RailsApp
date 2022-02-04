@@ -1,22 +1,11 @@
 class EnergysController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :list, :edit, :destroy, :edit, :update]
-  def index(params_datas: current_user.days.where(date: (Time.current.ago(7.days)).beginning_of_day..Time.zone.now.end_of_day), graph_sort: "1週間")
-  # def index(params_datas: Time.current.ago(7.days))
-    # binding.pry
-    Rails.logger.info 'テスト'
-    Rails.logger.info params[:params_datas]
-    Rails.logger.info params_datas
-  #viewから渡された値を引数としてとってきてその値を使いたい、何も引数がない時は１週間分の日付をデフォルト地に取る
-    if params[:params_datas]
-      params_datas = current_user.days.where(date: Time.parse(params[:params_datas]).beginning_of_day..Time.zone.now.end_of_day)
-    end
+  def index(graph_sort: "1週間")
+    from_date = params[:params_datas].present? ? params[:params_datas] : Time.current.ago(7.days).to_s
+    params_datas = current_user.days.where(date: Time.parse(from_date).beginning_of_day..Time.zone.now.end_of_day)
     @weight_graphs = params_datas.map{|n| [n.date, n.weight]}
-
-    if params[:graph_sort]
-      graph_sort = params[:graph_sort]
-    end
+    graph_sort = params[:graph_sort] if params[:graph_sort]
     @graph_sort = graph_sort
-
     #体重グラフの縦軸で使う
     @today_weight = current_user.days.last.weight.round
     #目標体重を計算してメイン画面で表示
@@ -126,14 +115,4 @@ class EnergysController < ApplicationController
       date = energy_params["date(1i)"].to_i, energy_params["date(2i)"].to_i, energy_params["date(3i)"].to_i
       Date.valid_date?(date[0], date[1], date[2])
     end
-    #これはつかえない
-    # def list_date_judgment
-    #   if  Date.valid_date?(params["date(1i)"].to_i,params["date(2i)"].to_i,params["date(3i)"].to_i)
-    #     # binding.pry
-    #     date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
-    #   else
-    #     redirect_to list_energy_path, alert: '選択された日付は無効です'
-    #   end
-    #   # Date.valid_date?(date[0], date[1], date[2]) ? date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i : redirect_to list_energy_path, alert: '選択された日付は無効です'   
-    # end
 end
