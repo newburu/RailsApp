@@ -1,5 +1,7 @@
-<p class="page-explanation">食べたものを記録してみましょう</p>
-<%=render 'layouts/error_message' %>
-<%= form_with model: @energy, url: energys_path(@user), method: :post, local: true do |f| %>
-<%= render 'layouts/energy_new_edit', f: f %>
-<% end %>
+<div class="body-container">
+  <p class="page-explanation">食べたものを記録してみましょう</p>
+  <%=render 'layouts/error_message' %>
+  <%= form_with model: @energy, url: energys_path(@user), method: :post, local: true do |f| %>
+    <%= render 'layouts/energy_new_edit', f: f %>
+  <% end %>
+</div>

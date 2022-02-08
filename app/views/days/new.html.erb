@@ -1,14 +1,16 @@
-<p class="page-explanation">今日の体重を入力してみましょう</p>
-<div class= "form-container">
-  <%= form_with model: @day, method: :post, local: true do |f| %>
-    <p class="radio-title">日付</p>
-    <%= f.date_field :date, {value: Date.today, class: "date_field"} %>
-    <%= f.label :weight, "今日の体重(g)", {class: 'label-class'} %>
-    <%= f.number_field :weight, step:"0.1", class: "form-field", required:"required", min: 30, max: 150 %>
-    <p class="red-texts">※小数点第1位までしか入力できません</p>
-    <div class="btn-container">
-      <%= link_to "戻る", energys_path, class:"back-btn" %>
-      <%= f.submit "登録", class: "register-btn" %>
-    </div>
-  <% end %>
+<div class="body-container">
+  <p class="page-explanation">今日の体重を入力してみましょう</p>
+  <div class= "form-container">
+    <%= form_with model: @day, method: :post, local: true do |f| %>
+      <p class="radio-title">日付</p>
+      <%= f.date_field :date, {value: Date.today, class: "date_field"} %>
+      <%= f.label :weight, "今日の体重(g)", {class: 'label-class'} %>
+      <%= f.number_field :weight, step:"0.1", class: "form-field", required:"required", min: 30, max: 150 %>
+      <p class="red-texts">※小数点第1位までしか入力できません</p>
+      <div class="btn-container">
+        <%= link_to "戻る", energys_path, class:"back-btn" %>
+        <%= f.submit "登録", class: "register-btn" %>
+      </div>
+    <% end %>
+  </div>
 </div>

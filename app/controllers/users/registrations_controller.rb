@@ -36,8 +36,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def complete
     @user = current_user
-    #会員登録した時に入力した体重を今日の体重として登録する
-    current_user.days.create(weight: current_user.weight, date: Date.today)
   end
 
   def update_password

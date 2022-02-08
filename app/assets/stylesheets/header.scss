@@ -1,11 +1,11 @@
 @mixin header-link{
   text-decoration: none;
-  color: orange;
+  color: #fff;
 }
 .header-ul{
   display: flex;
   align-items: center;
-  background-color: #FFF;
+  background-color: orange;
   font-size: 28px;
   list-style: none;
   padding: 10px;
