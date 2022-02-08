@@ -1,9 +1,25 @@
-<p class="sub-explanation">毎日の記録を見てみましょう</p>
-<%= month_calendar days: @events do |date, events|%>
+<p class="page-explanation">毎日の記録を見てみましょう</p>
+
+<%= month_calendar events: @energys do |date, energy| %>
   <%= date.day %>
-  <% events.each do |event| %>
-    <div>
-      <%= event.weight %>
-    </div>
+  <% record_energys = current_user.energys.where(date: date) %>
+  <% protein_record_sums = record_energys.pluck(:protein).sum %>
+  <% sugar_record_sums = record_energys.pluck(:sugar).sum %>
+  <% kcal_record_sums = record_energys.pluck(:kcal).sum %>
+  <%#  カレンダーに○×を表示する%>
+  <% if protein_record_sums >= protein_amounts && date <= Date.today %>
+    <p>タンパク質：<span class = "blue-record">○</span></p>
+  <% elsif date <= Date.today %>
+    <p>タンパク質：<span class = "red-record">×</span></p>
+  <% end %>
+  <% if sugar_record_sums <= sugar_amounts && date <= Date.today %>
+    <p>糖質：<span class = "blue-record">○</span></p>
+  <% elsif date <= Date.today %>
+    <p>糖質：<span class = "red-record">×</span></p>
+  <% end %>
+  <% if kcal_record_sums <= kcal_amounts && date <= Date.today %>  
+    <p>カロリー：<span class = "blue-record">○</span></p>
+  <% elsif date <= Date.today %>
+    <p>カロリー：<span class = "red-record">×</span></p>
   <% end %>
 <% end %>

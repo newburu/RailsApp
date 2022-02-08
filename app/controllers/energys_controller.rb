@@ -67,6 +67,10 @@ class EnergysController < ApplicationController
     end
   end
 
+  def record
+    @energys = current_user.energys.all
+  end
+
   def destroy
     @energy = Energy.find(params[:id])
     if @energy.user_id == current_user.id
