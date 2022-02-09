@@ -1,49 +1,52 @@
-<p class="page-explanation">アカウント情報編集 </p>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="form-container">
-    <div class="field">
-      <%= f.label :name, '名前', {class: 'label-class'} %><em>（6文字以下）</em><br />
-      <%= f.text_field :name, autofocus: true, placeholder: "名前", class: 'form-field' %>
+<div class="body-container position-body">
+  <p class="page-explanation">アカウント情報編集 </p>
+  <%=image_tag "istockphoto-674469922-612x612.jpg", class: "edit-users-img", size: "250x400"%>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="form-container">
+      <div class="field">
+        <%= f.label :name, '名前', {class: 'label-class'} %><em>（6文字以下）</em><br />
+        <%= f.text_field :name, autofocus: true, placeholder: "名前", class: 'form-field' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
+        <%= f.email_field :email, autofocus: true, placeholder: "メールアドレス", class: "form-field" %>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <p class="radio-title">性別</p>
+      <%= f.radio_button :gender, :man %>
+      <%= f.label :gender, "男性", {value: :man}%>
+          
+      <%= f.radio_button :gender, :woman %>
+      <%= f.label :gender, "女性", {value: :woman}%>
+          
+      <%= f.label :height, '身長(cm)', {class: 'label-class'}%>
+      <%= f.number_field :height, step: "0.1",class: "form-field", required:"required"%>
+
+      <%= f.label :weigth, '体重(kg)', {class: 'label-class'}%>
+      <%= f.number_field :weight, step: "0.1", class: "form-field", required:"required"%>
+
+      <p class="radio-title">運動量</p>
+
+      <%= f.radio_button :exercise, :everytime %>
+      <%= f.label :exercise, "毎日", {value: :everytime}%>
+          
+      <%= f.radio_button :exercise, :Sometimes %>
+      <%= f.label :exercise, "たまに", {value: :Sometimes}%>
+
+      <%= f.radio_button :exercise, :donot %>
+      <%= f.label :exercise, "しない", {value: :donot}%>
+
+      <div class="actions">
+        <%= f.submit "更新", class: "next-btn" %>
+      </div>
     </div>
-
-    <div class="field">
-      <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
-      <%= f.email_field :email, autofocus: true, placeholder: "メールアドレス", class: "form-field" %>
-    </div>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-    <% end %>
-
-    <p class="radio-title">性別</p>
-    <%= f.radio_button :gender, :man %>
-    <%= f.label :gender, "男性", {value: :man}%>
-        
-    <%= f.radio_button :gender, :woman %>
-    <%= f.label :gender, "女性", {value: :woman}%>
-        
-    <%= f.label :height, '身長(cm)', {class: 'label-class'}%>
-    <%= f.number_field :height, step: "0.1",class: "form-field", required:"required"%>
-
-    <%= f.label :weigth, '体重(kg)', {class: 'label-class'}%>
-    <%= f.number_field :weight, step: "0.1", class: "form-field", required:"required"%>
-
-    <p class="radio-title">運動量</p>
-
-    <%= f.radio_button :exercise, :everytime %>
-    <%= f.label :exercise, "毎日", {value: :everytime}%>
-        
-    <%= f.radio_button :exercise, :Sometimes %>
-    <%= f.label :exercise, "たまに", {value: :Sometimes}%>
-
-    <%= f.radio_button :exercise, :donot %>
-    <%= f.label :exercise, "しない", {value: :donot}%>
-
-    <div class="actions">
-      <%= f.submit "更新", class: "next-btn" %>
-    </div>
-  </div>
-<% end %>
-<p class="edit_links"><%= link_to "パスワード変更", edit_password_path(@user) %></p>
-<%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "消したアカウントは元に戻せません本当に削除しますか？" }, method: :delete, class: "delete-btn" %>
+  <% end %>
+  <p class="edit_links"><%= link_to "パスワード変更", edit_password_path(@user) %></p>
+  <%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "消したアカウントは元に戻せません本当に削除しますか？" }, method: :delete, class: "delete-btn" %>
+</div>

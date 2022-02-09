@@ -74,6 +74,7 @@
 .list-item{
   font-size: 20px;
   margin-top: 30px;
+  list-style: none;
 }
 .delete-btn{
   display: block;
@@ -84,4 +85,11 @@
 .error-form{
   color: red;
   text-align: center;
+}
+
+// プロフィール編集画面
+.edit-users-img{
+  position: absolute;
+  top: 450px;
+  left: 50px;
 }

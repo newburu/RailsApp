@@ -1,57 +1,59 @@
-<h2 class="page-explanation">新規会員登録</h2>
-<div class="form-container">
-  <%= form_with model: @user, url: users_sign_up_next_path(@user), local: true do |f| %>
+<div class="body-container">
+  <h2 class="page-explanation">新規会員登録</h2>
+  <div class="form-container">
+    <%= form_with model: @user, url: users_sign_up_next_path(@user), local: true do |f| %>
 
-    <div class="field">
-      <%= f.label :name, 'ニックネーム', {class: 'label-class'} %><em>(6文字以下)</em><br />
-      <%= f.text_field :name, autofocus: true, placeholder: "ニックネーム", class: "form-field", required:"required", maxlength: "6"%>
-    </div>
-    
-    <div class="field">
-      <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
-      <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-field", required:"required"%>
-    </div>
-    <%= devise_email_error_message %>
-    <div class="field">
-      <%= f.label :password, 'パスワード', {class: 'label-class'} %><em>（半角大文字小文字数字を１文字以上含んでください）</em>
-      <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %>文字以上)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード", class: "form-field", required:"required"%>
-    </div>
-    <%= devise_password_error_messages %>
-    <div class="field">
-      <%= f.label :password_confirmation, 'パスワード（確認）', {class: 'label-class'} %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード確認", class: "form-field", required:"required" %>
-    </div>
-    
-    <div class="hidden-container">
-      <p class="radio-title">性別</p>
-      <%= f.radio_button :gender, :man %>
-      <%= f.label :gender, "男性", {value: :man}%>
+      <div class="field">
+        <%= f.label :name, 'ニックネーム', {class: 'label-class'} %><em>(6文字以下)</em><br />
+        <%= f.text_field :name, autofocus: true, placeholder: "ニックネーム", class: "form-field", required:"required", maxlength: "6"%>
+      </div>
+      
+      <div class="field">
+        <%= f.label :email, 'メールアドレス', {class: 'label-class'} %><br />
+        <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "form-field", required:"required"%>
+      </div>
+      <%= devise_email_error_message %>
+      <div class="field">
+        <%= f.label :password, 'パスワード', {class: 'label-class'} %><em>（半角大文字小文字数字を１文字以上含んでください）</em>
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %>文字以上)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード", class: "form-field", required:"required"%>
+      </div>
+      <%= devise_password_error_messages %>
+      <div class="field">
+        <%= f.label :password_confirmation, 'パスワード（確認）', {class: 'label-class'} %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード確認", class: "form-field", required:"required" %>
+      </div>
+      
+      <div class="hidden-container">
+        <p class="radio-title">性別</p>
+        <%= f.radio_button :gender, :man %>
+        <%= f.label :gender, "男性", {value: :man}%>
+                  
+        <%= f.radio_button :gender, :woman %>
+        <%= f.label :gender, "女性", {value: :woman}%>
                 
-      <%= f.radio_button :gender, :woman %>
-      <%= f.label :gender, "女性", {value: :woman}%>
-              
-      <%= f.label :height, '身長(cm)', {class: 'label-class'}%>
-      <%= f.number_field :height, step: "0.1", class: "form-field", min: 100 %>
+        <%= f.label :height, '身長(cm)', {class: 'label-class'}%>
+        <%= f.number_field :height, step: "0.1", class: "form-field", min: 100 %>
 
-      <%= f.label :weight, '体重(kg)', {class: 'label-class'}%>
-      <%= f.number_field :weight, step: "0.1", class: "form-field", min: 40 %>
+        <%= f.label :weight, '体重(kg)', {class: 'label-class'}%>
+        <%= f.number_field :weight, step: "0.1", class: "form-field", min: 40 %>
 
-      <p class="radio-title">運動量</p>
-      <%= f.radio_button :exercise, :everytime %>
-      <%= f.label :exercise, "毎日", {value: :everytime}%>
-                
-      <%= f.radio_button :exercise, :Sometimes %>
-      <%= f.label :exercise, "たまに", {value: :Sometimes}%>
+        <p class="radio-title">運動量</p>
+        <%= f.radio_button :exercise, :everytime %>
+        <%= f.label :exercise, "毎日", {value: :everytime}%>
+                  
+        <%= f.radio_button :exercise, :Sometimes %>
+        <%= f.label :exercise, "たまに", {value: :Sometimes}%>
 
-      <%= f.radio_button :exercise, :donot %>
-      <%= f.label :exercise, "しない", {value: :donot}%>
-    </div>
-    <div class="actions">
-      <%= f.submit "次へ", class: "next-btn" %>
-    </div>
-  <% end %>
+        <%= f.radio_button :exercise, :donot %>
+        <%= f.label :exercise, "しない", {value: :donot}%>
+      </div>
+      <div class="actions">
+        <%= f.submit "次へ", class: "next-btn" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="login_link"><%= link_to "ログインはこちらから", new_user_session_path %></div>
 </div>
-<div class="login_link"><%= link_to "ログインはこちらから", new_user_session_path %></div>

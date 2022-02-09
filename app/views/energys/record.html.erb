@@ -1,5 +1,5 @@
-<p class="page-explanation">毎日の記録を見てみましょう</p>
-
+<p class="page-explanation position-body">毎日の記録を見てみましょう</p>
+<%= image_tag "450-20150224170432143407.jpg", size: "120x120", class: "record-energy-img"%>
 <%= month_calendar events: @energys do |date, energy| %>
   <%= date.day %>
   <% record_energys = current_user.energys.where(date: date) %>
