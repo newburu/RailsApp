@@ -1,5 +1,6 @@
-<div class="body-container">
+<div class="body-container position-body">
   <p class="page-explanation">今日の体重を入力してみましょう</p>
+  <%= image_tag "taiju.png", size: "200x200", class: "new-day-img"%>
   <div class= "form-container">
     <%= form_with model: @day, method: :post, local: true do |f| %>
       <p class="radio-title">日付</p>

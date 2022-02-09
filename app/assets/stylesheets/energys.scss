@@ -38,6 +38,10 @@
 .today-mission{
   margin-bottom: 30px;
 }
+// 画像の位置を調整
+.position-body{
+  position: relative;
+}
 .judge-item-container{
   font-size: 20px;
   display: flex;
@@ -79,7 +83,12 @@
   color: #fff;
   font-size: 18px;
 }
-
+.energy-index-img{
+  position: absolute;
+  top: 250px;
+  left: 100px;
+  border-radius: 30%;
+}
 //食材登録画面CSS
 .register-btn{
   @include btn;
@@ -98,7 +107,11 @@
   padding: 10px;
   border-radius: 20px;
 }
-
+.energy-new-img{
+  position: absolute;
+  top: 100px;
+  left: 70px;
+}
 //リスト画面CSS
 .small-green-btn{
   @include btn;
@@ -128,6 +141,10 @@
   justify-content: center;
   font-size: 20px;
   margin-bottom: 30px;
+}
+.energy-list-img{
+  position: absolute;
+  top: 100px;
 }
 .record-meal{
   display: flex
@@ -169,4 +186,16 @@ td{
 .red-record{
   color: red;
   font-size: 28px;
+}
+.record-energy-img{
+  position: absolute;
+  top: 70px;
+  left: 30px;
+  border-radius: 50%;
+}
+// 体重登録画面
+.new-day-img{
+  position: absolute;
+  top: 120px;
+  left: 100px;
 }

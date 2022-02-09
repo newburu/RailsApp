@@ -1,10 +1,24 @@
-// Place all the styles related to the Homes controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.home-container{
+  position: relative;
+}
+.zindex-container{
+  z-index: 999;
+  position: relative;//これでz-indexを有効化している
+}
+.home-index-img{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  object-fit: cover;
+  opacity: 0.3;
+}
 .page-title{
   font-size: 36px;
   text-align: center;
-  margin: 30px;
+  padding: 30px;
   letter-spacing: 0.12em;
   color: orange;
 }
@@ -12,14 +26,14 @@
   display: block;
   text-align: center;
 }
-
 .worries-title{
   font-size: 24px;
 }
 .worries-texts{
+  text-align: center;
+  list-style: none;
   font-size: 20px;
   margin-top: 10px;
-  text-align: center;
 }
 
 .service-features{

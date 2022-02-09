@@ -1,6 +1,5 @@
 class DaysController < ApplicationController
   before_action :authenticate_user!, only: [:record, :new, :create, :update, :destroy, :edit]
-  include DaysHelper
 
   def new
     @day  = Day.new

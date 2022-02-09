@@ -1,6 +1,6 @@
 <p class="page-explanation">今日の記録</p>
 <div class="main-container">
-  <div class="main-left-container">
+  <div class="main-left-container position-body">
     <p class="today-mission"><%="#{Date.today}のミッション"%></p>
     <div class="judge-item-container">
       <% if @protein_amounts_sums == 0 %>
@@ -49,6 +49,7 @@
         <li class="blue-judgement"><%="あと#{(@kcal_amounts_sums - kcal_amounts).abs}kcal食べれるよ！" %></li>
       <% end %>
     </div>
+    <%= image_tag "images.jpg", size: "500x300", class: "energy-index-img" %>
   </div><!--main-left-container-->
 
   <div class="main-right-container">

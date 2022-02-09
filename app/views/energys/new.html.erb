@@ -1,7 +1,8 @@
-<div class="body-container">
+<div class="body-container position-body">
   <p class="page-explanation">食べたものを記録してみましょう</p>
   <%=render 'layouts/error_message' %>
   <%= form_with model: @energy, url: energys_path(@user), method: :post, local: true do |f| %>
     <%= render 'layouts/energy_new_edit', f: f %>
+    <%= image_tag "images-2.png", size: "250x200", class: "energy-new-img"%>
   <% end %>
 </div>

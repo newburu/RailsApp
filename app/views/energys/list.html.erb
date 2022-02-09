@@ -1,5 +1,6 @@
-<div class="body-container">
+<div class="body-container position-body">
   <p class="page-explanation">登録した履歴を見てみましょう</p>
+  <%= image_tag "006278.smpl.jpg", size: "200x300", class: "energy-list-img" %>
   <div class="form-container">
     <%= form_with url: list_energy_path(current_user.id),local:true do |f| %>
       <p class="radio-title">日付</p> 
