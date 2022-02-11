@@ -18,3 +18,10 @@ body{
   min-width: 500px;
   background-color: #fff;
 }
+#error_form{
+  color: red;
+  text-align: center;
+  li{
+    list-style: none;
+  }
+}

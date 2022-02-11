@@ -22,7 +22,7 @@
       <% if (@sugar_amounts_sums - sugar_amounts) > 0 %>
         <li class="red-judgement">注意</li>
         <li class="nutrition-item">糖質</li>
-        <li class="red-judgement"><%="#{(@sugar_amounts_sum - sugar_amounts)}gオーバしてます注意しよう!!" %></li>
+        <li class="red-judgement"><%="#{(@sugar_amounts_sums - sugar_amounts)}gオーバしてます注意しよう!!" %></li>
       <% elsif (@sugar_amounts_sums - sugar_amounts) == 0 %>
         <li class="blue-judgement">○</li>
         <li class="nutrition-item">糖質</li>
