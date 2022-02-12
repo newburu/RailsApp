@@ -43,7 +43,7 @@ class EnergysController < ApplicationController
   def list(date: Date.today)
     date = params[:date].to_date if params[:date]
     @date = date
-    @energys = current_user.energys.where(date: @date)
+    @energys = current_user.energys.where(date: @date).order(meal: "ASC")
     @weights = current_user.days.where(date: @date)
   end
 
