@@ -5,6 +5,7 @@
     <%= form_with model: @day, method: :post, local: true do |f| %>
       <p class="radio-title">日付</p>
       <%= f.date_field :date, {value: Date.today, class: "date_field"} %>
+      <p class="red-texts">※明日以降の登録はできません</p>
       <%= f.label :weight, "今日の体重(g)", {class: 'label-class'} %>
       <%= f.number_field :weight, step:"0.1", class: "form-field", required:"required", min: 30, max: 150 %>
       <p class="red-texts">※小数点第1位までしか入力できません</p>

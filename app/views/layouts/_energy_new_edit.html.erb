@@ -1,6 +1,8 @@
 <div class="form-container">
   <p class="radio-title">日付</p>
   <%= f.date_field :date, {value: @date, class: "date_field"} %>
+  <p class="red-texts">※明日以降の登録はできません</p>
+  
   <p class="radio-title">食事</p>
   <%= f.radio_button :meal, :morning, checked: true %>
   <%= f.label :meal, "朝", {value: :morning}%>

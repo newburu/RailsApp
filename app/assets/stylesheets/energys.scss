@@ -66,7 +66,7 @@
 .link_container{
   justify-content: space-around;
   display: flex;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 .graph-name{
   text-align: center;
@@ -189,6 +189,9 @@ td{
   top: 70px;
   left: 30px;
   border-radius: 50%;
+}
+.simple-calendar{
+  margin-bottom: 30px;
 }
 // 体重登録画面
 .new-day-img{

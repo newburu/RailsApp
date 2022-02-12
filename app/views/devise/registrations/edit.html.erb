@@ -6,7 +6,7 @@
     <div class="form-container">
       <div class="field">
         <%= f.label :name, '名前', {class: 'label-class'} %><em>（6文字以下）</em><br />
-        <%= f.text_field :name, autofocus: true, placeholder: "名前", class: 'form-field' %>
+        <%= f.text_field :name, autofocus: true, placeholder: "名前", class: 'form-field', maxlength: "6" %>
       </div>
 
       <div class="field">

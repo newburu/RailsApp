@@ -4,12 +4,13 @@ class EnergysController < ApplicationController
     from_date = params[:params_datas].present? ? params[:params_datas] : Time.current.ago(7.days).to_s
     params_datas = current_user.days.where(date: Time.parse(from_date).beginning_of_day..Time.zone.now.end_of_day)
     @weight_graphs = params_datas.map{|n| [n.date, n.weight]}
+    #目標体重
+    @goal_weight =  (current_user.weight*0.95).round(2)
+    @goal_weight_graphs = params_datas.map{|n| [n.date, @goal_weight]}
     graph_sort = params[:graph_sort] if params[:graph_sort]
     @graph_sort = graph_sort
     #体重グラフの縦軸で使う
     @today_weight = current_user.days.last.weight.round
-    #目標体重を計算してメイン画面で表示
-    @goal_weight =  (current_user.weight*0.95).round(2)
     #メイン画面で適性量を超えてるのかを計算
     energys = current_user.energys.where(date: Date.today)
     @protein_amounts_sums = energys.pluck(:protein).sum
@@ -42,7 +43,7 @@ class EnergysController < ApplicationController
   def list(date: Date.today)
     date = params[:date].to_date if params[:date]
     @date = date
-    @energys = current_user.energys.where(date: @date)
+    @energys = current_user.energys.where(date: @date).order(meal: "ASC")
     @weights = current_user.days.where(date: @date)
   end
 

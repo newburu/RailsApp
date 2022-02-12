@@ -56,7 +56,7 @@
     <p class="goal-weight">目標体重:<%= @goal_weight %>kg</p>
     <p class="graph-name">【<%=@graph_sort%>のグラフ】</p>
     <div class="graph-container">
-      <%= line_chart @weight_graphs, height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: @today_weight-20, max: @today_weight+10, colors: ["pink", "#999"], empty: "データがありません体重を登録してください" %>
+      <%= line_chart [{name: "体重グラフ", data: @weight_graphs},{name: "目標体重", data: @goal_weight_graphs, points: false}], height: "500px", width: "700px", xtitle: "日付", ytitle: "体重（kg）", min: @today_weight-20, max: @today_weight+10, colors: ["pink", "#ff00ff"], empty: "データがありません体重を登録してください" %>
     </div>
     <div class="link_container">
       <%= link_to "１週間", energys_path(params_datas: Time.current.ago(7.days), graph_sort: "１週間"), class: "graph-btn" %>
